@@ -81,9 +81,12 @@ usermodel.prototype.login = (req, callback) => {
         if (err) {
             callback(err);
         } else if (data != null) {
-            bcrypt.compare(req.body.password, data.password).then(function (res) {
+            bcrypt.compare(req.body.password, data.password)
+            .then(function (res) {
                 if (res) {
                  console.log("login succesfully");
+                 console.log("responce login",res);
+                 
                     callback(null, data);
                 } else {
                     console.log("Incorrect password");

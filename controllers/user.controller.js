@@ -45,6 +45,8 @@ exports.login = (req, res) => {
                         user_id: result._id
                     }
                     const obj = gentoken.GenerateToken(payload);
+                    console.log("object in controler==>",obj);
+                    
                     responce.sucess = true;
                     responce.result = result;
                     responce.token = obj;
@@ -83,7 +85,7 @@ exports.register = (req, res) => {
                 }
                 else {
                     responcedata.sucess = true;
-                    responcedata.result = result;
+                    responcedata.result = "registration sucessfully";
                     res.status(200).send(responcedata);
                 }
             })
