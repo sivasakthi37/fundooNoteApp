@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import '../App.css';
-import list from '../assets/listview.svg'
-import grid from '../assets/grid.svg'
+import pinnote from '../assets/pinnote.svg'
+import unpin from '../assets/unpinned.svg'
 import Tooltip from '@material-ui/core/Tooltip';
 
 
 import IconButton from '@material-ui/core/IconButton';
-class Views extends Component {
+class Pinned extends Component {
     state = {
         open: true,
     };
@@ -20,29 +20,24 @@ class Views extends Component {
 
         const { open } = this.state;
         return (
-            <div>
+            <span id="pinalign"> 
                 {open ?
                     <IconButton  onClick={this.handleToggle} >
-                        <Tooltip title="grid view">
-                            <img src={grid} alt="logo" />
+                        <Tooltip title="un-pin">
+                            <img src={unpin} alt="logo" />
                         </Tooltip>
                     </IconButton>
                     : 
                     <IconButton  onClick={this.handleToggle}>
-                    <Tooltip title="List view">
-                    <img src={list} alt="logo" />
+                    <Tooltip title=" pin-note ">
+                    <img src={ pinnote } alt="logo" />
                     </Tooltip>
-                </IconButton>
-
-                    
+                </IconButton>            
                }
-
-
-
-            </div>
+            </span>
 
         )
     }
 }
 
-export default Views;
+export default Pinned;

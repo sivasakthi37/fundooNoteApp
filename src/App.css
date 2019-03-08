@@ -1,4 +1,4 @@
-/* .App {
+.App {
     text-align: center;
 }
 
@@ -30,8 +30,11 @@
     to {
         transform: rotate(360deg);
     }
-} */
+}
+.body{
+background-color: white;
 
+}
 
 
 .form-wrapper {
@@ -274,7 +277,7 @@ top: 5%;
     margin-top: -24px;
     justify-Content: 'flex-end',
   }
-  .MuiDrawer-paper-61 {
+  /* .MuiDrawer-paper-61 {
     top: 0;
     flex: 1 0 auto;
     width: 20%;
@@ -287,8 +290,8 @@ top: 5%;
     flex-direction: column;
     margin-top: 65px;
     -webkit-overflow-scrolling: touch;
-}
-.MuiDrawer-paper-204 {
+} */
+/* .MuiDrawer-paper-204 {
     top: 0;
     flex: 1 0 auto;
     height: 100%;
@@ -300,7 +303,7 @@ top: 5%;
     margin-top: 65px;
     flex-direction: column;
     -webkit-overflow-scrolling: touch;
-}
+} */
 
 #lable{
 
@@ -329,10 +332,11 @@ font-size: 15px;
      #search {
         position: center;
         border-radius: 10px;
-        background-color: rgba(0, 0, 0, 0.04);
+        background-color:#e0e0e0;
         margin-right: 0px;
         margin-left: 70px;
         width: 50%;
+        
         padding: 8px 10px
 }
 
@@ -355,16 +359,68 @@ font-size: 15px;
     left: 3%;
   }
 
-  /* .MuiDrawer-paper-239 {
-    top: 0;
-    flex: 1 0 auto;
-    height: 100%;
-    display: flex;
-    z-index: 1200;
-    outline: none;
-    position: fixed;
-    overflow-y: auto;
+ 
+#noteInputBase {
+    margin-top: 0px;
+    width: 460px;
+  }
+  #noteInputBase1 {
+    margin-top: 0px;
+    width: 460px;
+  }
+
+  #CreateNote {
+    height: 49px;
+    width: 570px;
+    margin-left: 48px;
+    margin-top: 27px;
+    text-align: left;
+    padding: 11px;
+    border: 1px solid #dadce0;
+    border-radius: 10px;
+    box-shadow: 0 3px 5px rgba(0,0, 0,0.20);
+  }
+
+  #CreateNote1 {
+    height: 156px;
+    width: 570px;
+    margin-left: 48px;
+    margin-top: 27px;
+    text-align: left;
+    padding: 11px;
+    border: 1px solid #dadce0;
+    border-radius: 10px;
+    box-shadow: 0 3px 5px rgba(0,0, 0,0.20);
+  }
+  #TakeNotealign{
+      margin-top:2%;
+  }
+
+
+  #createNoteParent {
+    margin-left: 5px;
     
-    flex-direction: column;
-    -webkit-overflow-scrolling: touch;
-} */
+    
+
+
+}
+#Buttonclose{
+margin-right:12px;
+}
+#toolalign{
+ position: relative;
+ right: 72%; 
+}
+#toolparent{
+    display: flex;
+    justify-content:space-between;
+}
+#galaryalign{
+position: relative;
+left: 10%;
+
+}
+#pinalign{
+    position: relative;
+    left: 7%;
+}

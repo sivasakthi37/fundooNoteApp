@@ -18,7 +18,8 @@ import Logout from './Logout';
 import Tooltip from '@material-ui/core/Tooltip';
 import Views from './views';
 import Drawercomponent from './Drawermenu';
-const drawerWidth = 240;
+import Notecreate  from './noteCreate';
+//const drawerWidth = 240;
 
 const styles = theme => ({
     root: {
@@ -39,7 +40,7 @@ const styles = theme => ({
             easing: theme.transitions.easing.sharp,
             duration: theme.transitions.duration.leavingScreen,
         }),
-        marginLeft: '10%',
+        marginLeft: '0%',
 
     },
     contentShift: {
@@ -48,13 +49,14 @@ const styles = theme => ({
             duration: theme.transitions.duration.enteringScreen,
         }),
 
-        marginLeft: +drawerWidth,
+        marginLeft: '10%',
     },
 
 });
 const theme1 = createMuiTheme({
     typography: {
         useNextVariants: true,
+              
     },
 });
 class Dashboardinput extends React.Component {
@@ -79,11 +81,12 @@ class Dashboardinput extends React.Component {
         const { open } = this.state;
 
         return (
+            <MuiThemeProvider theme={theme1}>                      
             <div className={classes.root}>
                 <CssBaseline />
                 <AppBar
                     position="fixed"
-                    color="default"
+                    color="inherit"
 
                 >
                     <Toolbar >
@@ -100,11 +103,10 @@ class Dashboardinput extends React.Component {
                         <span>
                             <img src={logo} alt="logo" />
                         </span>
-                        <MuiThemeProvider theme={theme1}>                      
                              <Typography id="fundoodash" variant="h6" color="inherit" >
                             Fundoo
             </Typography>
-                        </MuiThemeProvider>
+                        
 
                         <div id="search">
                             <div id="searchIcon">
@@ -139,10 +141,11 @@ class Dashboardinput extends React.Component {
                     })}
                 >
                     <div className={classes.drawerHeader} />
-                    <h1> hai hellow how are u</h1>
+                   <Notecreate />
                 </main>
 
             </div>
+            </MuiThemeProvider>
         );
     }
 }

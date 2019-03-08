@@ -10,10 +10,10 @@ import dashboard from './screens/dashboard';
 class App extends Component {
   render() {
     return (
-      <div>
+      <div className="body">
         <Router>
           <div>
-          {/* <Redirect from="/" to="Login" /> */}
+         
             <Route path='/register' ex component={ Register} />
             <Route path='/' exact component={Login} />
             <Route path='/login' exact component={Login} />

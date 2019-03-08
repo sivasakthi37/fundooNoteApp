@@ -64,6 +64,10 @@ const theme1 = createMuiTheme({
             paper: {
                 top: 65,
                 width: 275,
+                borderColor: 'white',
+            },
+            paperAnchorDockedLeft:{
+                borderRight:'white',
             }
         }
 
@@ -80,9 +84,10 @@ class Drawercomponent extends Component {
         const { classes } = this.props;
 
         return (
-            <div>
+            <div >
                 <MuiThemeProvider theme={theme1}  >
-                    <Drawer className="MuiDrawer-paper-239"
+        
+                    <Drawer 
                         id="drawer"
                         variant="persistent"
                         anchor="left"
@@ -121,6 +126,7 @@ class Drawercomponent extends Component {
 
                         
                     </Drawer>
+            
                 </MuiThemeProvider>
             </div>
         )
