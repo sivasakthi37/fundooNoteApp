@@ -24,11 +24,7 @@ exports.loginusers = (req, res) => {
     }
     catch (err) {
         console.log("error in services:",err);
-        // var errs = {}
-        // errs.success = false;
-        // errs.result = "errors in services";
-        // res.status(500).send(errs);
-
+        
     }
 
 }
@@ -59,11 +55,7 @@ exports.registers = (req, res) => {
     }
     catch (err) {
         console.log("error in services:",err);
-        // var errs = {}
-        // errs.success = false;
-        // errs.result = "errors in services";
-        // res.status(500).send(errs);
-
+      
 
     }
 }
@@ -86,10 +78,7 @@ exports.checkuser = (data, callback) => {
     }
     catch{
         console.log("error in services:",err);
-        // var errs = {}
-        // errs.success = false;
-        // errs.result = "errors in services";
-        // res.status(500).send(errs);
+        
 
 
     }
@@ -119,11 +108,6 @@ exports.setpass = (data, callback) => {
     }
     catch (err) {
         console.log("error in services:",err);
-        // var errs = {}
-        // errs.success = false;
-        // errs.result = "errors in services";
-        // res.status(500).send(errs);
-
-
+       
     }
 }
