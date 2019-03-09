@@ -8,9 +8,14 @@ import VisibilityOff from '@material-ui/icons/VisibilityOff';
 import Button from '@material-ui/core/Button';
 import CloseIcon from '@material-ui/icons/Close';
 import Snackbar from '@material-ui/core/Snackbar';
-import { userRegister } from '../services/user.services'
-class RegisterInput extends Component {
+import { userRegister } from '../services/user.services';
 
+
+/**
+ * @description:This component is the child component of Register component this component is register ui component...
+ */
+
+class RegisterInput extends Component {
     state = {
         firstname: '',
         lastname: '',
@@ -21,32 +26,46 @@ class RegisterInput extends Component {
         showPassword1: false,
         errormsg: '',
     };
-
+    /**
+     * @description:This method is used to pasword visbility and hide perpose 
+     */
     handleClickShowPassword = () => {
         this.setState(state => ({ showPassword: !state.showPassword }));
     };
-
+    /**
+     * @description:This method is used to pasword visbility and hide perpose 
+     */
     handleClickShowPassword1 = () => {
         this.setState(state => ({ showPassword1: !state.showPassword1 }));
     };
-
+/**
+ * @description:handleChange is used to set the value to the state    
+ */
     handleChange = name => event => {
         this.setState({ [name]: event.target.value });
     };
-
+/**
+ * @description:This method is used to handele a signin button 
+ */
     handlesignin = event => {
         event.preventDefault();
         this.props.props.history.push("/login");
     }
-    handleEnter=event=>{
 
-        if(event.key === 'Enter'){
+/**
+ * @description:This method is used to handle the enter event.. 
+ */
+    handleEnter = event => {
+
+        if (event.key === 'Enter') {
             event.preventDefault();
             this.handleRegister(event);
-            
-         }
-    }
 
+        }
+    }
+/**
+ * @description:This method is used to handle the Register button event.. 
+ */
 
     handleRegister = event => {
         event.preventDefault();
@@ -78,13 +97,15 @@ class RegisterInput extends Component {
                 this.setState({ open: true, errormsg: "Register Sucessfull!!!" });
                 this.props.props.history.push("/login");
             })
-            .catch((err)=>{
-                this.setState({ open: true, errormsg: "Register Unsucessfull!!!" });
+                .catch((err) => {
+                    this.setState({ open: true, errormsg: "Register Unsucessfull!!!" });
 
-            })
+                })
         }
     }
-
+/**
+ * @description:This method is used to handle the Close event.. 
+ */
     handleClose = () => {
 
         this.setState({ open: false });

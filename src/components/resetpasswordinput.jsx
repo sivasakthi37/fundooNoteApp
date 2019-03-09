@@ -8,7 +8,7 @@ import VisibilityOff from '@material-ui/icons/VisibilityOff';
 import Button from '@material-ui/core/Button';
 import Snackbar from '@material-ui/core/Snackbar';
 import CloseIcon from '@material-ui/icons/Close';
-import {resetpassword } from '../services/user.services';
+import { resetpassword } from '../services/user.services';
 class ResetpasswordInput extends Component {
     state = {
         password: '',
@@ -19,47 +19,63 @@ class ResetpasswordInput extends Component {
 
 
     };
+    /**
+    * @description:This method is used to pasword visbility and hide perpose 
+    */
     handleClickShowPassword = () => {
         this.setState(state => ({ showPassword: !state.showPassword }));
     };
+    /**
+    * @description:This method is used to pasword visbility and hide perpose 
+    */
     handleClickShowPassword1 = () => {
         this.setState(state => ({ showPassword1: !state.showPassword1 }));
     };
+    /**
+ * @description:handleChange is used to set the value to the state    
+ */
     handleChange = name => event => {
         this.setState({ [name]: event.target.value });
     };
 
+    /**
+     * @description:This method is used to handle the enter event.. 
+     */
+    handleEnter = event => {
 
-    handleEnter=event=>{
-
-        if(event.key === 'Enter'){
+        if (event.key === 'Enter') {
             event.preventDefault();
-            this.handlesubmit(event); 
-         }
+            this.handlesubmit(event);
+        }
     }
 
-
+    /**
+     * @description:This method is used to handle the submit event.. 
+     */
     handlesubmit = event => {
         if (this.state.password === '' || this.state.password.length < 6 || this.state.password !== this.state.password1) {
             this.setState({ open: true, errormsg: "Please Enter valid Password" });
         }
         else {
             var data = {
-                password:this.state.password,
+                password: this.state.password,
             }
-            let currenturl=window.location.pathname;
-            let token=currenturl.substring(15);
-            console.log("token =>0",token);
-            resetpassword(data,token)
-            .then((res)=>{
-                this.setState({ open: true, errormsg: "password updated"});
-                this.props.props.history.push("/login")
-            }).catch((err)=>{
+            let currenturl = window.location.pathname;
+            let token = currenturl.substring(15);
+            console.log("token =>0", token);
+            resetpassword(data, token)
+                .then((res) => {
+                    this.setState({ open: true, errormsg: "password updated" });
+                    this.props.props.history.push("/login")
+                }).catch((err) => {
 
-                this.setState({ open: true, errormsg: "password not updated"})
-            })
+                    this.setState({ open: true, errormsg: "password not updated" })
+                })
         }
     }
+    /**
+ * @description:This method is used to handle the Close event.. 
+ */
     handleClose = () => {
 
         this.setState({ open: false });

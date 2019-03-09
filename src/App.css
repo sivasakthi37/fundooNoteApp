@@ -313,8 +313,8 @@ font-size: 15px;
   #searchIcon {
     width: 72px;
     height: 100%;
-    margin-top: -16px;
-    margin-left: -10px;
+    margin-top: -1%;
+    margin-left: -1%;
     position: absolute;
     display: flex;
     align-items: center;

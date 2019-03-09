@@ -13,9 +13,16 @@ class ForgetpasswordInput extends Component {
         errormsg: '',
 
     };
+/**
+ * @description:handleChange is used to set the value to the state    
+ */
     handleChange = name => event => {
         this.setState({ [name]: event.target.value });
     };
+
+    /**
+ * @description:This method is used to handle the enter event.. 
+ */
     handleEnter=event=>{
 
         if(event.key === 'Enter'){
@@ -24,7 +31,9 @@ class ForgetpasswordInput extends Component {
          }
     }
 
-
+/**
+ * @description:This method is used to handle the submit button Event.. 
+ */
     handlesubmit = event => {
 
         var Emailverfy = /[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$/.test(this.state.email);
@@ -47,6 +56,9 @@ class ForgetpasswordInput extends Component {
             })
         }
     }
+    /**
+ * @description:This method is used to handle the Close event.. 
+ */
     handleClose = () => {
 
         this.setState({ open: false });

@@ -5,14 +5,24 @@ import Reminder from './Reminder';
 import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 import Galary from '../assets/galaryicon.svg';
 import Pinned from './Pinned';
+/**
+ * @description:This method is used to  note ui. 
+ */
 class Notecreate extends Component {
     state = {
         open: false,
     };
-
+/**
+ * @description:This method is used to handle the Toggele event.. 
+ */
     handleToggle = () => {
-
-        this.setState(state => ({ open: !state.open }))
+        try {
+            this.setState(state => ({ open: !state.open }))
+        }
+        catch (err) {
+            console.log("handle toggle error in note create ");
+            
+        }
     }
 
 
@@ -32,7 +42,7 @@ class Notecreate extends Component {
                                         disableUnderline={true}
                                     >
                                     </Input>
-                                    <Pinned />                                       
+                                    <Pinned />
                                 </div>
                                 <div id="TakeNotealign" >
                                     <Input

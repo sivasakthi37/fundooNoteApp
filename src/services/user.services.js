@@ -1,25 +1,44 @@
 import axios from 'axios';
 
 function userLogin(data) {
-    console.log("data in user services-->", data);
+    try {
+        console.log("data in user services-->", data);
+        return axios.post('/Login', data);
+    } catch (error) {
+        console.log("error in userlogin in userservices");
 
-    return axios.post('/Login', data);
+    }
+
 }
 
 function userRegister(data) {
-    console.log("data in user services-->", data);
+    try {
+        console.log("data in user services-->", data);
 
-    return axios.post('/Register', data);
+        return axios.post('/Register', data);
+    } catch (error) {
+        console.log("error in user registration in userservices ");
+    }
 }
 
 function verfyemail(data) {
-    return axios.post('/forgetpassword', data);
+    try {
+        return axios.post('/forgetpassword', data);
+    } catch (error) {
+        console.log("Error in verifyemail  in userservices ");
+
+    }
+
 
 }
 
 function resetpassword(data, token) {
+    try {
+        return axios.post(`/reset/${token}`, data, { headers: { 'token': token } })
+    } catch (error) {
+        console.log("Error in resetpassword in userservices..");
 
-    return axios.post(`/reset/${token}`, data, { headers: { 'token': token } })
+    }
 }
 
 export {

@@ -11,7 +11,9 @@ import Snackbar from '@material-ui/core/Snackbar';
 import { userLogin} from '../services/user.services'
 import MailIcon from '@material-ui/icons/Mail';
 
-
+/**
+ * @description:This Component is used to Login page ui.. 
+ */
 class LoginInput extends Component {
     state = {
         email: '',
@@ -21,24 +23,39 @@ class LoginInput extends Component {
         errormsg: '',
 
     };
+   /**
+ * @description:handleChange is used to set the value to the state    
+ */
     handleChange = name => event => {
         this.setState({ [name]: event.target.value });
     };
-
+/**
+     * @description:This method is used to pasword visbility and hide perpose 
+     */
     handleClickShowPassword = () => {
         this.setState(state => ({ showPassword: !state.showPassword }));
     };
+/**
+ * @description:This method is used to handele a register button 
+ */
     handleregister = event => {
         event.preventDefault();
         this.props.props.history.push("/register");
 
     }
+/**
+ * @description:This method is used to handele a forgetPassword button 
+ */
+
     handleforgetpasssword = event => {
         event.preventDefault();
 
         this.props.props.history.push("/forgetpassword");
 
     }
+    /**
+ * @description:This method is used to handle the enter event.. 
+ */
     handleEnter=event=>{
 
         if(event.key === 'Enter'){
@@ -47,7 +64,9 @@ class LoginInput extends Component {
             
          }
     }
-    
+    /**
+ * @description:This method is used to handele a Login button 
+ */
     handlelogin = event => {
         event.preventDefault();
         var Emailverfy = /[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$/.test(this.state.email);
