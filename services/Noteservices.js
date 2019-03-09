@@ -1,7 +1,7 @@
-
+var notemodels=require('../app/NoteModel');
 exports.notecreate = (req, res) => {
     try {
-        usermodels.CreateNote(req, (err, data) => {
+        notemodels.CreateNote(req, (err, data) => {
             if (err) {
                 console.log("err in service..");
                 res(err);

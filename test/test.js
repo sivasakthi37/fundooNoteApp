@@ -85,6 +85,29 @@ describe('Status and content', () => {
                                                                                 else {
                                                                                     console.log("responce in test for reset password==>", res.body);
                                                                                     res.should.have.status(200);
+
+
+                                                                                    describe('Create note api', () => {
+                                                                                        //   console.log("reset password===>", readdata.resetpassword);
+                                                                                        it('status', (done) => {
+                                                                                            chai.request(server).post('/CreateNote').send(readdata.createnote)
+                                                                                                .end((err, res) => {
+                                                                                                    if (err) {
+
+                                                                                                        console.log("err in create note==>", err);
+                                                                                                    }
+                                                                                                    else {
+                                                                                                        console.log("responce in test for create note==>", res.body);
+                                                                                                        res.should.have.status(200);
+
+
+                                                                                                    }
+                                                                                       done();
+                                                                                       })
+                                                                                        })
+                                                                                    })
+
+
                                                                                 }
                                                                                 done();
                                                                             })
@@ -108,7 +131,7 @@ describe('Status and content', () => {
 })
 
 function readfile() {
-    var data2 = file.readFileSync('/home/brideit/Documents/fundoo/server/test/userdata.json');
+    var data2 = file.readFileSync('/home/admin1/Documents/fundoo/server/test/userdata.json');
     var readdata = JSON.parse(data2);
     return readdata;
     // console.log(convertdata);

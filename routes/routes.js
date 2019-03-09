@@ -25,7 +25,7 @@ route.post('/Login', users.login);
 route.post('/Register', users.register);
 route.post('/forgetpassword',users.finduser);
 route.post('/reset/:token', Middleware.checkToken, users.setPassword);
-
 route.post('/CreateNote',notecreate.createnote);
+
 
 module.exports = route; 
