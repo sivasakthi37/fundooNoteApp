@@ -86,6 +86,11 @@ class LoginInput extends Component {
             userLogin(data)
                 .then((res) => {
                     console.log(this.state.email);
+                    console.log("responce from backend",res.data);
+                    
+                     localStorage.setItem('username',res.data.username );
+                     localStorage.setItem('email',res.data.email );
+                     console.log("user name storage",localStorage.setItem('username',res.data.username ));
                     this.setState({ open: true, errormsg: "Login sucessfull!!!!" });
                    // window.location.href = '/dashBoard';
                     this.props.props.history.push("/dashBoard")

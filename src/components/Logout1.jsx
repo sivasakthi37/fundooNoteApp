@@ -1,107 +1,15 @@
 import React, { Component } from 'react';
 import '../App.css';
 import IconButton from '@material-ui/core/IconButton';
-import MenuItem from '@material-ui/core/MenuItem';
 import Avatar from '@material-ui/core/Avatar';
-import Grow from '@material-ui/core/Grow';
 import Paper from '@material-ui/core/Paper';
 import Popper from '@material-ui/core/Popper';
+import Divider from '@material-ui/core/Divider';
 import ClickAwayListener from '@material-ui/core/ClickAwayListener';
-import MenuList from '@material-ui/core/MenuList';
-import Grid from '@material-ui/core/Grid';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
-import Button from '@material-ui/core/Button';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import DialogActions from '@material-ui/core/DialogActions';
+import Tooltip from '@material-ui/core/Tooltip';
+import Fade from '@material-ui/core/Fade';
 
-
-const styles = theme => ({
-    root: {
-        flexGrow: 1,
-    },
-    scrollContainer: {
-        height: 400,
-        overflow: 'auto',
-        marginBottom: theme.spacing.unit * 3,
-    },
-    scroll: {
-        position: 'relative',
-        width: '230%',
-        backgroundColor: theme.palette.background.paper,
-        height: '230%',
-    },
-    legend: {
-        marginTop: theme.spacing.unit * 2,
-        maxWidth: 300,
-    },
-    paper: {
-        maxWidth: 400,
-        overflow: 'auto',
-    },
-    select: {
-        width: 200,
-    },
-    popper: {
-        zIndex: 1,
-        '&[x-placement*="bottom"] $arrow': {
-            top: 0,
-            left: 0,
-            marginTop: '-0.9em',
-            width: '3em',
-            height: '1em',
-            '&::before': {
-                borderWidth: '0 1em 1em 1em',
-                borderColor: `transparent transparent ${theme.palette.common.white} transparent`,
-            },
-        },
-        '&[x-placement*="top"] $arrow': {
-            bottom: 0,
-            left: 0,
-            marginBottom: '-0.9em',
-            width: '3em',
-            height: '1em',
-            '&::before': {
-                borderWidth: '1em 1em 0 1em',
-                borderColor: `${theme.palette.common.white} transparent transparent transparent`,
-            },
-        },
-        '&[x-placement*="right"] $arrow': {
-            left: 0,
-            marginLeft: '-0.9em',
-            height: '3em',
-            width: '1em',
-            '&::before': {
-                borderWidth: '1em 1em 1em 0',
-                borderColor: `transparent ${theme.palette.common.white} transparent transparent`,
-            },
-        },
-        '&[x-placement*="left"] $arrow': {
-            right: 0,
-            marginRight: '-0.9em',
-            height: '3em',
-            width: '1em',
-            '&::before': {
-                borderWidth: '1em 0 1em 1em',
-                borderColor: `transparent transparent transparent ${theme.palette.common.white}`,
-            },
-        },
-    },
-    arrow: {
-        position: 'absolute',
-        fontSize: 7,
-        width: '3em',
-        height: '3em',
-        '&::before': {
-            content: '""',
-            margin: 'auto',
-            display: 'block',
-            width: 0,
-            height: 0,
-            borderStyle: 'solid',
-        },
-    },
-});
+import { Button } from '@material-ui/core';
 
 /**
  * @description:This method is used to Logout ui.. 
@@ -111,6 +19,8 @@ class Logout extends Component {
     state = {
         anchorEl: null,
         open: false,
+        placement: null,
+        profilePic: ""
     };
     /**
   * @description:This method is used to handle the Toggele event.. 
@@ -134,7 +44,6 @@ class Logout extends Component {
 */
     handlelogout = event => {
         event.preventDefault();
-
         this.props.props.props.history.push("/login");
 
     }
@@ -146,73 +55,98 @@ class Logout extends Component {
         this.props.props.props.history.push("/register");
 
     }
+    triggerInputFile() {
+        this.fileInput.click();
+    }
+    handleClick = placement => event => {
 
+        const { currentTarget } = event;
+        this.setState(state => ({
+            anchorEl: currentTarget,
+            open: state.placement !== placement || !state.open,
+            placement,
+        }));
+    };
 
     render() {
-        const { classes } = this.props;
-        const { open, placement, disablePortal, flip, preventOverflow, arrow, arrowRef } = this.state;
+        const { anchorEl, open, placement } = this.state;
+        // const { classes } = this.props;
+
+        const userDetails = localStorage.getItem('username');
+        const initial = userDetails.substring(0, 1)
 
 
-       
         return (
+
             <div>
-                <IconButton
-                    buttonRef={node => {
-                        this.anchorEl = node;
-                    }}
-                    aria-owns={open ? 'menu-list-grow' : undefined}
-                    aria-haspopup="true"
-                    onClick={this.handleToggle}
-                >
-                    <Grid container justify="center" alignItems="center">
-                        <Avatar id="purpleAvatar">S</Avatar>
-                    </Grid>
-                </IconButton>
+                <Popper open={open} anchorEl={anchorEl} placement={placement} transition>
+                    {({ TransitionProps }) => (
+                        <Fade {...TransitionProps} timeout={350}>
 
-                <Popper open={open} anchorEl={this.anchorEl} transition disablePortal>
-                    {({ TransitionProps, placement }) => (
-                        <Grow
-                            {...TransitionProps}
-                            id="menu-list-grow"
-                            style={{ transformOrigin: placement === 'bottom' ? 'center top' : 'center bottom' }}
-                        >
-                            <Paper>
-                                <ClickAwayListener onClickAway={this.handleClose}>
-                                    <Popper
-                                        //   id={id}
-                                        open={open}
-                                        anchorEl={this.anchorEl}
-                                        placement={placement}
-                                        disablePortal={disablePortal}
-                                    //   className={classes.popper}
+                            <Paper id="papperlogout">
+                                <ClickAwayListener>
+                                    <div style={{ width: "250px", padding: "10px", marginTop: "13px" }}>
+                                        <div id="userProfileDetails">
 
-                                    >
-                                        <Paper   >
-                                            <DialogTitle>{"Use Google's location service?"}</DialogTitle>
-                                            <DialogContent>
-                                                <DialogContentText>
-                                                    Let Google help apps determine location.
-                      </DialogContentText>
-                                            </DialogContent>
-                                            <DialogActions>
-                                                <Button onClick={this.handleClickButton} color="primary">
-                                                    Disagree
-                      </Button>
-                                                <Button onClick={this.handleClickButton} color="primary">
-                                                    Agree
-                      </Button>
-                                            </DialogActions>
-                                        </Paper>
-                                    </Popper>
+                                            <IconButton id="avatar">
+
+                                                <Tooltip title="Change Profile">
+
+                                                    <Avatar style={{ width: "80px", height: "80px", backgroundColor: "purple" }}
+                                                        onClick={() => { this.triggerInputFile() }}>
+                                                        {this.state.profilePic !== "" ?
+                                                            <img style={{
+                                                                width: "80px", height: "80px"
+                                                            }} src={this.state.profilePic} alt="change Profile pic"></img>
+                                                            :
+                                                            <b style={{ fontSize: "33px" }}>{initial}</b>
+                                                        }
+                                                        <input ref={fileInput => this.fileInput = fileInput}
+                                                            type="file" style={{ 'display': 'none' }}
+                                                            className="uploadImage"
+                                                            onChange={(evt) => this.uploadImage(evt)}
+                                                        />
+                                                    </Avatar>
+                                                </Tooltip>
+                                            </IconButton>
+                                            <span style={{ marginTop: "-1px", marginReft: "20px" }}>
+                                                <p style={{ marginBottom: "0px" }}>{userDetails}<br></br> </p>
+                                                <small style={{ marginBottom: "0px" }}>{localStorage.getItem('email')} </small>
+                                            </span>
+                                        </div>
+                                        <Divider />
+                                        <div id="signoutComponentbutton">
+                                            <Button
+                                                onClick={this.handleregister}>Add account</Button>
+                                            <Button
+                                                onClick={this.handlelogout}>Logout</Button>
+
+                                        </div>
+                                    </div>
                                 </ClickAwayListener>
                             </Paper>
-                        </Grow>
+
+                        </Fade>
                     )}
                 </Popper>
+                <IconButton id="userProfileIcon">
+                <Tooltip 
+                title={ "Fundoo user "+ localStorage.getItem('username')}>
+                    <Avatar style={{ width: "40px", height: "40px", backgroundColor: "purple" }} onClick={this.handleClick('bottom-end')}  >
+                        {this.state.profilePic !== "" ?
+                            <img style={{
+                                width: "40px", height: "40px"
+                            }} src={this.state.profilePic} alt="change Profile pic"></img>
+                            :
+                            initial
+                        }
+                    </Avatar>
+                    </Tooltip>
+                </IconButton>
+
             </div>
         );
     }
 }
-
 
 export default Logout;

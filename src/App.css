@@ -31,11 +31,10 @@
         transform: rotate(360deg);
     }
 }
-.body{
-background-color: white;
 
+.body {
+    background-color: white;
 }
-
 
 .form-wrapper {
     width: 46%;
@@ -50,6 +49,7 @@ background-color: white;
     margin-top: 7%;
     margin-left: auto;
 }
+
 .form-wrapper1 {
     width: 35%;
     height: 500px;
@@ -63,7 +63,6 @@ background-color: white;
     margin-top: 7%;
     margin-left: auto;
 }
-
 
 #fundooname {
     font-size: 155%;
@@ -112,7 +111,7 @@ background-color: white;
     display: flex;
     margin-top: 6%;
     justify-content: space-between;
-          margin-right: 9%; 
+    margin-right: 9%;
 }
 
 #outlined-dense1 {
@@ -133,11 +132,8 @@ background-color: white;
     /*  justify-content: space-between; */
 }
 
-
-
 #outlined-dense4 {
     margin-top: -1%;
-
 }
 
 #alert {
@@ -161,7 +157,6 @@ background-color: white;
     margin-right: 25%
 }
 
-
 #emaillogin {
     margin-left: 18%;
 }
@@ -170,85 +165,83 @@ background-color: white;
     margin-top: -5%;
     text-align: center
 }
-.emailtextalign{
 
-    margin-right: 8px; 
-
+.emailtextalign {
+    margin-right: 8px;
 }
-#password-div1{
+
+#password-div1 {
     margin-top: 2%;
-margin-left: 18%;
-margin-right: 80px; 
+    margin-left: 18%;
+    margin-right: 80px;
 }
-#login-div{
 
-margin-left: 17%;
-
-
+#login-div {
+    margin-left: 17%;
 }
-#login-div1{
 
+#login-div1 {
     margin-top: 9%;
-    margin-right:10%;
+    margin-right: 10%;
     margin-left: 16%;
-
 }
-#forgotpassword{
+
+#forgotpassword {
     text-transform: lowercase;
     margin-left: 16%;
     margin: 'theme.spacing.unit';
     color: steelblue;
 }
-#signinbutton1{
+
+#signinbutton1 {
     margin: 'theme.spacing.unit';
     color: steelblue;
     margin-top: 0%;
 }
-#nextbutton{
-position: relative;
-left: 64%;
+
+#nextbutton {
+    position: relative;
+    left: 64%;
     top: 2%;
-
-
 }
-#conformpassword-div{
 
-position: relative;
-top: 5%;
+#conformpassword-div {
+    position: relative;
+    top: 5%;
     left: 18%;
 }
-#submitpassword{
 
+#submitpassword {
     position: relative;
     top: 8%;
     left: 59%;
-
 }
-#emailtextalign1{
 
-    margin-right: 57px; 
-
+#emailtextalign1 {
+    margin-right: 57px;
 }
+
 .root {
-    
     display: flex;
     width: '100%';
+}
 
-  }
-  #menuButton {
+#menuButton {
     margin-Left: -12;
     margin-Right: 20;
-  }
-  #title{
+}
+
+#title {
     display: 'none';
-    
-  }
-  #keepimg{
-   src: url("./assets/keepIcon.svg");
-  }
-  #fundoodash{
+}
+
+#keepimg {
+    src: url("./assets/keepIcon.svg");
+}
+
+#fundoodash {
     display: inline-block;
-    font-family: 'Product Sans',Arial,sans-serif;
+    font-family: 'Product Sans', Arial, sans-serif;
     font-size: 22px;
     font-style: oblique;
     line-height: 24px;
@@ -256,28 +249,27 @@ top: 5%;
     position: relative;
     top: -1.5px;
     vertical-align: middle;
+}
 
-  }
-  #drawer {
+#drawer {
     width: 240px;
     flex-Shrink: 0;
-    
-  }
- 
-  #drawerPaper{
+}
+
+#drawerPaper {
     position: relative;
     top: 19px;
-   
-  }
-  .drawerHeader{
+}
 
-    display: 'flex'; 
+.drawerHeader {
+    display: 'flex';
     align-items: 'center';
     padding: '0 8px';
     margin-top: -24px;
     justify-Content: 'flex-end',
-  }
-  /* .MuiDrawer-paper-61 {
+}
+
+/* .MuiDrawer-paper-61 {
     top: 0;
     flex: 1 0 auto;
     width: 20%;
@@ -291,6 +283,7 @@ top: 5%;
     margin-top: 65px;
     -webkit-overflow-scrolling: touch;
 } */
+
 /* .MuiDrawer-paper-204 {
     top: 0;
     flex: 1 0 auto;
@@ -305,12 +298,11 @@ top: 5%;
     -webkit-overflow-scrolling: touch;
 } */
 
-#lable{
-
-font-size: 15px;
-
+#lable {
+    font-size: 15px;
 }
-  #searchIcon {
+
+#searchIcon {
     width: 72px;
     height: 100%;
     margin-top: -1%;
@@ -320,56 +312,58 @@ font-size: 15px;
     align-items: center;
     justify-content: center;
     color: gray;
-    }
-        #searchField {
+}
+
+#searchField {
     margin-left: 70px;
-    }
-    
+}
+
 #inputRoot {
     color: black;
     width: 100%;
-    }
-     #search {
-        position: center;
-        border-radius: 10px;
-        background-color:#e0e0e0;
-        margin-right: 0px;
-        margin-left: 70px;
-        width: 50%;
-        
-        padding: 8px 10px
 }
 
-#purpleAvatar{
+#search {
+    position: center;
+    border-radius: 10px;
+    background-color: #e0e0e0;
+    margin-right: 0px;
+    margin-left: 70px;
+    width: 50%;
+    padding: 8px 10px
+}
+
+#purpleAvatar {
     margin: 10;
     color: '#fff';
-    background-Color:purple;
-  }
-  #logout{
-      position: relative;
-      left: 18%;
-  }
+    background-Color: purple;
+}
 
-  .root {
+#logout {
+    position: relative;
+    left: 22%;
+}
+
+.root {
     display: flex;
-  }
-  #views{
+}
 
+#views {
     position: relative;
     left: 3%;
-  }
+}
 
- 
 #noteInputBase {
     margin-top: 0px;
     width: 460px;
-  }
-  #noteInputBase1 {
+}
+
+#noteInputBase1 {
     margin-top: 0px;
     width: 460px;
-  }
+}
 
-  #CreateNote {
+#CreateNote {
     height: 49px;
     width: 570px;
     margin-left: 48px;
@@ -378,10 +372,10 @@ font-size: 15px;
     padding: 11px;
     border: 1px solid #dadce0;
     border-radius: 10px;
-    box-shadow: 0 3px 5px rgba(0,0, 0,0.20);
-  }
+    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.20);
+}
 
-  #CreateNote1 {
+#CreateNote1 {
     height: 156px;
     width: 570px;
     margin-left: 48px;
@@ -390,37 +384,59 @@ font-size: 15px;
     padding: 11px;
     border: 1px solid #dadce0;
     border-radius: 10px;
-    box-shadow: 0 3px 5px rgba(0,0, 0,0.20);
-  }
-  #TakeNotealign{
-      margin-top:2%;
-  }
+    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.20);
+}
 
+#TakeNotealign {
+    margin-top: 2%;
+}
 
-  #createNoteParent {
+#createNoteParent {
     margin-left: 5px;
-    
-    
+}
 
+#Buttonclose {
+    margin-right: 12px;
+}
 
+#toolalign {
+    position: relative;
+    right: 72%;
 }
-#Buttonclose{
-margin-right:12px;
-}
-#toolalign{
- position: relative;
- right: 72%; 
-}
-#toolparent{
+
+#toolparent {
     display: flex;
-    justify-content:space-between;
+    justify-content: space-between;
 }
-#galaryalign{
-position: relative;
-left: 10%;
 
+#galaryalign {
+    position: relative;
+    left: 10%;
 }
-#pinalign{
+
+#pinalign {
     position: relative;
     left: 7%;
+}
+
+#papperlogout {
+    height: 12%;
+}
+
+#popperid {
+    height: 12px;
+}
+
+#userProfileDetails {
+    display: flex;
+    justify-content: space-between;
+}
+
+#papperlogout {
+    width: 105%;
+}
+
+#signoutComponentbutton {
+    display: flex;
+    justify-content: space-between
 }

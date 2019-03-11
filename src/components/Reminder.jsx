@@ -6,13 +6,13 @@ class Reminder extends Component {
     render() {
         return (
             <div id="toolalign">
-              <IconButton>
+              <IconButton >
               <img src={Remindericn} alt="logo"  />
               </IconButton>
             </div>
 
         )
     }
-}
+} 
 
 export default Reminder;

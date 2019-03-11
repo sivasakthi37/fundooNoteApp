@@ -11,23 +11,33 @@ import Pinned from './Pinned';
 class Notecreate extends Component {
     state = {
         open: false,
+        Title: "",
+        Description: "",
+        noteopen:false,
     };
-/**
- * @description:This method is used to handle the Toggele event.. 
- */
+    /**
+     * @description:This method is used to handle the Toggele event.. 
+     */
     handleToggle = () => {
         try {
             this.setState(state => ({ open: !state.open }))
         }
         catch (err) {
             console.log("handle toggle error in note create ");
-            
+
+        }
+    }
+    handleClose = () => {
+        if (this.state.Title!==""||this.Description!==""){
+
+            this.setState(state => ({ noteopen: !state.noteopen }))
+
         }
     }
 
-
     render() {
-        const { open } = this.state;
+        const { open} = this.state;
+        
         return (
             <div>
                 {open ?
@@ -40,6 +50,7 @@ class Notecreate extends Component {
                                         multiline
                                         placeholder="Title...."
                                         disableUnderline={true}
+                                        value={this.state.input}
                                     >
                                     </Input>
                                     <Pinned />
@@ -50,17 +61,18 @@ class Notecreate extends Component {
                                         multiline
                                         placeholder="Take a Note...."
                                         disableUnderline={true}
-
+                                        value={this.state.input1}
                                     >
                                     </Input>
 
                                     <div id="toolparent">
                                         <Toolbar>
                                             <Reminder />
+
                                         </Toolbar>
 
 
-                                        <Button onClick={this.handleToggle}>Close </Button>
+                                        <Button onClick={this.handleClose}>Close </Button>
                                     </div>
 
                                 </div>
@@ -82,11 +94,11 @@ class Notecreate extends Component {
                             <span id="galaryalign">
                                 <img src={Galary} alt="logo" />
                             </span>
-
                         </Card>
                     </div>
-
                 }
+
+
 
             </div >
 
