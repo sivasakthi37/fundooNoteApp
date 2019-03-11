@@ -46,9 +46,11 @@ exports.login = (req, res) => {
                     }
                     const obj = gentoken.GenerateToken(payload);
                     console.log("object in controler==>",obj);
-                    
+                    console.log("result",result);
                     responce.sucess = true;
-                    responce._id= result[0]._id;
+                    responce.username=result.firstname;
+                    responce.email=result.email;
+                    responce._id=result._id;
                     responce.token = obj;
                     res.status(200).send(responce);
                 }
