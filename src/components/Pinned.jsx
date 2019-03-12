@@ -8,27 +8,31 @@ import Tooltip from '@material-ui/core/Tooltip';
 import IconButton from '@material-ui/core/IconButton';
 class Pinned extends Component {
     state = {
-        open: true,
+        isPinned: true,
     };
 
-    handleToggle = () => {
+    // handleToggle = () => {
 
-        this.setState(state => ({ open: !state.open }))
+    //     this.setState(state => ({ open: !state.open }))
+    // }
+    handleClick=()=> {
+         this.setState({isPinned: !this.state.isPinned});
+        this.props.pinstatus(this.state.isPinned);
     }
 
     render() {
 
-        const { open } = this.state;
+        const { isPinned } = this.state;
         return (
             <span id="pinalign"> 
-                {open ?
-                    <IconButton  onClick={this.handleToggle} >
+                {isPinned ?
+                    <IconButton  onClick={this.handleClick} >
                         <Tooltip title="un-pin">
                             <img src={unpin} alt="logo" />
                         </Tooltip>
                     </IconButton>
                     : 
-                    <IconButton  onClick={this.handleToggle}>
+                    <IconButton  onClick={this.handleClick}>
                     <Tooltip title=" pin-note ">
                     <img src={ pinnote } alt="logo" />
                     </Tooltip>

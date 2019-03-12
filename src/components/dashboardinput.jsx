@@ -14,7 +14,7 @@ import logo from '../assets/keepIcon.svg';
 
 import SearchIcon from '@material-ui/icons/Search';
 import InputBase from '@material-ui/core/InputBase';
-import Logout from './Logout1';
+import Logout from './Logout';
 import Tooltip from '@material-ui/core/Tooltip';
 import Views from './views';
 import Drawercomponent from './Drawermenu';

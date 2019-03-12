@@ -5,6 +5,7 @@ import Reminder from './Reminder';
 import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 import Galary from '../assets/galaryicon.svg';
 import Pinned from './Pinned';
+import ColorNote from './Color';
 /**
  * @description:This method is used to  note ui. 
  */
@@ -13,7 +14,9 @@ class Notecreate extends Component {
         open: false,
         Title: "",
         Description: "",
-        noteopen:false,
+        noteopen: false,
+        Pinned: false,
+        reminder: "",
     };
     /**
      * @description:This method is used to handle the Toggele event.. 
@@ -28,56 +31,71 @@ class Notecreate extends Component {
         }
     }
     handleClose = () => {
-        if (this.state.Title!==""||this.Description!==""){
+        if (this.state.Title !== "" || this.Description !== "") {
 
             this.setState(state => ({ noteopen: !state.noteopen }))
 
         }
     }
+    handlepinned = (value) => {
+
+        this.setState({ Pinned: value });
+    }
+    handleReminder = (value) => {
+        this.setState({ reminder: value })
+    }
+    handleColor = (value) => {
+        this.setState({ color: value });
+    }
 
     render() {
-        const { open} = this.state;
-        
+        const { open } = this.state;
+        console.log("pinnedstats==>", this.state.Pinned);
+        const setNoteTime = parseInt(new Date().getHours()) >= 8 ? "PM" : "AM";
         return (
             <div>
                 {open ?
                     <div id="createNoteParent">
-                        <ClickAwayListener onClickAway={this.handleToggle}>
-                            <Card id="CreateNote1">
-                                <div>
-                                    <Input
-                                        id="noteInputBase"
-                                        multiline
-                                        placeholder="Title...."
-                                        disableUnderline={true}
-                                        value={this.state.input}
-                                    >
-                                    </Input>
-                                    <Pinned />
+                        {/* <ClickAwayListener onClickAway={this.handleToggle}> */}
+                        <Card id="CreateNote1">
+                            <div>
+                                <Input
+                                    id="noteInputBase"
+                                    multiline
+                                    placeholder="Title...."
+                                    disableUnderline={true}
+                                    value={this.state.input}
+                                >
+                                </Input>
+                                <Pinned pinstatus={this.handlepinned} />
+                            </div>
+                            <div id="TakeNotealign" >
+                                <Input
+                                    id="noteInputBase1"
+                                    multiline
+                                    placeholder="Take a Note...."
+                                    disableUnderline={true}
+                                    value={this.state.input1}
+                                >
+                                </Input>
+
+                                <div id="toolparent">
+                                    <Toolbar>
+                                        <div id="toolalign">
+                                            <Reminder
+                                                reminder={this.handleReminder}
+                                                parentToolsProps={setNoteTime} />
+                                        </div>
+                                        <div>
+                                            <ColorNote createNotePropsToTools={this.handleColor}/>
+                                        </div>
+                                    </Toolbar>
+                                    <Button onClick={this.handleToggle}>Close </Button>
                                 </div>
-                                <div id="TakeNotealign" >
-                                    <Input
-                                        id="noteInputBase1"
-                                        multiline
-                                        placeholder="Take a Note...."
-                                        disableUnderline={true}
-                                        value={this.state.input1}
-                                    >
-                                    </Input>
 
-                                    <div id="toolparent">
-                                        <Toolbar>
-                                            <Reminder />
-
-                                        </Toolbar>
-
-
-                                        <Button onClick={this.handleClose}>Close </Button>
-                                    </div>
-
-                                </div>
-                            </Card>
-                        </ClickAwayListener>
+                            </div>
+                        </Card>
+                        {/* </ClickAwayListener> */}
                     </div> :
                     <div id="createNoteParent">
 
