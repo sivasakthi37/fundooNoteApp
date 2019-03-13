@@ -17,7 +17,7 @@ var Middleware = require('../middleware/authentication');
 
 
 
-var notecreate=require('../controllers/Note.controller');
+var notes=require('../controllers/Note.controller');
 /**
  * @description:define the api...
  */
@@ -25,7 +25,8 @@ route.post('/Login', users.login);
 route.post('/Register', users.register);
 route.post('/forgetpassword',users.finduser);
 route.post('/reset/:token', Middleware.checkToken, users.setPassword);
-route.post('/CreateNote',notecreate.createnote);
+route.post('/createNote', Middleware.checkToken, notes.createnote);
+route.get('/getnotes',Middleware.checkToken,notes.getnote)
 
 
 module.exports = route; 

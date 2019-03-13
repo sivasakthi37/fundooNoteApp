@@ -11,11 +11,11 @@ const NoteSchema = mongoose.Schema({
         required: [true, "title is required"]
       
     },
-    discription: {
+    description: {
         type: String,
         required: [true, "discription require"]
     },
-    remindme: {
+    reminder: {
         type: String,
 
     },
@@ -46,11 +46,13 @@ const Note = mongoose.model('note', NoteSchema);
 class noteModel {}
 
 noteModel.prototype.CreateNote= (req, res) => {
+    console.log("request in model==>",req.body);
+    
     const userdata = new Note({
         "userId": req.body.userId,
         "title": req.body.title,
-        "discription": req.body.discription,
-        "remindme": req.body.remindme,
+        "description": req.body.description,
+        "reminder": req.body.reminder,
         "color": req.body.color,
         "image": req.body.image,
         "archive":req.body.archive,
@@ -67,6 +69,34 @@ noteModel.prototype.CreateNote= (req, res) => {
         }
     })
 }
+noteModel.prototype.getnote= (req, res) => {
+    
+
+    Note.find({userId:req.decoded.payload.user_id}, (err, data) => {
+
+        if (err) {
+            console.log("error in chat models");
+            res(err);
+        }
+        else {
+            console.log("chat mode get data sucessfully");
+            res(null, data);
+        }
+    })
+    
+ 
+
+
+   
+}
+
+
+
+
+
+
+
+
 
 module.exports = new noteModel;
 

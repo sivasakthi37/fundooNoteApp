@@ -2,15 +2,15 @@
     "registerdata": {
         "firstname": "sivasakthi",
         "lastname": "sivasakth",
-        "email": "sivachandrasekaran24@gmail.com",
+        "email": "sivachandrasekaran25@gmail.com",
         "password": "12345678"
     },
     "logindata": {
-        "email": "sivachandrasekaran24@gmail.com",
+        "email": "sivachandrasekaran25@gmail.com",
         "password": "12345678"
     },
     "forgetpassword": {
-        "email": "sivachandrasekaran24@gmail.com"
+        "email": "sivachandrasekaran25@gmail.com"
     },
     "resetpassword": {
         "password": "12345678",
@@ -26,6 +26,9 @@
         "archive":true,
         "pinned": false,
         "trash":true
+    },
+    "getdata":{
+        "headers":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjp7InVzZXJfaWQiOiI1YzdkMTdiNzhhODU1NzFjZjBiNmMwNzkifSwiaWF0IjoxNTUyNDc1NDIzLCJleHAiOjE1NTI1NjE4MjN9.d2zvzZHZZFrrfJR3U8nXVhCUne1HFtDO2RUj4zoVWiA"
 
     }
 }
