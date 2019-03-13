@@ -7,7 +7,6 @@ class DashBoard extends Component {
             <div>
                 <DashBoardInput props={this.props} />
             </div>
-
         )
     }
 }

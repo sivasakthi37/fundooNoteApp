@@ -1,22 +1,28 @@
 import React, { Component } from 'react';
 import '../App.css';
-import { Input, Card, Button, Toolbar } from '@material-ui/core';
-import Reminder from './Reminder';
-import ClickAwayListener from '@material-ui/core/ClickAwayListener';
+import { Input, Card, Button } from '@material-ui/core';
+// import Reminder from './Reminder';
+// import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 import Galary from '../assets/galaryicon.svg';
 import Pinned from './Pinned';
-import ColorNote from './Color';
+import Tools from './Tools';
+import { createnote } from '../services/note.services';
 /**
  * @description:This method is used to  note ui. 
  */
 class Notecreate extends Component {
     state = {
         open: false,
-        Title: "",
-        Description: "",
-        noteopen: false,
+        Title: '',
+        Description: '',
         Pinned: false,
+        color: "rgb(255, 255, 255)",
         reminder: "",
+        image: "",
+        archive: false,
+        trash: false,
+        newNote: {}
+
     };
     /**
      * @description:This method is used to handle the Toggele event.. 
@@ -24,19 +30,63 @@ class Notecreate extends Component {
     handleToggle = () => {
         try {
             this.setState(state => ({ open: !state.open }))
+            // console.log("this.state.Title !== ''", this.state.Title !== '');
+            // console.log("this.Description !== ''", this.Description !== '');
+
+            if (this.state.Title !== '' || this.state.Description !== '' || this.state.color !== "rgb(255, 255, 255)") {
+                console.log("hai sivasakthi");
+
+                var note = {
+                    userId: localStorage.getItem("userId"),
+                    title: this.state.Title,
+                    description: this.state.Description,
+                    pinned: this.state.Pinned,
+                    color: this.state.color,
+                    reminder: this.state.reminder,
+                    image: this.state.image,
+                    archive: this.state.archive,
+                    trash: this.state.trash,
+                }
+                createnote(note)
+                    .then((result) => {
+                        console.log("result", result);
+
+                        this.setState({
+                            newNote: result.data.result
+
+                        })
+
+                        console.log("createnote resulttttttttttttttttttttttttttttttttt", this.state.newNote);
+                        // this.props.getNewNote(this.state.newNote)
+                    })
+                    .catch((error) => {
+
+                        alert(error);
+                    })
+
+                this.setState({
+                    title: '',
+                    description: '',
+                    reminder: '',
+                    color: "rgb(255, 255, 255)",
+                    image: '',
+                    archive: false,
+                    pinned: false,
+                    trash: false,
+                })
+            }
         }
         catch (err) {
             console.log("handle toggle error in note create ");
 
         }
     }
-    handleClose = () => {
-        if (this.state.Title !== "" || this.Description !== "") {
 
-            this.setState(state => ({ noteopen: !state.noteopen }))
 
-        }
-    }
+
+    handleChange = name => event => {
+        this.setState({ [name]: event.target.value });
+    };
     handlepinned = (value) => {
 
         this.setState({ Pinned: value });
@@ -49,22 +99,25 @@ class Notecreate extends Component {
     }
 
     render() {
+
         const { open } = this.state;
-        console.log("pinnedstats==>", this.state.Pinned);
-        const setNoteTime = parseInt(new Date().getHours()) >= 8 ? "PM" : "AM";
+
+
         return (
             <div>
                 {open ?
+
                     <div id="createNoteParent">
                         {/* <ClickAwayListener onClickAway={this.handleToggle}> */}
-                        <Card id="CreateNote1">
+                        <Card id="CreateNote1" style={{ backgroundColor: this.state.color }}>
                             <div>
                                 <Input
                                     id="noteInputBase"
                                     multiline
                                     placeholder="Title...."
                                     disableUnderline={true}
-                                    value={this.state.input}
+                                    onChange={this.handleChange('Title')}
+                                // value={this.state.Title}
                                 >
                                 </Input>
                                 <Pinned pinstatus={this.handlepinned} />
@@ -75,29 +128,21 @@ class Notecreate extends Component {
                                     multiline
                                     placeholder="Take a Note...."
                                     disableUnderline={true}
-                                    value={this.state.input1}
+                                    onChange={this.handleChange('Description')}
+                                // value={this.state.Description}
                                 >
                                 </Input>
-
-                                <div id="toolparent">
-                                    <Toolbar>
-                                        <div id="toolalign">
-                                            <Reminder
-                                                reminder={this.handleReminder}
-                                                parentToolsProps={setNoteTime} />
-                                        </div>
-                                        <div>
-                                            <ColorNote createNotePropsToTools={this.handleColor}/>
-                                        </div>
-                                    </Toolbar>
-                                    <Button onClick={this.handleToggle}>Close </Button>
-                                </div>
-
+                            </div>
+                            <div className="cardToolsClose" >
+                                <Tools
+                                    createNotePropsToTools={this.handleColor}
+                                    archiveNote={this.handleArchive}
+                                    archiveStatus={this.state.archive} />
+                                <Button onClick={this.handleToggle}>Close</Button>
                             </div>
                         </Card>
                         {/* </ClickAwayListener> */}
-                    </div> :
-                    <div id="createNoteParent">
+                    </div> : <div id="createNoteParent">
 
                         <Card id="CreateNote">
                             <Input
@@ -114,6 +159,8 @@ class Notecreate extends Component {
                             </span>
                         </Card>
                     </div>
+
+
                 }
 
 

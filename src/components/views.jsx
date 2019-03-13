@@ -42,12 +42,7 @@ class Views extends Component {
                             <img src={list} alt="logo" />
                         </Tooltip>
                     </IconButton>
-
-
                 }
-
-
-
             </div>
 
         )

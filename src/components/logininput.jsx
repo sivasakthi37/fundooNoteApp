@@ -82,7 +82,7 @@ class LoginInput extends Component {
                 email: this.state.email,
                 password: this.state.password
             }
-            console.log("data in login page==>", data);
+          //  console.log("data in login page==>", data);
             userLogin(data)
                 .then((res) => {
                     console.log(this.state.email);
@@ -90,7 +90,9 @@ class LoginInput extends Component {
                     
                      localStorage.setItem('username',res.data.username );
                      localStorage.setItem('email',res.data.email );
-                     console.log("user name storage",localStorage.setItem('username',res.data.username ));
+                     localStorage.setItem('userId',res.data._id)
+                     localStorage.setItem('token',res.data.token.token)
+                  
                     this.setState({ open: true, errormsg: "Login sucessfull!!!!" });
                    // window.location.href = '/dashBoard';
                     this.props.props.history.push("/dashBoard")

@@ -2,7 +2,7 @@ import axios from 'axios';
 
 function userLogin(data) {
     try {
-        console.log("data in user services-->", data);
+       // console.log("data in user services-->", data);
         return axios.post('/Login', data);
     } catch (error) {
         console.log("error in userlogin in userservices");

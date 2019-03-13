@@ -66,7 +66,7 @@ const theme1 = createMuiTheme({
  */
 class Dashboardinput extends React.Component {
     state = {
-        open: false,
+        open: true,
     };
 
     /**
@@ -79,16 +79,7 @@ class Dashboardinput extends React.Component {
             console.log(" handelToggle error in  dashboard");
         }
     }
-/**
- * @description:This method is used to handle the DrawerClose event.. 
- */
-    handleDrawerClose = () => {
-        try {
-            this.setState({ open: false });
-        } catch (err) {
-            console.log("error in handelDrawerClose");
-        }
-    };
+
      
     render() {
         const { classes } = this.props;
