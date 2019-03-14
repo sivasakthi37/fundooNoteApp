@@ -46,39 +46,23 @@ class Reminder extends Component {
     handleClose=()=>{
         this.setState(state=>({open:!state.open}))
     }
-    setTodayReminder(note) {
+    setTodayReminder=()=> {
         this.handleClose();
-        let ampm = parseInt(new Date().getHours()) >= 8 ? "PM" : "AM";
-        console.log("before",note);
-        
-        var date = new Date().toDateString();
-        note.reminder = date+ ", 8 "+ampm;
-        console.log(note.reminder);
-        this.props.reminder(note.reminder,note._id)
+       
     }
-    setTomorrowReminder(note){
+    setTomorrowReminder=()=>{
         this.handleClose();
-        let days=["Mon","Tue","Wed","Thu","Fri","Sat","Sun","Mon"]
-        console.log("before",note);
-        var date = new Date().toDateString();
-        date=date.replace(new Date().getDate().toString(),new Date().getDate()+1);
-        date=date.replace(days[new Date().getDay()-1],days[new Date().getDay()]);
-        note.reminder = date+ ", 8 AM" ;
-        console.log(note.reminder);
-        this.props.reminder(note.reminder,note._id)
+       
     }
-    setWeeklyReminder(note){
+    setWeeklyReminder=()=>{
         this.handleClose();
-        console.log("before",note);
-        var date = new Date().toDateString();
-        date=date.replace((new Date().getDate()),(new Date().getDate()+7));
-        note.reminder = date+ ", 8 AM" ;
-        console.log(note.reminder);
-        this.props.reminder(note.reminder,note._id)
+     
     }
-
-
     render() {
+        // console.log(" anchorEl", anchorEl);
+        // console.log(" placement", placement);
+        
+        
         const setAMPM = this.props.parentToolsProps;
         const { anchorEl, open, placement } = this.state;
         return (
@@ -99,22 +83,20 @@ class Reminder extends Component {
                                     <div>
 
                                         <ListItem className="listRemindr" >Reminder:</ListItem>
-                                        <MenuItem className="currentDate" onClick={()=>this.setTodayReminder(this.props.note)}>
+                                        <MenuItem className="currentDate" onClick={()=>this.setTodayReminder()}>
                                             <div>Later today</div>
                                             <div>8:00 {setAMPM}</div>
                                         </MenuItem>
 
-                                        <MenuItem className="currentDate"  onClick={()=>this.setTomorrowReminder(this.props.note)}>
+                                        <MenuItem className="currentDate"  onClick={()=>this.setTomorrowReminder()}>
                                             <div>Tomorrow</div>
                                             <div>8:00 AM</div>
                                         </MenuItem>
 
-                                        <MenuItem className="currentDate"  onClick={()=>this.setWeeklyReminder(this.props.note)}>
+                                        <MenuItem className="currentDate"  onClick={()=>this.setWeeklyReminder()}>
                                             <div>Next Week</div>
                                             <div>Mon, 8:00 AM</div>
-                                        </MenuItem>
-
-                                       
+                                        </MenuItem>                                        
                                     </div>
                                     </ClickAwayListener>
                                 </Paper>

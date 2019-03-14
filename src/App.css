@@ -249,6 +249,7 @@
     position: relative;
     top: -1.5px;
     vertical-align: middle;
+    
 }
 
 #drawer {
@@ -367,6 +368,7 @@
 
 #CreateNote {
     /* height: 0px;  */
+    height: 50px;
     width: 570px;
     margin-left: 48px;
     margin-top: 27px;
@@ -454,13 +456,20 @@
 }
 
 .cardToolsClose {
+   
     display: flex;
     justify-content: space-between;
   }
   .cardTools {
-    width: 150%;
+    margin-top: 13px;
+    width: 244%;
     display: flex;
     justify-content: space-between;
     /* visibility: hidden; */
   }
-  
+  #appbarroot{
+    border-bottom: 1px solid;
+    border-bottom-color: #d0cece;
+    box-shadow: none;
+
+  }

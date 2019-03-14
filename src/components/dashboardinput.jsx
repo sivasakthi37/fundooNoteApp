@@ -24,6 +24,9 @@ import Notecreate from './noteCreate';
 const styles = theme => ({
     root: {
         display: 'flex',
+        // borderBottom: '1px solid',
+        // borderBottomColor: '#d0cece'
+    
     },
 
     drawerHeader: {
@@ -87,9 +90,9 @@ class Dashboardinput extends React.Component {
 
         return (
             <MuiThemeProvider theme={theme1}>
-                <div className={classes.root}>
+                <div className={classes.root} >
                     <CssBaseline />
-                    <AppBar
+                    <AppBar id="appbarroot"
                         position="fixed"
                         color="inherit"
                     >

@@ -81,9 +81,6 @@ class Notecreate extends Component {
 
         }
     }
-
-
-
     handleChange = name => event => {
         this.setState({ [name]: event.target.value });
     };
@@ -97,12 +94,15 @@ class Notecreate extends Component {
     handleColor = (value) => {
         this.setState({ color: value });
     }
-
+    handleimage = (value) => {
+        this.setState({  image: value });
+    }
+    handleArchive(value) {
+        this.setState({ archive: value });
+    }
     render() {
 
         const { open } = this.state;
-
-
         return (
             <div>
                 {open ?
@@ -135,6 +135,8 @@ class Notecreate extends Component {
                             </div>
                             <div className="cardToolsClose" >
                                 <Tools
+                              reminder={this.handleReminder}
+                              uploadImage={this.handleimage}
                                     createNotePropsToTools={this.handleColor}
                                     archiveNote={this.handleArchive}
                                     archiveStatus={this.state.archive} />

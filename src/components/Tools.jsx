@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import Reminder from './Reminder'
 import ColorPallete from './Color';
-//import UploadImage from '../components/image'
-//import Archive from '../components/archive'
-// import MoreOptions from '../components/moreOptions'
+import UploadImage from '../components/image'
+import Archive from './archive';
+import MoreOptions from './Moreoptions';
 // import Collaborator from '../components/collaborator'
 class Tools extends Component {
     constructor(props) {
@@ -25,26 +25,25 @@ class Tools extends Component {
                     <Reminder parentToolsProps={setNoteTime}
                         reminder={this.props.reminder}
                         note={this.props.note} />
-                      {/* <Collaborator/> */}
+              
 
                     <ColorPallete
                         handleToggle={this.handleToggle}
                         toolsPropsToColorpallete={this.props.createNotePropsToTools}
-                        noteID={this.props.noteID} />
+                      />
 
-                     {/* <UploadImage uploadImage={this.props.uploadImage} note={this.props.note}/>  */}
+                     <UploadImage uploadImage={this.props.uploadImage}
+                     /> 
 
-                    {/* <Archive
+                    <Archive
                         archiveNote={this.props.archiveNote}
-                        noteID={this.props.noteID}
                         archiveStatus={this.props.archiveStatus}
-                    /> */}
-                    {/* <MoreOptions
-                        addLabelToNote={this.props.addLabelToNote}
-                        trashNote={this.props.trashNote}
-                        noteID={this.props.noteID}
-                    /> */}
-
+                    />
+                    <MoreOptions
+                      
+                       
+                    />
+        {/* <Collaborator/> */}
                 </div>
             </div>
         )
