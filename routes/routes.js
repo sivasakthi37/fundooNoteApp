@@ -29,4 +29,5 @@ route.post('/createNote', Middleware.checkToken, notes.createnote);
 route.get('/getnotes',Middleware.checkToken,notes.getnote)
 
 
+
 module.exports = route; 
