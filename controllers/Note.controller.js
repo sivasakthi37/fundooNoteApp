@@ -15,11 +15,8 @@ console.log("req in controleer",req.body);
             res.status(500).send(responce);
         }
         else {
-
-
             responce.sucess = true;
             responce.result = result;
-
             res.status(200).send(responce);
         }
     })

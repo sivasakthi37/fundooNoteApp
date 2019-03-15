@@ -37,6 +37,7 @@ const config = require('./config/mongodb.connection')
  */
 const bodyParser = require('body-parser');
 
+
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
@@ -45,6 +46,8 @@ app.use(expressValidator());
 
 
 app.get('/', (req, res) => {
+
+
     res.json("Im in localhost 8000")
 })
 /**
@@ -73,3 +76,84 @@ mongoose.connect(config.url, { useNewUrlParser: true })
  * @description:export the express app to testing perpose....
  */
 module.exports = app;
+
+
+//const express = require('express');
+// const responseTime = require('response-time')
+// const axios = require('axios');
+// const redis = require('redis');
+
+// //const app = express();
+
+// // create and connect redis client to local instance.
+// const client = redis.createClient();
+
+// // Print redis errors to the console
+// client.on('error', (err) => {
+//   console.log("Error " + err);
+// });
+
+// // use response-time as a middleware
+// app.use(responseTime());
+// var gentoken = require('./middleware/tokens');
+// var userservices = require('./services/user.servies');
+// //create an api/search route
+// app.post('/Login', (req, res) => {
+//   // Extract the query from url and trim trailing spaces
+//   //console.log("controll enter the apifhgh",req.body);
+  
+//   const query = (req.body.email).trim();
+
+  
+//   // Build the Wikipedia API url
+//   //const searchUrl = `https://en.wikipedia.org/w/api.php?action=parse&format=json&section=0&page=${query}`;
+// const searchUrl='http://localhost:3000/Login'
+//   // Try fetching the result from Redis first in case we have it cached
+//   return client.get('redisKey', (err, result) => {
+//     // If that key exist in Redis store
+  
+//     if (result) {
+//      // const resultJSON = JSON.parse(result);
+//      // return res.status(200).json(resultJSON);
+//      console.log("result in redis",result);
+//      const resultJSON = JSON.parse(result);
+//      return res.status(200).json(resultJSON);
+//      // res.status(200).send(result);
+//     } else { // Key does not exist in Redis store
+//       // Fetch directly from Wikipedia API
+//     //  return axios.post('/Login', data);
+//     //app.use('/', routes);
+//       var responce = {}
+//             /**
+//              * @description:pass the request data to sevices....
+//              */
+//             userservices.loginusers(req, (err, result) => {
+//                 if (err) {
+//                     responce.sucess = false;
+//                     responce.result = err;
+//                     res.status(500).send(responce);
+//                 }
+//                 else {
+//                     const payload = {
+//                         user_id: result._id
+//                     }
+//                     const obj = gentoken.GenerateToken(payload);
+//                     console.log("object in controler==>",obj);
+//                     console.log("result",result);
+//                     responce.sucess = true;
+//                     responce.username=result.firstname;
+//                     responce.email=result.email;
+//                     responce._id=result._id;
+//                     responce.token = obj;
+
+//                     //const responseJSON = response.data;
+//                     // Save the Wikipedia API response in Redis store
+//                     const redisKey = 'email_'+responce._id;
+//                     client.set(redisKey, 86400, query);
+
+//                   return  res.status(200).send(responce);
+//                 }
+//             })
+//     }
+//   });
+// });

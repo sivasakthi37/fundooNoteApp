@@ -26,7 +26,7 @@ route.post('/Register', users.register);
 route.post('/forgetpassword',users.finduser);
 route.post('/reset/:token', Middleware.checkToken, users.setPassword);
 route.post('/createNote', Middleware.checkToken, notes.createnote);
-route.get('/getnotes',Middleware.checkToken,notes.getnote)
+route.get('/getnotes',Middleware.checkToken,notes.getnote);
 
 
 

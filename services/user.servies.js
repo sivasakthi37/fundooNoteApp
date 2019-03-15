@@ -34,6 +34,7 @@ exports.loginusers = (req, res) => {
 
 exports.registers = (req, res) => {
     try {
+
         usermodels.registration(req, (err, data) => {
 
             if (err) {

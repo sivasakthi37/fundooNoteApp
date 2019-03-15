@@ -11,50 +11,97 @@ var gentoken = require('../middleware/tokens');
  */
 const sendmail = require('../middleware/sendmail')
 
+const responseTime = require('response-time')
+
+const redis = require('redis');
+
+const express = require('express');
 /**
  * @description:login is used to check the data is present in database or not..
  * @param {request from front end} req 
- * @param {responce from backend} res 
+ * @param {response from backend} res 
  */
 exports.login = (req, res) => {
     //console.log("request in req",req.body);
-    
+
     try {
         req.checkBody('email', 'Email is not valid').isEmail();
         req.checkBody('password', 'password is not valid').isLength({ min: 4 })
         var errors = req.validationErrors();
-        var responce = {};
+        var response = {};
         if (errors) {
-            responce.sucess = false;
-            responce.error = errors;
-            res.status(422).send(responce);
+            response.sucess = false;
+            response.error = errors;
+            res.status(422).send(response);
         }
         else {
-            var responce = {}
-            /**
-             * @description:pass the request data to sevices....
-             */
-            userservices.loginusers(req, (err, result) => {
-                if (err) {
-                    responce.sucess = false;
-                    responce.result = err;
-                    res.status(500).send(responce);
+            const app = express();
+
+            // create and connect redis client to local instance.
+            const client = redis.createClient();
+
+            // Print redis errors to the console
+            client.on('error', (err) => {
+                console.log("Error " + err);
+            });
+
+            app.use(responseTime());
+
+            // Extract the query from url and trim trailing spaces
+            //  const query = (req.body.email+req.body._id).trim();
+            // Build the Wikipedia API url
+
+            const redisKey = req.body.email;
+            // Try fetching the result from Redis first in case we have it cached
+            return client.get(redisKey, (err, result) => {
+                // If that key exist in Redis store
+                console.log("result==>", result);
+                console.log("hasi");
+
+
+                if (result) {
+                    console.log('inside if '+result);
+                    const resultJSON = JSON.parse(result);
+                    return res.status(200).send(resultJSON);
+                
+                } else {
+
+                    var response = {}
+                    /**
+                     * @description:pass the request data to sevices....
+                     */
+                    userservices.loginusers(req, (err, result) => {
+                        if (err) {
+                            response.sucess = false;
+                            response.result = err;
+                            res.status(500).send(response);
+                        }
+                        else {
+                            const payload = {
+                                user_id: result._id
+                            }
+                            const obj = gentoken.GenerateToken(payload);
+                            console.log("object in controler==>", obj);
+                            console.log("result", result);
+                            response.sucess = true;
+                            response.username = result.firstname;
+                            response.email = result.email;
+                            response._id = result._id;
+                            response.token = obj;
+
+                            // const redisKey = 'email_'+responce._id;
+                            // client.set(redisKey, 86400, JSON.stringify(responce));
+                            const redisKey = response.email;
+                            console.log("rediskey", redisKey);
+
+                            //client.set(redisKey, 86400, query);
+                            client.setex(redisKey, 3600, JSON.stringify(response.token.token));
+                            return res.status(200).send(response);
+                        }
+                    })
                 }
-                else {
-                    const payload = {
-                        user_id: result._id
-                    }
-                    const obj = gentoken.GenerateToken(payload);
-                    console.log("object in controler==>",obj);
-                    console.log("result",result);
-                    responce.sucess = true;
-                    responce.username=result.firstname;
-                    responce.email=result.email;
-                    responce._id=result._id;
-                    responce.token = obj;
-                    res.status(200).send(responce);
-                }
-            })
+            });
+
         }
     }
     catch (err) {
@@ -66,7 +113,7 @@ exports.login = (req, res) => {
  */
 exports.register = (req, res) => {
     try {
-        console.log("request in req",req.body);
+        console.log("request in req", req.body);
         req.checkBody('firstname', 'Firstname is not valid').isLength({ min: 3 }).isAlpha();
         req.checkBody('lastname', 'Lastname is not valid').isLength({ min: 3 }).isAlpha();
         req.checkBody('email', 'Email is not valid').isEmail();
@@ -78,17 +125,17 @@ exports.register = (req, res) => {
             response.error = errors;
             return res.status(422).send(response);
         } else {
-            var responcedata = {}
+            var responsedata = {}
             userservices.registers(req, (err, result) => {
                 if (err) {
-                    responcedata.sucess = false;
-                    responcedata.result = err;
-                    res.status(500).send(responcedata);
+                    responsedata.sucess = false;
+                    responsedata.result = err;
+                    res.status(500).send(responsedata);
                 }
                 else {
-                    responcedata.sucess = true;
-                    responcedata.result = "registration sucessfully";
-                    res.status(200).send(responcedata);
+                    responsedata.sucess = true;
+                    responsedata.result = "registration sucessfully";
+                    res.status(200).send(responsedata);
                 }
             })
         }
@@ -105,10 +152,10 @@ exports.finduser = (req, res) => {
     try {
         req.checkBody('email', 'Email is not valid..').isEmail();
         var errors = req.validationErrors();
-        var responce = {};
+        var response = {};
         if (errors) {
-            responce.success = false;
-            responce.error = errors;
+            response.success = false;
+            response.error = errors;
             res.status(422).send(errors);
         }
         else {
@@ -147,28 +194,28 @@ exports.finduser = (req, res) => {
  */
 exports.setPassword = (req, res) => {
     try {
-        console.log("controller in req==>",req.body);
-        
+        console.log("controller in req==>", req.body);
+
         req.checkBody('password', 'password not valid ').isLength({ min: 4 });
         var errors = req.validationErrors();
-        var responces = {};
+        var responses = {};
         if (errors) {
-            responces.sucess = false;
-            responces.result = errors;
+            responses.sucess = false;
+            responses.result = errors;
             res.status(422).send(errors);
         }
         else {
-            var Responce = {};
+            var response = {};
             userservices.setpass(req, (err, result) => {
                 if (err) {
-                    Responce.success = false;
-                    Responce.result = err;
-                    res.status(500).send(Responce);
+                    response.success = false;
+                    response.result = err;
+                    res.status(500).send(response);
                 }
                 else {
-                    Responce.success = true;
-                    Responce.result = result;
-                    res.status(200).send(Responce);
+                    response.success = true;
+                    response.result = result;
+                    res.status(200).send(response);
                 }
             })
         }
