@@ -62,14 +62,13 @@ const theme1 = createMuiTheme({
 
     },
 });
-
-
 /**
  * @description:This Compoenent  is main dashboard page ui....
  */
 class Dashboardinput extends React.Component {
     state = {
         open: true,
+        search:"",
     };
 
     /**
@@ -82,12 +81,12 @@ class Dashboardinput extends React.Component {
             console.log(" handelToggle error in  dashboard");
         }
     }
-
-     
+    handleChange = name => event => {
+        this.setState({ [name]: event.target.value });
+    };
     render() {
         const { classes } = this.props;
         const { open } = this.state;
-
         return (
             <MuiThemeProvider theme={theme1}>
                 <div className={classes.root} >
@@ -123,7 +122,13 @@ class Dashboardinput extends React.Component {
 
                                 </div>
                                 <div id="searchField">
-                                    <InputBase placeholder="Search" className="inputRoot" />
+                                    <InputBase
+                                     id="searchFields" 
+                                    placeholder="Search" 
+                                     className="inputRoot"
+                                    onChange={this.handleChange('search')}
+                                  // value={this.state.search}
+                                    />
                                 </div>
                             </div>
                             <div id="views">
@@ -145,7 +150,6 @@ class Dashboardinput extends React.Component {
                         <div className={classes.drawerHeader} />
                         <Notecreate />
                     </main>
-
                 </div>
             </MuiThemeProvider>
         );

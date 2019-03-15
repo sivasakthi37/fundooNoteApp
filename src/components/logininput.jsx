@@ -80,7 +80,8 @@ class LoginInput extends Component {
         else {
             var data = {
                 email: this.state.email,
-                password: this.state.password
+                password: this.state.password,
+            
             }
           //  console.log("data in login page==>", data);
             userLogin(data)

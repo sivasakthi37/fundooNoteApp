@@ -3,9 +3,10 @@ import '../App.css';
 import { Input, Card, Button } from '@material-ui/core';
 // import Reminder from './Reminder';
 // import ClickAwayListener from '@material-ui/core/ClickAwayListener';
-import Galary from '../assets/galaryicon.svg';
+//import Galary from '../assets/galaryicon.svg';
 import Pinned from './Pinned';
 import Tools from './Tools';
+import UploadImage from '../components/image'
 import { createnote } from '../services/note.services';
 /**
  * @description:This method is used to  note ui. 
@@ -157,7 +158,7 @@ class Notecreate extends Component {
                             >
                             </Input>
                             <span id="galaryalign">
-                                <img src={Galary} alt="logo" />
+                                < UploadImage />
                             </span>
                         </Card>
                     </div>
