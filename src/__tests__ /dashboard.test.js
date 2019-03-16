@@ -26,16 +26,16 @@ describe('DashBoard Component', () => {
     // })
 
     // within the Login components describe function
-    // describe('search field input', () => {
+    describe('search field input', () => {
   
-    //     it('should respond to change event and change the state of the searchfield Component', () => {
+        it('should respond to change event and change the state of the searchfield Component', () => {
          
-    //      const wrapper = shallow(<DashBoard />);
-    //      wrapper.find('#searchFields').simulate('change', {target: {name: 'search', value: 'hai'}});
+         const wrapper = shallow(<DashBoard />);
+         wrapper.find('#searchFields').simulate('change', {target: {name: 'search', value: 'hai'}});
          
-    //     expect(wrapper.state('search')).toEqual('hai');
-    //     })
-    //    })
+        expect(wrapper.state('search')).toEqual('hai');
+        })
+       })
     // describe('Password input', () => {
 
     //     it('should respond to change event and change the state of the Login Component', () => {

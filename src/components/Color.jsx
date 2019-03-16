@@ -24,18 +24,9 @@ class Color extends Component {
 
         }
      
-        // this.handleMouseEnter = this.handleMouseEnter.bind(this);
-        // this.handleMouseLeave = this.handleMouseLeave.bind(this);
-       
+    
     }
-    // handleMouseEnter() {
-    //     this.setState({ open: true });
-    //     // this.props.handleToggle(!this.state.open)
-    // }
-    // handleMouseLeave() {
-    //     this.setState({ open: false });
-    //     // this.props.handleToggle(!this.state.open)
-    // }
+    
     closePopper() {
         this.setState({
             open: false
@@ -43,7 +34,7 @@ class Color extends Component {
     }
     handleColor=(evt)=> {
         console.log("fghty", this.props.noteID)
-        this.props.toolsPropsToColorpallete(evt.target.value, this.props.noteID);
+        this.props.toolsPropsToColorpallete(evt.target.value);
     }
     handleToggle=()=> {
         this.setState({ open: !this.state.open });
@@ -60,9 +51,7 @@ class Color extends Component {
                 </IconButton>
             </Tooltip>
         );
-
         return (
-
             <div>
                 <Tooltip title="Change Color">
                     <img src={require('../assets/Coloricon.svg')}
@@ -78,7 +67,6 @@ class Color extends Component {
                                 {changeCardColor}
                             </Card>
                         </ClickAwayListener>
-
                         : null}
                 </div>
             </div>

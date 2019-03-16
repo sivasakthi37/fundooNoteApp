@@ -14,7 +14,7 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom'
 import './App.css';
-import  Register from './screens/register';
+import Register from './screens/register';
 import Login from './screens/login';
 import forgetpassword from './screens/forgetpassword';
 import resetpassword from './screens/resetpassword';
@@ -25,17 +25,38 @@ import dashboard from './screens/dashboard';
  */
 class App extends Component {
   render() {
+    // function PrivateRoute({ component: Component, ...rest }) {
+    //   return (
+    //     <Route
+    //       {...rest}
+    //       render={props =>
+    //         localStorage.usertoken ? (
+    //           <Component {...props} />
+    //         ) : (
+    //             <Redirect
+    //               to={{
+    //                 pathname: "/login",
+    //                 state: { from: props.location }
+    //               }}
+    //             />
+    //           )
+    //       }
+    //     />
+    //   );
+    // }
+
     return (
       <div className="body">
-      {/*Through the BrowserRouter function we give the path for the component   */}
+        {/*Through the BrowserRouter function we give the path for the component   */}
         <Router>
           <div>
-            <Route path='/register'  component={ Register} />
+            <Route path='/register' component={Register} />
             <Route path='/' exact component={Login} />
             <Route path='/login' exact component={Login} />
             <Route path='/forgetpassword' component={forgetpassword} />
             <Route path='/resetpassword' component={resetpassword} />
-             <Route path='/dashboard' component={dashboard} />
+            {/* <PrivateRoute path='/dashboard' component={dashboard} /> */}
+            <Route path="/dashboard" component={dashboard} />
           </div>
         </Router>
       </div>

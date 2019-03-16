@@ -44,6 +44,7 @@ class Logout extends Component {
 */
     handlelogout = event => {
         event.preventDefault();
+
         this.props.props.props.history.push("/login");
 
     }
@@ -87,7 +88,6 @@ class Logout extends Component {
                                 <ClickAwayListener >
                                     <div style={{ width: "250px", padding: "10px", marginTop: "13px" }}>
                                         <div id="userProfileDetails">
-
                                             <IconButton id="avatar">
 
                                                 <Tooltip title="Change Profile">

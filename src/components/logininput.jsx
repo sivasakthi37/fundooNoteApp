@@ -8,9 +8,9 @@ import VisibilityOff from '@material-ui/icons/VisibilityOff';
 import Button from '@material-ui/core/Button';
 import CloseIcon from '@material-ui/icons/Close';
 import Snackbar from '@material-ui/core/Snackbar';
-import { userLogin} from '../services/user.services'
+import { userLogin } from '../services/user.services'
 import MailIcon from '@material-ui/icons/Mail';
-
+var jwt = require('jsonwebtoken');
 /**
  * @description:This Component is used to Login page ui.. 
  */
@@ -23,29 +23,29 @@ class LoginInput extends Component {
         errormsg: '',
 
     };
-   /**
- * @description:handleChange is used to set the value to the state    
- */
+    /**
+  * @description:handleChange is used to set the value to the state    
+  */
     handleChange = name => event => {
         this.setState({ [name]: event.target.value });
     };
-/**
-     * @description:This method is used to pasword visbility and hide perpose 
-     */
+    /**
+         * @description:This method is used to pasword visbility and hide perpose 
+         */
     handleClickShowPassword = () => {
         this.setState(state => ({ showPassword: !state.showPassword }));
     };
-/**
- * @description:This method is used to handele a register button 
- */
+    /**
+     * @description:This method is used to handele a register button 
+     */
     handleregister = event => {
         event.preventDefault();
         this.props.props.history.push("/register");
 
     }
-/**
- * @description:This method is used to handele a forgetPassword button 
- */
+    /**
+     * @description:This method is used to handele a forgetPassword button 
+     */
 
     handleforgetpasssword = event => {
         event.preventDefault();
@@ -56,13 +56,13 @@ class LoginInput extends Component {
     /**
  * @description:This method is used to handle the enter event.. 
  */
-    handleEnter=event=>{
+    handleEnter = event => {
 
-        if(event.key === 'Enter'){
+        if (event.key === 'Enter') {
             event.preventDefault();
             this.handlelogin(event);
-            
-         }
+
+        }
     }
     /**
  * @description:This method is used to handele a Login button 
@@ -81,22 +81,33 @@ class LoginInput extends Component {
             var data = {
                 email: this.state.email,
                 password: this.state.password,
-            
+
             }
-          //  console.log("data in login page==>", data);
+            //  console.log("data in login page==>", data);
             userLogin(data)
                 .then((res) => {
                     console.log(this.state.email);
-                    console.log("responce from backend",res.data);
-                    
-                     localStorage.setItem('username',res.data.username );
-                     localStorage.setItem('email',res.data.email );
-                     localStorage.setItem('userId',res.data._id)
-                     localStorage.setItem('token',res.data.token.token)
-                  
-                    this.setState({ open: true, errormsg: "Login sucessfull!!!!" });
-                   // window.location.href = '/dashBoard';
-                    this.props.props.history.push("/dashBoard")
+                    console.log("responce from backend", res.data);
+                    jwt.verify(res.data, 'secretkey-Authentication', (err, decoded) => {
+                        if (err) {
+                            console.log("token invalid--->");
+
+                        } else {
+                            console.log("decoded data==>", decoded.payload);
+
+                            localStorage.setItem('username', decoded.payload.username);
+                            localStorage.setItem('email', decoded.payload.email);
+                            localStorage.setItem('userId', decoded.payload.user_id);
+                            localStorage.setItem('token', res.data);
+                            this.setState({ open: true, errormsg: "Login sucessfull!!!!" });
+                            // window.location.href = '/dashBoard';
+                            this.props.props.history.push("/dashBoard")
+
+                        }
+
+                    })
+
+
                 }).catch((err) => {
                     console.log("err", err);
                     this.setState({ open: true, errormsg: "Login Unsucessfull" });
@@ -136,7 +147,7 @@ class LoginInput extends Component {
                             InputProps={{
                                 endAdornment: (
                                     <IconButton color="inherit">
-                                            <MailIcon />
+                                        <MailIcon />
                                     </IconButton>
                                 ),
                             }}

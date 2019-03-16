@@ -26,7 +26,6 @@ class Tools extends Component {
                         reminder={this.props.reminder}
                         note={this.props.note} />
               
-
                     <ColorPallete
                         handleToggle={this.handleToggle}
                         toolsPropsToColorpallete={this.props.createNotePropsToTools}
