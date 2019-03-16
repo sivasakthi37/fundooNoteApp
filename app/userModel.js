@@ -102,8 +102,8 @@ usermodel.prototype.login = (req, callback) => {
 /**
  * @description:checkvalid use to find the data is present or not...
  */
-usermodel.prototype.checkvalid = (body, callback) => {
-    user.find({ "email": body.email }, (err, data) => {
+usermodel.prototype.checkvalid = (res, callback) => {
+    user.find({ "email": res.body.email }, (err, data) => {
         if (err) {
             console.log("error");
 

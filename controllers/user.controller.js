@@ -55,12 +55,12 @@ exports.login = (req, res) => {
             // Try fetching the result from Redis first in case we have it cached
             return client.get(redisKey, (err, result) => {
                 // If that key exist in Redis store
-                console.log("result==>", result);
-                console.log("hasi");
+                // console.log("result==>", result);
+                // console.log("hasi");
 
 
                 if (result) {
-                    console.log('inside if '+result);
+                    console.log('inside if ==>'+result);
                     const resultJSON = JSON.parse(result);
                     return res.status(200).send(resultJSON);
                 
@@ -78,25 +78,28 @@ exports.login = (req, res) => {
                         }
                         else {
                             const payload = {
-                                user_id: result._id
+                                user_id: result._id,
+                                username : result.firstname,
+                                email : result.email,
+                                sucess :true
                             }
-                            const obj = gentoken.GenerateToken(payload);
+                            const obj = gentoken.GenerateTokenAuthentication(payload);
                             console.log("object in controler==>", obj);
                             console.log("result", result);
-                            response.sucess = true;
-                            response.username = result.firstname;
-                            response.email = result.email;
-                            response._id = result._id;
+                          //  response.sucess = true;
+                         //   response.username = result.firstname;
+                          //  response.email = result.email;
+                         //   response._id = result._id;
                             response.token = obj;
 
                             // const redisKey = 'email_'+responce._id;
                             // client.set(redisKey, 86400, JSON.stringify(responce));
-                            const redisKey = response.email;
+                            const redisKey = result.email;
                             console.log("rediskey", redisKey);
 
                             //client.set(redisKey, 86400, query);
                             client.setex(redisKey, 3600, JSON.stringify(response.token.token));
-                            return res.status(200).send(response);
+                            return res.status(200).send(response.token.token);
                         }
                     })
                 }
@@ -161,7 +164,7 @@ exports.finduser = (req, res) => {
         else {
 
             var respondresult = {};
-            userservices.checkuser(req.body, (err, result) => {
+            userservices.checkuser(req, (err, result) => {
                 if (err) {
                     respondresult.success = false;
                     respondresult.result = err;
@@ -175,7 +178,7 @@ exports.finduser = (req, res) => {
                         user_id: result[0]._id
                     }
                     //    console.log("payload in controlller=====>",payload);
-                    const obj = gentoken.GenerateToken(payload);
+                    const obj = gentoken.GenerateTokenresetpassword(payload);
                     const url = `http://localhost:3000/resetpassword/${obj.token}`;
                     sendmail.sendEMailFunction(url);
                     //Send email using this token generated     
