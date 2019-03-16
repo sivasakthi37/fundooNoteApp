@@ -100,7 +100,7 @@ class LoginInput extends Component {
                             localStorage.setItem('userId', decoded.payload.user_id);
                             localStorage.setItem('token', res.data);
                             this.setState({ open: true, errormsg: "Login sucessfull!!!!" });
-                            // window.location.href = '/dashBoard';
+                            
                             this.props.props.history.push("/dashBoard")
 
                         }
