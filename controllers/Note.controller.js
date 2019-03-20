@@ -1,25 +1,37 @@
 
-var noteservices=require('../services/Noteservices');
+var noteservices = require('../services/Noteservices');
 
 exports.createnote = (req, res) => {
-console.log("req in controleer",req.body);
+    console.log("req in controleer", req.body);
 
-    var responce = {}
-    /**
-     * @description:pass the request data to sevices....
-     */
-    noteservices.notecreate(req, (err, result) => {
-        if (err) {
-            responce.sucess = false;
-            responce.result = err;
-            res.status(500).send(responce);
-        }
-        else {
-            responce.sucess = true;
-            responce.result = result;
-            res.status(200).send(responce);
-        }
-    })
+    req.checkBody('title', 'Title should not be empty').not().isEmpty();
+    req.checkBody('description', 'Description should notr be empty').not().isEmpty();
+    // req.checkBody('color', 'color is in Hex-decimal formate').isEmail();
+    // req.checkBody('password', 'password is not valid').isLength({ min: 4 });
+    var errors = req.validationErrors();
+    var response = {};
+    if (errors) {
+        response.success = false;
+        response.error = errors;
+        return res.status(422).send(response);
+    } else {
+        var responce = {}
+        /**
+         * @description:pass the request data to sevices....
+         */
+        noteservices.notecreate(req, (err, result) => {
+            if (err) {
+                responce.sucess = false;
+                responce.result = err;
+                res.status(500).send(responce);
+            }
+            else {
+                responce.sucess = true;
+                responce.result = result;
+                res.status(200).send(responce);
+            }
+        })
+    }
 
 
 }
