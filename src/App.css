@@ -473,3 +473,29 @@
     box-shadow: none;
 
   }
+
+  #CreateNote2 {
+     height: 156px; 
+    width: 570px;
+    margin-left: 48px;
+    margin-top: 27px;
+    text-align: left;
+    padding: 11px;
+    border: 1px solid #dadce0;
+    border-radius: 10px;
+    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.20);
+}
+#displaycontentdiv{
+display: flex;
+justify-content: space-between;
+
+
+}
+#displaycontentdiv1{
+
+display: flex;
+flex-direction: column;
+justify-content: space-between;
+height: 100%;
+
+}

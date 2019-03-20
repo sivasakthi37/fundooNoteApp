@@ -22,7 +22,7 @@ class Notecreate extends Component {
         image: "",
         archive: false,
         trash: false,
-        newNote: {}
+        newNote: []
 
     };
     /**
@@ -35,7 +35,7 @@ class Notecreate extends Component {
             // console.log("this.Description !== ''", this.Description !== '');
 
             if (this.state.Title !== '' || this.state.Description !== '' || this.state.color !== "rgb(255, 255, 255)") {
-                console.log("hai sivasakthi");
+              //  console.log("hai sivasakthi");
 
                 var note = {
                     userId: localStorage.getItem("userId"),
@@ -50,14 +50,14 @@ class Notecreate extends Component {
                 }
                 createnote(note)
                     .then((result) => {
-                        console.log("result", result);
+                     //   console.log("result", result);
 
                         this.setState({
                             newNote: result.data.result
 
                         })
-
-                        console.log("createnote resulttttttttttttttttttttttttttttttttt", this.state.newNote);
+                        this.props.currentnote(this.state.newNote);
+                        //console.log("createnote resulttttttttttttttttttttttttttttttttt", this.state.newNote);
                         // this.props.getNewNote(this.state.newNote)
                     })
                     .catch((error) => {
@@ -165,7 +165,6 @@ class Notecreate extends Component {
 
 
                 }
-
 
 
             </div >

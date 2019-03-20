@@ -20,13 +20,14 @@ import Views from './views';
 import Drawercomponent from './Drawermenu';
 import Notecreate from './noteCreate';
 //const drawerWidth = 10;
+import NoteDisplay from './notedisplay';
 
 const styles = theme => ({
     root: {
         display: 'flex',
         // borderBottom: '1px solid',
         // borderBottomColor: '#d0cece'
-    
+
     },
 
     drawerHeader: {
@@ -66,11 +67,16 @@ const theme1 = createMuiTheme({
  * @description:This Compoenent  is main dashboard page ui....
  */
 class Dashboardinput extends React.Component {
-    state = {
+    constructor(props){
+ super(props)
+     this.state = {
         open: true,
-        search:"",
+        cardStyles: false,
+        search: "",
+        note: [],
     };
-
+    this.noteToCards = React.createRef();
+}
     /**
  * @description:This method is used to handle the Toggele event.. 
  */
@@ -84,9 +90,24 @@ class Dashboardinput extends React.Component {
     handleChange = name => event => {
         this.setState({ [name]: event.target.value });
     };
+    getNewNote(newCard) {
+        console.log("new cards=>",newCard);
+        
+        this.noteToCards.current.displayNewCard(newCard);
+    }
+
+    currentnote = (value) => {
+
+        this.setState({ note: value })
+        
+    }
+    
     render() {
         const { classes } = this.props;
         const { open } = this.state;
+        console.log("new note data=>",this.state.note);
+       
+        
         return (
             <MuiThemeProvider theme={theme1}>
                 <div className={classes.root} >
@@ -123,11 +144,11 @@ class Dashboardinput extends React.Component {
                                 </div>
                                 <div id="searchField">
                                     <InputBase
-                                     id="searchFields" 
-                                    placeholder="Search" 
-                                     className="inputRoot"
-                                    onChange={this.handleChange('search')}
-                                  // value={this.state.search}
+                                        id="searchFields"
+                                        placeholder="Search"
+                                        className="inputRoot"
+                                        onChange={this.handleChange('search')}
+                                    // value={this.state.search}
                                     />
                                 </div>
                             </div>
@@ -147,8 +168,14 @@ class Dashboardinput extends React.Component {
                             [classes.contentShift]: open,
                         })}
                     >
+
                         <div className={classes.drawerHeader} />
-                        <Notecreate />
+                        <Notecreate currentnote={this.currentnote} />
+                        <NoteDisplay
+                         
+                      // ref={this.noteToCards} 
+                      newnote={this.state.note}
+                        />
                     </main>
                 </div>
             </MuiThemeProvider>
