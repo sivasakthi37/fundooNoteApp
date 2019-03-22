@@ -9,7 +9,7 @@ const NoteSchema = mongoose.Schema({
     title: {
         type: String,
         required: [true, "title is required"]
-      
+
     },
     description: {
         type: String,
@@ -43,11 +43,11 @@ const NoteSchema = mongoose.Schema({
 
 const Note = mongoose.model('note', NoteSchema);
 
-class noteModel {}
+class noteModel { }
 
-noteModel.prototype.CreateNote= (req, res) => {
-    console.log("request in model==>",req.body);
-    
+noteModel.prototype.CreateNote = (req, res) => {
+    console.log("request in model==>", req.body);
+
     const userdata = new Note({
         "userId": req.body.userId,
         "title": req.body.title,
@@ -55,9 +55,9 @@ noteModel.prototype.CreateNote= (req, res) => {
         "reminder": req.body.reminder,
         "color": req.body.color,
         "image": req.body.image,
-        "archive":req.body.archive,
+        "archive": req.body.archive,
         "pinned": req.body.pinned,
-        "trash":req.body.trash
+        "trash": req.body.trash
     });
     userdata.save((err, result) => {
         if (err) {
@@ -69,10 +69,10 @@ noteModel.prototype.CreateNote= (req, res) => {
         }
     })
 }
-noteModel.prototype.getnote= (req, res) => {
-    
+noteModel.prototype.getnote = (req, res) => {
 
-    Note.find({userId:req.decoded.payload.user_id}, (err, data) => {
+
+    Note.find({ userId: req.decoded.payload.user_id }, (err, data) => {
 
         if (err) {
             console.log("error in chat models");
@@ -83,15 +83,49 @@ noteModel.prototype.getnote= (req, res) => {
             res(null, data);
         }
     })
-    
- 
 
+}
+noteModel.prototype.updatecolor = (paramID, paramData, res) => {
 
-   
+    Note.findOneAndUpdate({
+        _id: paramID
+
+    },
+        {
+            $set: {
+                color: paramData
+            }
+        },
+        (err, data) => {
+
+            if (err) {
+                console.log("error in chat models");
+                res(err);
+            }
+            else {
+                console.log("chat mode get data sucessfully");
+                res(null, paramData);
+            }
+        })
 }
 
+noteModel.prototype.deleteNote=(req, res) => {
 
-
+    Note.deleteOne({ _id:req.body.noteID}, (err, result) => {
+        if (err) {
+            res(err)
+        } else {
+            console.log("result==>",result);
+            
+            const obj = {
+                status: 200,
+                msg: "note is deleted successfully",
+                result:result
+            }
+             res(null, obj);
+        }
+    })
+}
 
 
 

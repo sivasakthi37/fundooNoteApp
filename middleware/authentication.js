@@ -9,7 +9,7 @@ var jwt = require('jsonwebtoken');
 exports.checkToken = (req,res,next) => {
   // console.log("request of authorization ",req.body);
     var tokens = req.headers['token']; 
-   console.log("check token enter sucessfully" ,tokens);
+   console.log("check token enter sucessfully" );
     if (tokens)
     {
         // verifies secret and checks exp
@@ -29,7 +29,7 @@ exports.checkToken = (req,res,next) => {
                  * @description:add the decoded to your req data....
                  */
                 req.decoded = decoded;
-                console.log("request in request==>",req.decoded);
+                //console.log("request in request==>",req.decoded);
                 console.log("your token is valid",);
                 next();
             }
@@ -48,7 +48,7 @@ exports.checkToken = (req,res,next) => {
 exports.checkTokenAuthentication= (req,res,next) => {
     // console.log("request of authorization ",req.body);
       var tokens = req.headers['token']; 
-     console.log("check token enter sucessfully" ,tokens);
+     console.log("check token enter sucessfully" );
       if (tokens)
       {
           // verifies secret and checks exp

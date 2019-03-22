@@ -60,7 +60,7 @@ exports.login = (req, res) => {
 
 
                 if (result) {
-                    console.log('inside if ==>'+result);
+                    console.log('redis cache data ==>'+result);
                     const resultJSON = JSON.parse(result);
                     return res.status(200).send(resultJSON);
                 
