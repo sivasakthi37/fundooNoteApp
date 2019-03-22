@@ -121,12 +121,10 @@ class Logout extends Component {
                                                 onClick={this.handleregister}>Add account</Button>
                                             <Button
                                                 onClick={this.handlelogout}>Logout</Button>
-
                                         </div>
                                     </div>
                                 </ClickAwayListener>
                             </Paper>
-
                         </Fade>
                     )}
                 </Popper>

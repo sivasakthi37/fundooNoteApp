@@ -18,7 +18,7 @@ import Register from './screens/register';
 import Login from './screens/login';
 import forgetpassword from './screens/forgetpassword';
 import resetpassword from './screens/resetpassword';
-import dashboard from './screens/dashboard';
+import dashboard from './screens/dashboardinput';
 /**
  * @description:this is our route component from here our our data flow is starts
  * 

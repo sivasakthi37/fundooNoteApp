@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
 import '../App.css';
 import { Input, Card, Button } from '@material-ui/core';
-// import Reminder from './Reminder';
-// import ClickAwayListener from '@material-ui/core/ClickAwayListener';
-//import Galary from '../assets/galaryicon.svg';
+
 import Pinned from './Pinned';
 import Tools from './Tools';
 import UploadImage from '../components/image'
@@ -22,7 +20,7 @@ class Notecreate extends Component {
         image: "",
         archive: false,
         trash: false,
-        newNote: []
+        newNote: {}
 
     };
     /**
@@ -30,12 +28,13 @@ class Notecreate extends Component {
      */
     handleToggle = () => {
         try {
+
             this.setState(state => ({ open: !state.open }))
-            // console.log("this.state.Title !== ''", this.state.Title !== '');
-            // console.log("this.Description !== ''", this.Description !== '');
+            console.log("this.state.Title !== ''", this.state.Title !== '');
+            console.log("this.Description !== ''", this.Description !== '');
 
             if (this.state.Title !== '' || this.state.Description !== '' || this.state.color !== "rgb(255, 255, 255)") {
-              //  console.log("hai sivasakthi");
+                //  console.log("hai sivasakthi");
 
                 var note = {
                     userId: localStorage.getItem("userId"),
@@ -48,29 +47,30 @@ class Notecreate extends Component {
                     archive: this.state.archive,
                     trash: this.state.trash,
                 }
+
                 createnote(note)
                     .then((result) => {
-                     //   console.log("result", result);
+                        // console.log("result", result);
 
                         this.setState({
-                            newNote: result.data.result
+                            newNote: result.data.result,
 
                         })
                         this.props.currentnote(this.state.newNote);
                         //console.log("createnote resulttttttttttttttttttttttttttttttttt", this.state.newNote);
-                        // this.props.getNewNote(this.state.newNote)
                     })
                     .catch((error) => {
-
+                        console.log("error in notecreate");
                         alert(error);
                     })
+                console.log("control on the set");
 
                 this.setState({
-                    title: '',
-                    description: '',
-                    reminder: '',
+                    Title: '',
+                    Description: '',
+                    reminder: "",
                     color: "rgb(255, 255, 255)",
-                    image: '',
+                    image: "",
                     archive: false,
                     pinned: false,
                     trash: false,
@@ -79,9 +79,9 @@ class Notecreate extends Component {
         }
         catch (err) {
             console.log("handle toggle error in note create ");
-
         }
     }
+
     handleChange = name => event => {
         this.setState({ [name]: event.target.value });
     };
@@ -96,13 +96,15 @@ class Notecreate extends Component {
         this.setState({ color: value });
     }
     handleimage = (value) => {
-        this.setState({  image: value });
+        this.setState({ image: value });
     }
     handleArchive(value) {
         this.setState({ archive: value });
     }
     render() {
-
+        console.log("states", this.state.Description);
+        console.log("color", this.state.color);
+        console.log("title", this.state.Title);
         const { open } = this.state;
         return (
             <div>
@@ -136,8 +138,8 @@ class Notecreate extends Component {
                             </div>
                             <div className="cardToolsClose" >
                                 <Tools
-                              reminder={this.handleReminder}
-                              uploadImage={this.handleimage}
+                                    reminder={this.handleReminder}
+                                    uploadImage={this.handleimage}
                                     createNotePropsToTools={this.handleColor}
                                     archiveNote={this.handleArchive}
                                     archiveStatus={this.state.archive} />

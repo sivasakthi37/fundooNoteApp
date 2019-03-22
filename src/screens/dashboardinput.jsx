@@ -14,13 +14,15 @@ import logo from '../assets/keepIcon.svg';
 
 import SearchIcon from '@material-ui/icons/Search';
 import InputBase from '@material-ui/core/InputBase';
-import Logout from './Logout';
+import Logout from '../components/Logout';
 import Tooltip from '@material-ui/core/Tooltip';
-import Views from './views';
-import Drawercomponent from './Drawermenu';
-import Notecreate from './noteCreate';
+import Views from '../components/views';
+import Drawercomponent from '../components/Drawermenu';
+import Notecreate from '../components/noteCreate';
 //const drawerWidth = 10;
-import NoteDisplay from './notedisplay';
+//
+
+import Cards from '../components/notedisplay';
 
 const styles = theme => ({
     root: {
@@ -75,6 +77,7 @@ class Dashboardinput extends React.Component {
         search: "",
         note: [],
     };
+
     this.noteToCards = React.createRef();
 }
     /**
@@ -90,17 +93,22 @@ class Dashboardinput extends React.Component {
     handleChange = name => event => {
         this.setState({ [name]: event.target.value });
     };
-    getNewNote(newCard) {
-        console.log("new cards=>",newCard);
+    // getNewNote(newCard) {
+    //     console.log("new cards=>",newCard);
         
+    //     this.noteToCards.current.displayNewCard(newCard);
+    // }
+    currentnote=(newCard)=> {
+        console.log("hai new card",newCard);
+      // this.setState({ note: newCard })
         this.noteToCards.current.displayNewCard(newCard);
     }
 
-    currentnote = (value) => {
-
-        this.setState({ note: value })
+    // currentnote = (value) => {
+    //     this.noteToCards.current.displayNewCard(newCard);
+    //     this.setState({ note: value })
         
-    }
+    // }
     
     render() {
         const { classes } = this.props;
@@ -171,10 +179,10 @@ class Dashboardinput extends React.Component {
 
                         <div className={classes.drawerHeader} />
                         <Notecreate currentnote={this.currentnote} />
-                        <NoteDisplay
-                         
-                      // ref={this.noteToCards} 
-                      newnote={this.state.note}
+                        <Cards
+                          ref={this.noteToCards}
+                     
+                     // newnote={this.state.note}
                         />
                     </main>
                 </div>

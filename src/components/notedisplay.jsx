@@ -1,12 +1,12 @@
 
 import React, { Component } from 'react';
-import { Card, Chip, MuiThemeProvider, createMuiTheme, Tooltip, Avatar } from '@material-ui/core';
+import { Card } from '@material-ui/core';
 import Tools from './Tools';
-import { getNotes, updateColor, updatePin, setReminder, isTrashed, updateArchiveStatus, deleteNoteForever, updateTitle, updateDescription } from '../services/note.services'
+import { getNotes } from '../services/note.services'
 
-import DialogBox from './Dialog';
+//import DialogBox from './Dialog';
 import '../App.css';
-import { red } from '@material-ui/core/colors';
+//import { red } from '@material-ui/core/colors';
 //import { otherArray} from '../services/note.services';
 class Cards extends Component {
     constructor() {
@@ -14,20 +14,17 @@ class Cards extends Component {
         this.state = {
             open: false,
             notes: [],
-            label: false,
-          
-        }
-        console.log("constructor==>",);  
+            label: false,       
+        }   
     }
-
     componentDidMount() {
         getNotes()
             .then((result) => {
                 this.setState({
                     notes: result.data.result
                 })
-                console.log("get notes", result.data.result[0].title);
-                console.log("this.state .notes", this.state.notes[0].title);
+                // console.log("get notes", result.data.result[0].title);
+                // console.log("this.state .notes", this.state.notes[0].title);
 
             })
             .catch((error) => {
@@ -36,9 +33,12 @@ class Cards extends Component {
     }
 
     displayNewCard(newCard) {
+        console.log("new Card==>",newCard);
+        
         this.setState({
             notes: [...this.state.notes, newCard]
         })
+
     }
 
     render() {
@@ -48,7 +48,7 @@ class Cards extends Component {
                     
         return (
             <div>
-                { Object.keys(this.state.notes).slice(0).reverse().map((key) => {
+                {Object.keys(this.state.notes).slice(0).reverse().map((key) => {
                         return (
                             <div>
                                 
