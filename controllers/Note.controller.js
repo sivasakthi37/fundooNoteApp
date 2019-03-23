@@ -63,6 +63,7 @@ exports.getnote = (req, res) => {
 
 
 exports.updatecolor = (req, res) => {
+console.log("color  req in color api=> ",req.body);
 
     req.checkBody('noteID', 'noteID should notr be empty').not().isEmpty();
     req.checkBody('color', 'color should notr be empty').not().isEmpty();
@@ -111,3 +112,30 @@ exports.deleteNote=(req,res)=>{
 
 
 }
+
+exports.isArchived= (req, res) => {
+    console.log("color  req in color api=> ",req.body);
+    
+        req.checkBody('noteID', 'noteID should notr be empty').not().isEmpty();
+//        req.checkBody('archive', 'color should notr be empty')
+        var responce = {}
+        /**
+         * @description:pass the request data to sevices....
+         */
+        noteID = req.body.noteID;
+        value = req.body.archive;
+        noteservices.isArchived(noteID,value, (err, result) => {
+            if (err) {
+                responce.sucess = false;
+                responce.result = err;
+                res.status(500).send(responce);
+            }
+            else {
+                responce.sucess = true;
+                responce.result = result;
+                res.status(200).send(responce);
+            }
+        })
+    
+    
+    }

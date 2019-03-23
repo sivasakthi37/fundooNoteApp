@@ -40,5 +40,5 @@ route.put('/updateColor',Middleware.checkTokenAuthentication,notes.updatecolor);
 
 route.delete('/deleteNote',Middleware.checkTokenAuthentication,notes.deleteNote);
 
-
+route.put('/isArchived',Middleware.checkTokenAuthentication,notes.isArchived);
 module.exports = route; 

@@ -99,26 +99,62 @@ describe('Status and content', () => {
                                                                                                     else {
                                                                                                         console.log("responce in test for create note==>", res.body);
                                                                                                         res.should.have.status(200);
-                                                                                                        describe('Create note api', () => {
+                                                                                                        describe('get note api', () => {
                                                                                                             // console.log("reset password===>", readdata.resetpassword);
                                                                                                             it('status', (done) => {
                                                                                                                 chai.request(server).get('/getnotes').send(readdata.getdata)
                                                                                                                     .end((err, res) => {
                                                                                                                         if (err) {
-                
+
                                                                                                                             console.log("err in get note==>", err);
                                                                                                                         }
                                                                                                                         else {
-                                                                                                                            console.log("responce in test for getnote==>",res.body);
+                                                                                                                            console.log("responce in test for getnote==>", res.body);
                                                                                                                             res.should.have.status(200);
-                                                                                              
-            
+                                                                                                                            describe('update color note api', () => {
+                                                                                                                                // console.log("reset password===>", readdata.resetpassword);
+                                                                                                                                it('status', (done) => {
+                                                                                                                                    chai.request(server).put('/updateColor').send(readdata.getdata)
+                                                                                                                                        .end((err, res) => {
+                                                                                                                                            if (err) {
+                                    
+                                                                                                                                                console.log("err in get note==>", err);
+                                                                                                                                            }
+                                                                                                                                            else {
+                                                                                                                                                console.log("responce in test for getnote==>",res.body);
+                                                                                                                                                res.should.have.status(200);
+                                                                                                                                                describe('delete note api', () => {
+                                                                                                                                                    // console.log("reset password===>", readdata.resetpassword);
+                                                                                                                                                    it('status', (done) => {
+                                                                                                                                                        chai.request(server).delete('/deleteNote').send(readdata.getdata)
+                                                                                                                                                            .end((err, res) => {
+                                                                                                                                                                if (err) {
+                                                        
+                                                                                                                                                                    console.log("err in get note==>", err);
+                                                                                                                                                                }
+                                                                                                                                                                else {
+                                                                                                                                                                    console.log("responce in test for getnote==>",res.body);
+                                                                                                                                                                    res.should.have.status(200);
+                                                                                                                                      
+                                                    
+                                                                                                                                                                }
+                                                                                                                                                                done();
+                                                                                                                                                            })
+                                                                                                                                                    })
+                                                                                                                                                })
+                                
+                                                                                                                                            }
+                                                                                                                                            done();
+                                                                                                                                        })
+                                                                                                                                })
+                                                                                                                            })
+
                                                                                                                         }
                                                                                                                         done();
                                                                                                                     })
                                                                                                             })
                                                                                                         })
-                    
+
 
                                                                                                     }
                                                                                                     done();

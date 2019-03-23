@@ -2,15 +2,15 @@
     "registerdata": {
         "firstname": "sivasakthi",
         "lastname": "sivasakth",
-        "email": "sivachandrasekaran25@gmail.com",
+        "email": "sivudukkkkk@gmail.com",
         "password": "12345678"
     },
     "logindata": {
-        "email": "sivachandrasekaran25@gmail.com",
+        "email": "sivudukkkkk@gmail.com",
         "password": "12345678"
     },
     "forgetpassword": {
-        "email": "sivachandrasekaran25@gmail.com"
+        "email": "sivudukkkkk@gmail.com"
     },
     "resetpassword": {
         "password": "12345678",
@@ -28,7 +28,16 @@
         "trash":true
     },
     "getdata":{
-        "headers":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjp7InVzZXJfaWQiOiI1YzdkMTdiNzhhODU1NzFjZjBiNmMwNzkifSwiaWF0IjoxNTUyNDc1NDIzLCJleHAiOjE1NTI1NjE4MjN9.d2zvzZHZZFrrfJR3U8nXVhCUne1HFtDO2RUj4zoVWiA"
+        "headers":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjp7InVzZXJfaWQiOiI1YzdkMTdiNzhhODU1NzFjZjBiNmMwNzkiLCJ1c2VybmFtZSI6InNpdmFzYWt0aGkiLCJlbWFpbCI6InNpdmFzYWt0aGkyQGdtYWlsLmNvbSIsInN1Y2VzcyI6dHJ1ZX0sImlhdCI6MTU1MzMxODU1OSwiZXhwIjoxNTUzNDA0OTU5fQ.ZwWN179rim8GVmbm8FgPGcK4oSAMXw9zHHMsxlYzFW8"
 
+    },
+    "updateColor":{
+        "noteID": "5c7d17b78a85571cf0b6c079",
+        "color":"red",
+        "headers":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjp7InVzZXJfaWQiOiI1YzdkMTdiNzhhODU1NzFjZjBiNmMwNzkiLCJ1c2VybmFtZSI6InNpdmFzYWt0aGkiLCJlbWFpbCI6InNpdmFzYWt0aGkyQGdtYWlsLmNvbSIsInN1Y2VzcyI6dHJ1ZX0sImlhdCI6MTU1MzMxODU1OSwiZXhwIjoxNTUzNDA0OTU5fQ.ZwWN179rim8GVmbm8FgPGcK4oSAMXw9zHHMsxlYzFW8"
+    },
+    "deleteNote":{
+        "noteID": "5c7d17b78a85571cf0b6c079",
+        "headers":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjp7InVzZXJfaWQiOiI1YzdkMTdiNzhhODU1NzFjZjBiNmMwNzkiLCJ1c2VybmFtZSI6InNpdmFzYWt0aGkiLCJlbWFpbCI6InNpdmFzYWt0aGkyQGdtYWlsLmNvbSIsInN1Y2VzcyI6dHJ1ZX0sImlhdCI6MTU1MzMxODU1OSwiZXhwIjoxNTUzNDA0OTU5fQ.ZwWN179rim8GVmbm8FgPGcK4oSAMXw9zHHMsxlYzFW8"
     }
 }

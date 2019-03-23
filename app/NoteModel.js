@@ -87,7 +87,7 @@ noteModel.prototype.getnote = (req, res) => {
 }
 noteModel.prototype.updatecolor = (paramID, paramData, res) => {
 
-    Note.findOneAndUpdate({
+    Note.findOneAndReplace({
         _id: paramID
 
     },
@@ -125,6 +125,29 @@ noteModel.prototype.deleteNote=(req, res) => {
              res(null, obj);
         }
     })
+}
+
+noteModel.prototype.isArchived = (paramID, paramData, res) => {
+
+    Note.findOneAndUpdate(
+        {
+            _id: paramID
+        },
+        {
+            $set: {
+                archive: paramData,
+                trash: false,
+                pinned: false
+            }
+        },
+        (err, result) => {
+            if (err) {
+                res(err)
+            } else {
+
+                return res(null, paramData)
+            }
+        });
 }
 
 
