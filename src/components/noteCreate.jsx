@@ -50,7 +50,7 @@ class Notecreate extends Component {
 
                 createnote(note)
                     .then((result) => {
-                        // console.log("result", result);
+                        console.log("result", result);
 
                         this.setState({
                             newNote: result.data.result,
@@ -142,7 +142,8 @@ class Notecreate extends Component {
                                     uploadImage={this.handleimage}
                                     createNotePropsToTools={this.handleColor}
                                     archiveNote={this.handleArchive}
-                                    archiveStatus={this.state.archive} />
+                                    archiveStatus={this.state.archive}
+                                     />
                                 <Button onClick={this.handleToggle}>Close</Button>
                             </div>
                         </Card>

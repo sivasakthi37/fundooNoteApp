@@ -1,7 +1,7 @@
 
 import React, { Component } from 'react';
-import { IconButton, Tooltip, Card, ClickAwayListener } from '@material-ui/core';
-
+import { IconButton, Tooltip, Card} from '@material-ui/core';
+import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 
 const colorCodesAndNames = [{ name: "white", colorCode: "rgb(255, 255, 255)" },
 { name: "lightGreen", colorCode: "rgb(204, 255, 144)" },
@@ -34,7 +34,7 @@ class Color extends Component {
     }
     handleColor=(evt)=> {
         console.log("fghty", this.props.noteID)
-        this.props.toolsPropsToColorpallete(evt.target.value);
+        this.props.toolsPropsToColorpallete(evt.target.value,this.props.noteID);
     }
     handleToggle=()=> {
         this.setState({ open: !this.state.open });

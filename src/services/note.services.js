@@ -7,15 +7,41 @@ export function createnote(data) {
 }
 
 export function getNotes() {
-    return axios.get('/getnotes', { headers: {  'token': localStorage.getItem('token')}
+    return axios.get('/getnotes', { headers: {'token': localStorage.getItem('token')}
     })
    
 }   
 
-export function updateColor(url,data) {
+export function updateColor(data) {
         
-    return axios(url,{ method: "PUT",headers: { "access-token": localStorage.getItem("token")},
-        data:data
+    return axios.put('/updateColor',data,{headers: {'token': localStorage.getItem('token')}
+
     })
 }
 
+export function  updateArchiveStatus(data){
+
+    return axios.put('/isArchived',data,{headers: {'token': localStorage.getItem('token')}
+
+})
+
+}
+export function archiveArray(notesData) {
+    let archiveArr = [];
+    for (let i = 0; i < notesData.length; i++) {
+        if (notesData[i].archive) {
+            archiveArr.push(notesData[i]);
+        }
+    }
+    return archiveArr;
+}
+
+export function otherArray(notesData) {
+    let otherArr = [];
+    for (let i = 0; i < notesData.length; i++) {
+        if (!notesData[i].pinned && !notesData[i].archive && !notesData[i].trash) {
+            otherArr.push(notesData[i]);
+        }
+    }
+    return otherArr;
+}

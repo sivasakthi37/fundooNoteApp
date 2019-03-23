@@ -69,17 +69,20 @@ const theme1 = createMuiTheme({
  * @description:This Compoenent  is main dashboard page ui....
  */
 class Dashboardinput extends React.Component {
-    constructor(props){
- super(props)
-     this.state = {
-        open: true,
-        cardStyles: false,
-        search: "",
-        note: [],
-    };
+    constructor(props) {
+        super(props)
+        this.state = {
+            open: true,
+            cardStyles: false,
+            search: "",
+            reminder: false,
+            archive: false,
+            trash: false,
+            note: [],
+        };
 
-    this.noteToCards = React.createRef();
-}
+        this.noteToCards = React.createRef();
+    }
     /**
  * @description:This method is used to handle the Toggele event.. 
  */
@@ -93,29 +96,36 @@ class Dashboardinput extends React.Component {
     handleChange = name => event => {
         this.setState({ [name]: event.target.value });
     };
-    // getNewNote(newCard) {
-    //     console.log("new cards=>",newCard);
-        
-    //     this.noteToCards.current.displayNewCard(newCard);
-    // }
-    currentnote=(newCard)=> {
-        console.log("hai new card",newCard);
-      // this.setState({ note: newCard })
+
+    currentnote = (newCard) => {
+        console.log("hai new card", newCard);
+        // this.setState({ note: newCard })
         this.noteToCards.current.displayNewCard(newCard);
     }
+    handleNavigation=(reminder, archive, trash)=> {
+        console.log("handleNAvigation", reminder, archive, trash);
 
-    // currentnote = (value) => {
-    //     this.noteToCards.current.displayNewCard(newCard);
-    //     this.setState({ note: value })
-        
-    // }
-    
+        if (reminder === true || archive === true || trash === true) {
+
+            this.setState({
+                reminder: reminder,
+                archive: archive,
+                trash: trash
+            })
+        } else {
+            this.setState({
+                reminder: false,
+                archive: false,
+                trash: false
+            })
+        }
+    }
     render() {
         const { classes } = this.props;
         const { open } = this.state;
-        console.log("new note data=>",this.state.note);
-       
-        
+        console.log("new note data=>", this.state.note);
+
+
         return (
             <MuiThemeProvider theme={theme1}>
                 <div className={classes.root} >
@@ -169,7 +179,11 @@ class Dashboardinput extends React.Component {
                         </Toolbar>
                     </AppBar>
                     <div >
-                        <Drawercomponent menustatus={this.state.open} />
+                        <Drawercomponent 
+                         
+                         handleNavigation={this.handleNavigation}
+                        menustatus={this.state.open}
+                         />
                     </div>
                     <main
                         className={classNames(classes.content, {
@@ -180,9 +194,9 @@ class Dashboardinput extends React.Component {
                         <div className={classes.drawerHeader} />
                         <Notecreate currentnote={this.currentnote} />
                         <Cards
-                          ref={this.noteToCards}
-                     
-                     // newnote={this.state.note}
+                         
+                            navigateArchived={this.state.archive}
+                            ref={this.noteToCards}
                         />
                     </main>
                 </div>

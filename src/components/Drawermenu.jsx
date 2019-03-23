@@ -77,11 +77,27 @@ const theme1 = createMuiTheme({
  * @description:This component is used to drawer ui ....
  */
 class Drawercomponent extends Component {
-    state = {
-        open: false,
-    };
+   
+    constructor() {
+        super();
+        this.state = {
+            open: false,
+            navigateReminder: false,
+            navigateArchived: false,
+            navigateTrashed: false,
+           
+        }
+    }
 
-
+    async handleArchived() {
+        await this.setState({
+            navigateReminder: false,
+            navigateArchived: true,
+            navigateTrashed: false
+        })
+       
+        this.props.handleNavigation(this.state.navigateReminder, this.state.navigateArchived, this.state.navigateTrashed);
+    }
     render() {
         const { classes } = this.props;
 
@@ -115,7 +131,7 @@ class Drawercomponent extends Component {
                          </MenuItem>
                         <Divider />
                         <Divider />
-                        <MenuItem  className={classes.menuItem}>
+                        <MenuItem  className={classes.menuItem}  onClick={() => this.handleArchived()}>
                             <img src={Archive} alt="logo"    style={{ marginRight: "31px" }}/>
                             Archive
                          </MenuItem>

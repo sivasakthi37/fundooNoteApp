@@ -26,9 +26,11 @@ class Tools extends Component {
                         reminder={this.props.reminder}
                         note={this.props.note} />
               
+
                     <ColorPallete
                         handleToggle={this.handleToggle}
                         toolsPropsToColorpallete={this.props.createNotePropsToTools}
+                        noteID={this.props.noteID}
                       />
 
                      <UploadImage uploadImage={this.props.uploadImage}
@@ -37,6 +39,7 @@ class Tools extends Component {
                     <Archive
                         archiveNote={this.props.archiveNote}
                         archiveStatus={this.props.archiveStatus}
+                        noteID={this.props.noteID}
                     />
                     <MoreOptions
                       
