@@ -1,31 +1,57 @@
 import axios from 'axios'
 export function createnote(data) {
-    console.log("create note call",data);
-    
-    return axios.post('/createNote', data,{headers: {'token': localStorage.getItem('token')}}
+    console.log("create note call", data);
+
+    return axios.post('/createNote', data, { headers: { 'token': localStorage.getItem('token') } }
     )
 }
 
 export function getNotes() {
-    return axios.get('/getnotes', { headers: {'token': localStorage.getItem('token')}
+    return axios.get('/getnotes', {
+        headers: { 'token': localStorage.getItem('token') }
     })
-   
-}   
+
+}
 
 export function updateColor(data) {
-        
-    return axios.put('/updateColor',data,{headers: {'token': localStorage.getItem('token')}
+
+    return axios.put('/updateColor', data, {
+        headers: { 'token': localStorage.getItem('token') }
 
     })
 }
 
-export function  updateArchiveStatus(data){
+export function updateArchiveStatus(data) {
 
-    return axios.put('/isArchived',data,{headers: {'token': localStorage.getItem('token')}
+    return axios.put('/isArchived', data, {
+        headers: { 'token': localStorage.getItem('token') }
 
-})
+    })
 
 }
+export function  setReminder(data){
+
+    return axios.put('/reminder', data, {
+        headers: { 'token': localStorage.getItem('token') }
+
+    })
+}
+
+
+export function  isTrashed(data){
+
+    return axios.put('/isTrash', data, {
+        headers: { 'token': localStorage.getItem('token') }
+
+    })
+}
+
+
+
+
+
+
+/******************************************************************* */
 export function archiveArray(notesData) {
     let archiveArr = [];
     for (let i = 0; i < notesData.length; i++) {

@@ -17,17 +17,21 @@ class Tools extends Component {
         this.setState({ open: !this.state.open });
     }
     render() {
-        const setNoteTime = parseInt(new Date().getHours()) >= 8 ? "PM" : "AM";
+       
         return (
 
             <div>
                 <div className="cardTools">
-                    <Reminder parentToolsProps={setNoteTime}
+                    <Reminder 
+                
                         reminder={this.props.reminder}
-                        note={this.props.note} />
+                        // note={this.props.note}
+                        noteID={this.props.noteID}
+                         />
               
 
                     <ColorPallete
+                     
                         handleToggle={this.handleToggle}
                         toolsPropsToColorpallete={this.props.createNotePropsToTools}
                         noteID={this.props.noteID}
@@ -42,7 +46,8 @@ class Tools extends Component {
                         noteID={this.props.noteID}
                     />
                     <MoreOptions
-                      
+                       trashNote={this.props.trashNote}
+                       noteID={this.props.noteID}
                        
                     />
         {/* <Collaborator/> */}

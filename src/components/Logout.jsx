@@ -45,7 +45,7 @@ class Logout extends Component {
     handlelogout = event => {
         event.preventDefault();
 
-        this.props.props.props.history.push("/login");
+        this.props.props.history.push("/login");
 
     }
     /**
@@ -53,7 +53,7 @@ class Logout extends Component {
 */
     handleregister = event => {
         event.preventDefault();
-        this.props.props.props.history.push("/register");
+        this.props.props.history.push("/register");
 
     }
     triggerInputFile() {

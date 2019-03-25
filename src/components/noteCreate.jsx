@@ -30,8 +30,8 @@ class Notecreate extends Component {
         try {
 
             this.setState(state => ({ open: !state.open }))
-            console.log("this.state.Title !== ''", this.state.Title !== '');
-            console.log("this.Description !== ''", this.Description !== '');
+         //   console.log("this.state.Title !== ''", this.state.Title !== '');
+          //  console.log("this.Description !== ''", this.Description !== '');
 
             if (this.state.Title !== '' || this.state.Description !== '' || this.state.color !== "rgb(255, 255, 255)") {
                 //  console.log("hai sivasakthi");
@@ -109,7 +109,6 @@ class Notecreate extends Component {
         return (
             <div>
                 {open ?
-
                     <div id="createNoteParent">
                         {/* <ClickAwayListener onClickAway={this.handleToggle}> */}
                         <Card id="CreateNote1" style={{ backgroundColor: this.state.color }}>

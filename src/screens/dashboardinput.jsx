@@ -73,7 +73,6 @@ class Dashboardinput extends React.Component {
         super(props)
         this.state = {
             open: true,
-            cardStyles: false,
             search: "",
             reminder: false,
             archive: false,
@@ -192,12 +191,21 @@ class Dashboardinput extends React.Component {
                     >
 
                         <div className={classes.drawerHeader} />
-                        <Notecreate currentnote={this.currentnote} />
+                        {this.state.archive ? 
                         <Cards
-                         
                             navigateArchived={this.state.archive}
                             ref={this.noteToCards}
                         />
+                    :
+                    <div>
+                    <Notecreate currentnote={this.currentnote} />
+                    <Cards
+                    navigaterTrash={this.state.trash}
+                        navigateArchived={this.state.archive}
+                        ref={this.noteToCards}
+                    />  
+                    </div>
+                        }    
                     </main>
                 </div>
             </MuiThemeProvider>

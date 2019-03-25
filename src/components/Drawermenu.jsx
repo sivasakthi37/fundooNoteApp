@@ -88,7 +88,15 @@ class Drawercomponent extends Component {
            
         }
     }
-
+    async handleNotes() {
+        await this.setState({
+            navigateReminder: false,
+            navigateArchived: false,
+            navigateTrashed: false,
+        })
+      
+        this.props.handleNavigation(this.state.navigateReminder, this.state.navigateArchived, this.state.navigateTrashed);
+    }
     async handleArchived() {
         await this.setState({
             navigateReminder: false,
@@ -114,7 +122,7 @@ class Drawercomponent extends Component {
                             paper: classes.drawerPaper,
                         }}
                     >
-                        <MenuItem  className={classes.menuItem}>
+                        <MenuItem  className={classes.menuItem} onClick={() => this.handleNotes()}>
                             <img src={bulb} alt="logo"    style={{ marginRight: "31px" }}/>
                             Notes
                          </MenuItem>
@@ -140,9 +148,6 @@ class Drawercomponent extends Component {
                             <img src={Delete } alt="logo"    style={{ marginRight: "31px" }}/>
                             Trash
                          </MenuItem>
-
-
-                        
                     </Drawer>
             
                 </MuiThemeProvider>

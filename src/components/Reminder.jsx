@@ -48,6 +48,13 @@ class Reminder extends Component {
     }
     setTodayReminder=()=> {
         this.handleClose();
+        let ampm = parseInt(new Date().getHours()) >= 8 ? "PM" : "AM";
+       
+        var date = new Date().toDateString();
+        console.log("date ==>",date);
+        var reminder1 = date+ ", 8 "+ampm;
+        // console.log(note.reminder);
+       this.props.reminder( reminder1,this.props.noteID)
        
     }
     setTomorrowReminder=()=>{
@@ -83,7 +90,7 @@ class Reminder extends Component {
                                     <div>
 
                                         <ListItem className="listRemindr" >Reminder:</ListItem>
-                                        <MenuItem className="currentDate" onClick={()=>this.setTodayReminder()}>
+                                        <MenuItem className="currentDate" onClick={()=>this.setTodayReminder(this.props.note)}>
                                             <div>Later today</div>
                                             <div>8:00 {setAMPM}</div>
                                         </MenuItem>
