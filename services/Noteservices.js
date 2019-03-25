@@ -14,8 +14,6 @@ exports.notecreate = (req, res) => {
     }
     catch (err) {
         console.log("error in services:",err);
-      
-
     }
 }
 
@@ -93,4 +91,60 @@ exports.isArchived = (paramID, paramData, res) => {
     catch (err) {
         console.log("error in services:",err);
     }
+}
+
+
+exports.setReminder = (paramID, paramData, res) => {
+    try {
+        notemodels.setReminder(paramID, paramData, (err, data) => {
+            if (err) {
+                console.log("err in service..");
+                res(err);
+            }
+            else {
+                console.log("service is working fine");
+                res(null, data);
+            }
+        })
+    }
+    catch (err) {
+        console.log("error in services:",err);
+    }
+}
+
+
+exports.isTrash = (paramID, callback) => {
+    console.log("in services", paramID);
+    notemodels.getTrashStatus(paramID, (err, status) => {
+        if (err) {
+            callback(err);
+        } else {
+            if (status === true) {
+                let data = {
+                    status: false
+                }
+                notemodels.isTrashed(paramID, data, (err, result) => {
+                    if (err) {
+                        callback(err);
+                    } else {
+                        return callback(null, result)
+                    }
+                })
+            } else if (status === false) {
+                let data = {
+                    status: true
+                }
+                notemodels.isTrashed(paramID, data, (err, result) => {
+                    if (err) {
+                        callback(err);
+                    } else {
+                        return callback(null, result)
+                    }
+                })
+            }
+
+        }
+    })
+
+
 }

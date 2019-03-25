@@ -152,6 +152,63 @@ noteModel.prototype.isArchived = (paramID, paramData, res) => {
 
 
 
+noteModel.prototype.setReminder = (paramID, paramData, res) => {
+
+    Note.findOneAndUpdate(
+        {
+            _id: paramID
+        },
+        {
+            $set: {
+                reminder: paramData,
+                
+            }
+        },
+        (err, result) => {
+            if (err) {
+                res(err)
+            } else {
+
+                return res(null, paramData)
+            }
+        });
+}
+
+noteModel.prototype.getTrashStatus = (id, callback) => {
+    console.log("getTrashStatus",id);
+    
+    Note.findOne({ _id: id }, (err, result) => {
+        console.log("id", id);
+        if (err) {
+            callback(err)
+        } else {
+            console.log("status", result.trash)
+            return callback(null, result.trash)
+        }
+    })
+}
+noteModel.prototype.isTrashed = (noteID, trashStatus, callback) => {
+    console.log("in model", noteID, trashStatus);
+    Note.findOneAndUpdate(
+        {
+            _id: noteID
+        },
+        {
+            $set: {
+                trash: trashStatus.status,
+                pinned: false,
+                archive: false
+            }
+        },
+        (err, result) => {
+            if (err) {
+                callback(err)
+            } else {
+
+                return callback(null, trashStatus.status)
+            }
+        });
+};
 
 
 
