@@ -38,10 +38,9 @@ route.get('/getnotes',Middleware.checkTokenAuthentication,notes.getnote);
 route.put('/updateColor',Middleware.checkTokenAuthentication,notes.updatecolor);
 
 
-route.delete('/deleteNote',Middleware.checkTokenAuthentication,notes.deleteNote);
+route.post('/deleteNote',Middleware.checkTokenAuthentication,notes.deleteNote);
 
 route.put('/isArchived',Middleware.checkTokenAuthentication,notes.isArchived);
-
 
 route.put('/reminder',Middleware.checkTokenAuthentication,notes.setReminder);
 

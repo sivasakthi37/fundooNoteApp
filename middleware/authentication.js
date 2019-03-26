@@ -46,9 +46,9 @@ exports.checkToken = (req,res,next) => {
 }
 
 exports.checkTokenAuthentication= (req,res,next) => {
-    // console.log("request of authorization ",req.body);
+   //  console.log("request of authorization ",req);
       var tokens = req.headers['token']; 
-     console.log("check token enter sucessfully" );
+    console.log("check token enter sucessfully",tokens );
       if (tokens)
       {
           // verifies secret and checks exp

@@ -175,14 +175,14 @@ noteModel.prototype.setReminder = (paramID, paramData, res) => {
 }
 
 noteModel.prototype.getTrashStatus = (id, callback) => {
-    console.log("getTrashStatus",id);
+  //  console.log("getTrashStatus",id);
     
     Note.findOne({ _id: id }, (err, result) => {
-        console.log("id", id);
+        //console.log("id", id);
         if (err) {
             callback(err)
         } else {
-            console.log("status", result.trash)
+            console.log("status", result)
             return callback(null, result.trash)
         }
     })
