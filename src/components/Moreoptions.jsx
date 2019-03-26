@@ -41,12 +41,18 @@ class MoreOptions extends Component {
         }));
     }
     handleTrashedNotes=()=> {
+        this.handleClose();
         this.props.trashNote(this.props.noteID);
     }
     closeLabelPopper=()=> {
         this.setState({
             open: false
         })
+    }
+
+
+    handleClose=()=>{
+        this.setState(state=>({open:!state.open}))
     }
     // handleLabelsOnNote(e) {
     //     this.setState({

@@ -143,7 +143,8 @@ class Notecreate extends Component {
                                     archiveNote={this.handleArchive}
                                     archiveStatus={this.state.archive}
                                      />
-                                <Button onClick={this.handleToggle}>Close</Button>
+                                     <span><Button onClick={this.handleToggle}>Close</Button></span>
+                                
                             </div>
                         </Card>
                         {/* </ClickAwayListener> */}

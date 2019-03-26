@@ -8,7 +8,8 @@ import Chip from '@material-ui/core/Chip';
 //import DialogBox from './Dialog';
 import '../App.css';
 //import { red } from '@material-ui/core/colors';
-import { updateColor, updateArchiveStatus, otherArray, archiveArray,setReminder, isTrashed } from '../services/note.services';
+import TrashNavigator from './TrashNavigator';
+import { updateColor, updateArchiveStatus, otherArray, archiveArray, setReminder, isTrashed, trashArray, deleteNote } from '../services/note.services';
 class Cards extends Component {
     constructor() {
         super();
@@ -17,7 +18,7 @@ class Cards extends Component {
             notes: [],
             label: false,
         }
-      //  this.reminderNote = this.reminderNote.bind(this);
+        //  this.reminderNote = this.reminderNote.bind(this);
     }
     componentDidMount() {
         getNotes()
@@ -35,7 +36,7 @@ class Cards extends Component {
     }
 
     displayNewCard(newCard) {
-       // console.log("new Card==>", newCard);
+        // console.log("new Card==>", newCard);
 
         this.setState({
             notes: [...this.state.notes, newCard]
@@ -81,7 +82,7 @@ class Cards extends Component {
 
         updateArchiveStatus(isArchived)
             .then((result) => {
-             //   console.log("result in archive==>", result);
+                //   console.log("result in archive==>", result);
 
                 let newArray = this.state.notes
                 for (let i = 0; i < newArray.length; i++) {
@@ -99,19 +100,20 @@ class Cards extends Component {
                 alert(error)
             });
     }
-    reminderNote=(value, noteId)=> {
+    reminderNote = (value, noteId) => {
         const remindMe = {
             noteID: noteId,
             reminder: value
         }
-        console.log("reminder-->value",remindMe);
-        
+        console.log("reminder-->value", remindMe);
+
         setReminder(remindMe)
             .then((result) => {
                 let newArray = this.state.notes
+                console.log("result in the reminder===>",result);
                 for (let i = 0; i < newArray.length; i++) {
                     if (newArray[i]._id === noteId) {
-                        newArray[i].reminder = result.data.data;
+                        newArray[i].reminder = result.data.result;
                         this.setState({
                             notes: newArray
                         })
@@ -122,13 +124,14 @@ class Cards extends Component {
                 alert(error)
             });
     }
-    trashNote=(noteId)=> {
+    trashNote = (noteId) => {
         const trash = {
             noteID: noteId
         }
         isTrashed(trash)
             .then((result) => {
                 let newArray = this.state.notes
+                console.log("hai hellow how are u==>", result);
 
                 for (let i = 0; i < newArray.length; i++) {
                     if (newArray[i]._id === noteId) {
@@ -148,54 +151,82 @@ class Cards extends Component {
                 alert(error)
             });
     }
+    deleteNote1 = (noteId) => {
 
+        const deletedata = {
+            noteID: noteId
+        }
+        deleteNote(deletedata)
+            .then((result) => {
+                console.log("delete note result==>", result);
+                let newArray = this.state.notes
+                for (let i = 0; i < newArray.length; i++) {
+                    if (newArray[i]._id === noteId) {
+                        newArray.splice(i, 1);
+                        this.setState({
+                            notes: newArray
+                        })
+                    }
+                }
+
+
+            })
+            .catch((err) => {
+                console.log("delete from the backend=> error");
+
+            })
+
+
+    }
     render() {
+        let cardsView = this.props.noteProps ? "cards" : "CreateNote2";
+
         let noteArray = otherArray(this.state.notes);
-       // console.log("noteArray==>", noteArray);
+        console.log("noteArray==============================>",noteArray);
+        // console.log("noteArray==>", noteArray);
         // let noteArray = this.state.notes;
         if (this.props.navigateArchived) {
-
+         
             return (
                 <ArchivedNavigator
-                    addLabelToNote={this.addLabelToNote}
-                    archiveArray={archiveArray(this.state.notes)}
-
-                    othersArray={otherArray}
-
-                    getColor={this.getColor}
                     noteProps={this.props.noteProps}
+                    // addLabelToNote={this.addLabelToNote}
+                    archiveArray={archiveArray(this.state.notes)}
+                    othersArray={otherArray}
+                    getColor={this.getColor}
 
                     trashNote={this.trashNote}
                     archiveNote={this.archiveNote}
                 />
             )
         }
-        // else if(this.props. navigaterTrash){
+        else if (this.props.navigaterTrash) {
 
-        //     return (
-        //         // <TrashNavigator
-        //         //     trashArray={trashArray(this.state.notes)}
-        //         //     // pinNote={this.pinNote}
-        //         //     deleteLabelFromNote={this.deleteLabelFromNote}
-        //         //     // othersArray={otherArray(this.state.notes)}
-        //         //     getColor={this.getColor}
-        //         //     // noteProps={this.props.noteProps}
-        //         //     trashNote={this.trashNote}
-        //         //     deleteNote={this.deleteNote} 
-        //         //     />
-        //     )
-
-
-
-        // }
-        else {
             return (
-                <div>
+                <TrashNavigator
+                    trashArray={trashArray(this.state.notes)}
+                    // pinNote={this.pinNote}
+                    deleteLabelFromNote={this.deleteLabelFromNote}
+                    // othersArray={otherArray(this.state.notes)}
+                    getColor={this.getColor}
+                     noteProps={this.props.noteProps}
+                    trashNote={this.trashNote}
+                    deleteNote={this.deleteNote1}
+                />
+            )
+        }
+        else {
+           
+            return (
+                <div className="CardsView">
                     {Object.keys(noteArray).slice(0).reverse().map((key) => {
                         return (
-                            <div>
-
-                                <Card id="CreateNote2" style={{ backgroundColor: noteArray[key].color }}>
+                            <div id="displaycontentdiv" >
+                                {/* 
+                                <Card className={cardsView}
+                                    style={{ backgroundColor: otherArr[key].note.color, borderRadius: "10px", border: "1px solid #dadce0" }}
+                                > */}
+                                <Card id={cardsView} style={{ backgroundColor: noteArray[key].color }}>
                                     <div id="displaycontentdiv1" >
                                         <div>
                                             <b> {noteArray[key].title}</b>
@@ -203,26 +234,21 @@ class Cards extends Component {
                                         <div>
                                             {noteArray[key].description}
                                         </div>
-
                                         {noteArray[key].reminder ?
-
                                             <Chip
                                                 label={noteArray[key].reminder}
                                                 onDelete={() => this.reminderNote('', noteArray[key]._id)}
                                             />
                                             :
                                             null}
-
                                         <div id="displaycontentdiv">
                                             <Tools
-
-                                               reminder={this.reminderNote}
+                                                reminder={this.reminderNote}
                                                 createNotePropsToTools={this.getColor}
                                                 noteID={noteArray[key]._id}
                                                 archiveNote={this.archiveNote}
                                                 archiveStatus={noteArray[key].archive}
                                                 trashNote={this.trashNote}
-
                                             />
                                         </div>
                                     </div >

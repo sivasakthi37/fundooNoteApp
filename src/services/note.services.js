@@ -29,7 +29,7 @@ export function updateArchiveStatus(data) {
     })
 
 }
-export function  setReminder(data){
+export function setReminder(data) {
 
     return axios.put('/reminder', data, {
         headers: { 'token': localStorage.getItem('token') }
@@ -38,7 +38,7 @@ export function  setReminder(data){
 }
 
 
-export function  isTrashed(data){
+export function isTrashed(data) {
 
     return axios.put('/isTrash', data, {
         headers: { 'token': localStorage.getItem('token') }
@@ -46,6 +46,14 @@ export function  isTrashed(data){
     })
 }
 
+export function deleteNote(data) {
+    console.log("hai data", data);
+
+    return axios.post('/deleteNote', data, {
+        headers: { 'token': localStorage.getItem('token') }
+
+    })
+}
 
 
 
@@ -70,4 +78,13 @@ export function otherArray(notesData) {
         }
     }
     return otherArr;
+}
+export function trashArray(notesData) {
+    let trashArr = [];
+    for (let i = 0; i < notesData.length; i++) {
+        if (notesData[i].trash) {
+            trashArr.push(notesData[i]);
+        }
+    }
+    return trashArr;
 }

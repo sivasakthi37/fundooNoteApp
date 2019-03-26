@@ -106,6 +106,20 @@ class Drawercomponent extends Component {
        
         this.props.handleNavigation(this.state.navigateReminder, this.state.navigateArchived, this.state.navigateTrashed);
     }
+    async handleTrashed() {
+        console.log("ashdbhasbdbasdbasdasd");
+        
+        await this.setState({
+            navigateReminder: false,
+            navigateArchived: false,
+            navigateTrashed: true
+        })
+        
+        this.props.handleNavigation(this.state.navigateReminder, this.state.navigateArchived, this.state.navigateTrashed);
+    }
+
+
+
     render() {
         const { classes } = this.props;
 
@@ -144,8 +158,8 @@ class Drawercomponent extends Component {
                             Archive
                          </MenuItem>
 
-                         <MenuItem  className={classes.menuItem}>
-                            <img src={Delete } alt="logo"    style={{ marginRight: "31px" }}/>
+                         <MenuItem  className={classes.menuItem}  onClick={() => this.handleTrashed()}      >
+                            <img src={Delete } alt="logo"   style={{ marginRight: "31px" }}/>
                             Trash
                          </MenuItem>
                     </Drawer>

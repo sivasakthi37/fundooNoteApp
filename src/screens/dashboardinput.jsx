@@ -78,6 +78,7 @@ class Dashboardinput extends React.Component {
             archive: false,
             trash: false,
             note: [],
+            cardStyles: false,
         };
 
         this.noteToCards = React.createRef();
@@ -101,7 +102,12 @@ class Dashboardinput extends React.Component {
         // this.setState({ note: newCard })
         this.noteToCards.current.displayNewCard(newCard);
     }
-    handleNavigation=(reminder, archive, trash)=> {
+    handleCardStyle = () => {
+        this.setState({ cardStyles: !this.state.cardStyles });
+        console.log("dfgbhnjmkedrtghjk");
+
+    }
+    handleNavigation = (reminder, archive, trash) => {
         console.log("handleNAvigation", reminder, archive, trash);
 
         if (reminder === true || archive === true || trash === true) {
@@ -170,7 +176,9 @@ class Dashboardinput extends React.Component {
                                 </div>
                             </div>
                             <div id="views">
-                                <Views />
+                                <Views
+                                    notePropsToApp={this.handleCardStyle}
+                                />
                             </div>
                             <div id="logout">
                                 <Logout props={this.props} />
@@ -178,11 +186,10 @@ class Dashboardinput extends React.Component {
                         </Toolbar>
                     </AppBar>
                     <div >
-                        <Drawercomponent 
-                         
-                         handleNavigation={this.handleNavigation}
-                        menustatus={this.state.open}
-                         />
+                        <Drawercomponent
+                            handleNavigation={this.handleNavigation}
+                            menustatus={this.state.open}
+                        />
                     </div>
                     <main
                         className={classNames(classes.content, {
@@ -191,21 +198,24 @@ class Dashboardinput extends React.Component {
                     >
 
                         <div className={classes.drawerHeader} />
-                        {this.state.archive ? 
-                        <Cards
-                            navigateArchived={this.state.archive}
-                            ref={this.noteToCards}
-                        />
-                    :
-                    <div>
-                    <Notecreate currentnote={this.currentnote} />
-                    <Cards
-                    navigaterTrash={this.state.trash}
-                        navigateArchived={this.state.archive}
-                        ref={this.noteToCards}
-                    />  
-                    </div>
-                        }    
+                        {this.state.archive || this.state.trash ?
+                            <Cards
+                                noteProps={this.state.cardStyles}
+                                navigaterTrash={this.state.trash}
+                                navigateArchived={this.state.archive}
+                                ref={this.noteToCards}
+                            />
+                            :
+                            <div>
+                                <Notecreate currentnote={this.currentnote} />
+                                <Cards
+                                    noteProps={this.state.cardStyles}
+                                    navigaterTrash={this.state.trash}
+                                    navigateArchived={this.state.archive}
+                                    ref={this.noteToCards}
+                                />
+                            </div>
+                        }
                     </main>
                 </div>
             </MuiThemeProvider>

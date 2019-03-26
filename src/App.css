@@ -249,7 +249,6 @@
     position: relative;
     top: -1.5px;
     vertical-align: middle;
-    
 }
 
 #drawer {
@@ -357,13 +356,11 @@
 #noteInputBase {
     margin-top: 0px;
     width: 460px;
-   
 }
 
 #noteInputBase1 {
     margin-top: 0px;
     width: 460px;
-   
 }
 
 #CreateNote {
@@ -444,7 +441,8 @@
     display: flex;
     justify-content: space-between
 }
-.colorPalleteCard{
+
+.colorPalleteCard {
     position: absolute;
     max-width: 116px;
     padding: 3px;
@@ -456,26 +454,26 @@
 }
 
 .cardToolsClose {
-   
     display: flex;
     justify-content: space-between;
-  }
-  .cardTools {
+}
+
+.cardTools {
     margin-top: 13px;
-    width: 244%;
+    width: 180%;
     display: flex;
     justify-content: space-between;
     /* visibility: hidden; */
-  }
-  #appbarroot{
+}
+
+#appbarroot {
     border-bottom: 1px solid;
     border-bottom-color: #d0cece;
     box-shadow: none;
+}
 
-  }
-
-  #CreateNote2 {
-     height: 156px; 
+#CreateNote2 {
+    height: 156px;
     width: 570px;
     margin-left: 48px;
     margin-top: 27px;
@@ -485,17 +483,33 @@
     border-radius: 10px;
     box-shadow: 0 3px 5px rgba(0, 0, 0, 0.20);
 }
-#displaycontentdiv{
-display: flex;
-justify-content: space-between;
 
-
+#cards {
+    width: 240px;
+    margin-top: 25px;
+    padding-top: 15px;
+    text-align: left;
+    padding: 7px;
+    border-radius: 10px;
+    justify-content: space-between
 }
-#displaycontentdiv1{
 
-display: flex;
-flex-direction: column;
-justify-content: space-between;
-height: 100%;
+#displaycontentdiv {
+    display: flex;
+    justify-content: space-between;
+}
 
+#displaycontentdiv1 {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+}
+
+.CardsView {
+     display: flex;  
+    
+  justify-content:space-between; 
+      flex-flow: wrap;
+      flex-direction: row;
 }

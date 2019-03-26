@@ -7,14 +7,16 @@ import Tools from './Tools';
 
 class ArchivedNavigator extends Component {
     render() {
-         let cardsView = this.props.noteProps ? "listCards" : "cards";
+        let cardsView = this.props.noteProps ?  "cards":"CreateNote2" ;
+       
+        
         return (
             <div>
                 <label className="archievedLabel" >ARCHIVED</label>
                 <div className="CardsView">
                     {this.props.archiveArray.map((key) => {
                         return (
-                            <Card id="CreateNote2" className={cardsView} style={{ backgroundColor: key.color, borderRadius: "10px", border: "1px solid #dadce0" }} >
+                            <Card   id={cardsView}  style={{ backgroundColor: key.color}} >
                                <div id="displaycontentdiv1" >
                                         <div>
                                             <b> {key.title}</b>
@@ -33,7 +35,8 @@ class ArchivedNavigator extends Component {
                                             />
                                         </div>
                                     </div >
-                            </Card>)
+                            </Card>
+                            )
                     })
                     }
                 </div>

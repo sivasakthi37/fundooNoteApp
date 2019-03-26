@@ -90,7 +90,7 @@ class Reminder extends Component {
                                     <div>
 
                                         <ListItem className="listRemindr" >Reminder:</ListItem>
-                                        <MenuItem className="currentDate" onClick={()=>this.setTodayReminder(this.props.note)}>
+                                        <MenuItem className="currentDate" onClick={()=>this.setTodayReminder()}>
                                             <div>Later today</div>
                                             <div>8:00 {setAMPM}</div>
                                         </MenuItem>
@@ -110,9 +110,6 @@ class Reminder extends Component {
                             </Fade>
                         )}
                     </Popper>
-
-
-
                 </div>
             </MuiThemeProvider>
         )

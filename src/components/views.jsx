@@ -18,6 +18,7 @@ class Views extends Component {
     handleToggle = () => {
         try {
             this.setState(state => ({ open: !state.open }))
+            this.props.notePropsToApp();
         } catch (err) {
             console.log("handleToggle in err in views");
 
