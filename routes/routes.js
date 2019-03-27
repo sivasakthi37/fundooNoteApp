@@ -47,4 +47,7 @@ route.put('/reminder',Middleware.checkTokenAuthentication,notes.setReminder);
 
 route.put('/isTrash',Middleware.checkTokenAuthentication,notes.isTrash);
 
+route.put('/editTitle',Middleware.checkTokenAuthentication,notes.editTitle);
+
+route.put('/editDescription',Middleware.checkTokenAuthentication,notes.editDescription);
 module.exports = route; 

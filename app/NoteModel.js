@@ -174,6 +174,53 @@ noteModel.prototype.setReminder = (paramID, paramData, res) => {
         });
 }
 
+noteModel.prototype.editTitle = (paramID, paramData, res) => {
+
+    Note.findOneAndUpdate(
+        {
+            _id: paramID
+        },
+        {
+            $set: {
+                title: paramData,
+                
+            }
+        },
+        (err, result) => {
+            if (err) {
+                res(err)
+            } else {
+
+                return res(null, paramData)
+            }
+        });
+}
+
+noteModel.prototype.editDescription= (paramID, paramData, res) => {
+
+    Note.findOneAndUpdate(
+        {
+            _id: paramID
+        },
+        {
+            $set: {
+                description: paramData,
+                
+            }
+        },
+        (err, result) => {
+            if (err) {
+                res(err)
+            } else {
+
+                return res(null, paramData)
+            }
+        });
+}
+
+
+
+
 noteModel.prototype.getTrashStatus = (id, callback) => {
   //  console.log("getTrashStatus",id);
     

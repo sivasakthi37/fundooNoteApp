@@ -112,6 +112,42 @@ exports.setReminder = (paramID, paramData, res) => {
     }
 }
 
+exports.editTitle = (paramID, paramData, res) => {
+    try {
+        notemodels.editTitle(paramID, paramData, (err, data) => {
+            if (err) {
+                console.log("err in service..");
+                res(err);
+            }
+            else {
+                console.log("service is working fine");
+                res(null, data);
+            }
+        })
+    }
+    catch (err) {
+        console.log("error in services:",err);
+    }
+}
+
+exports.editDescription= (paramID, paramData, res) => {
+    try {
+        notemodels.editDescription(paramID, paramData, (err, data) => {
+            if (err) {
+                console.log("err in service..");
+                res(err);
+            }
+            else {
+                console.log("service is working fine");
+                res(null, data);
+            }
+        })
+    }
+    catch (err) {
+        console.log("error in services:",err);
+    }
+}
+
 
 exports.isTrash = (paramID, callback) => {
     console.log("in services", paramID);
