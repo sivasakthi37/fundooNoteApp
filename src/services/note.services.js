@@ -47,7 +47,7 @@ export function isTrashed(data) {
 }
 
 export function deleteNote(data) {
-    console.log("hai data", data);
+  //  console.log("hai data", data);
 
     return axios.post('/deleteNote', data, {
         headers: { 'token': localStorage.getItem('token') }
@@ -55,9 +55,23 @@ export function deleteNote(data) {
     })
 }
 
+export function  updateTitle(data) {
+    //console.log("hai data", data);
 
+    return axios.put('/editTitle', data, {
+        headers: { 'token': localStorage.getItem('token') }
 
+    })
+}
 
+export function  updateDescription(data) {
+    //console.log("hai data", data);
+
+    return axios.put('/editDescription', data, {
+        headers: { 'token': localStorage.getItem('token') }
+
+    })
+}
 
 /******************************************************************* */
 export function archiveArray(notesData) {
@@ -69,7 +83,16 @@ export function archiveArray(notesData) {
     }
     return archiveArr;
 }
-
+export function remiderArray(notesData) {
+    let reminderArr = [];
+    for (let i = 0; i < notesData.length; i++) {
+        if (notesData[i].reminder!=="" && !notesData[i].trash) {
+            reminderArr.push(notesData[i]);
+        }
+    }
+    
+    return reminderArr;
+}
 export function otherArray(notesData) {
     let otherArr = [];
     for (let i = 0; i < notesData.length; i++) {

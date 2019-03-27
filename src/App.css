@@ -223,7 +223,8 @@
 
 .root {
     display: flex;
-    width: '100%';
+    /* width: '100%'; */
+    flex-wrap: wrap;
 }
 
 #menuButton {
@@ -346,6 +347,7 @@
 
 .root {
     display: flex;
+    flex-wrap: wrap;
 }
 
 #views {
@@ -507,9 +509,23 @@
 }
 
 .CardsView {
-     display: flex;  
-    
-  justify-content:space-between; 
-      flex-flow: wrap;
-      flex-direction: row;
+    display: flex;
+    justify-content: space-between;
+    flex-flow: wrap;
+    flex-direction: row;
+}
+
+#chipcss {
+    display: inline-flex;
+    font-size: 0.8125rem;
+    align-items: center;
+    border-radius: 75px;
+    width: 178px;
+    background-color: #e0e0e0;
+}
+#dialogbox{
+    padding: 11px;
+    border: 1px solid #dadce0;
+    border-radius: 10px;
+    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.20);
 }

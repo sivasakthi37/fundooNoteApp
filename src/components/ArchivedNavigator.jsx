@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Card} from '@material-ui/core';
 import Tools from './Tools';
-
+import Chip from '@material-ui/core/Chip';
 
 
 
@@ -12,7 +12,8 @@ class ArchivedNavigator extends Component {
         
         return (
             <div>
-                <label className="archievedLabel" >ARCHIVED</label>
+                                <label style={{ fontFamily: "georgia", fontSize: "15px", color: "grey", marginRight: "760px" }}>ARCHIVED</label>
+                
                 <div className="CardsView">
                     {this.props.archiveArray.map((key) => {
                         return (
@@ -24,14 +25,21 @@ class ArchivedNavigator extends Component {
                                         <div>
                                             {key.description}
                                         </div>
+                                        {key.reminder ?
+                                            <Chip   id="chipcss"
+                                                label={key.reminder}
+                                                onDelete={() => this.props.reminderNote('', key._id)}
+                                            />
+                                            :
+                                            null}
                                         <div id="displaycontentdiv">
                                             <Tools
-                                                createNotePropsToTools={this.getColor}
-                                               
+                                                createNotePropsToTools={this.props.getColor}
+                                                reminder={this.props.reminderNote}
                                                 noteID={key._id}
                                                 archiveStatus={key.archive}
                                                 archiveNote={this.props.archiveNote}
-        
+                                                trashNote={this.props.trashNote}
                                             />
                                         </div>
                                     </div >

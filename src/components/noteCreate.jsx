@@ -5,6 +5,7 @@ import { Input, Card, Button } from '@material-ui/core';
 import Pinned from './Pinned';
 import Tools from './Tools';
 import UploadImage from '../components/image'
+import Chip from '@material-ui/core/Chip';
 import { createnote } from '../services/note.services';
 /**
  * @description:This method is used to  note ui. 
@@ -101,10 +102,15 @@ class Notecreate extends Component {
     handleArchive(value) {
         this.setState({ archive: value });
     }
+    
     render() {
         console.log("states", this.state.Description);
         console.log("color", this.state.color);
         console.log("title", this.state.Title);
+        console.log("title", this.state.reminder);
+
+      
+
         const { open } = this.state;
         return (
             <div>
@@ -135,6 +141,13 @@ class Notecreate extends Component {
                                 >
                                 </Input>
                             </div>
+                            {this.state.reminder ?
+                                            <Chip   id="chipcss"
+                                                label={this.state.reminder}
+                                               //  onDelete={() => this.reminderNote('', noteArray[key]._id)}
+                                            />
+                                            :
+                                            null}
                             <div className="cardToolsClose" >
                                 <Tools
                                     reminder={this.handleReminder}

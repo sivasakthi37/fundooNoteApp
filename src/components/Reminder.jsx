@@ -2,30 +2,7 @@
 import React, { Component } from 'react';
 import Popper from '@material-ui/core/Popper';
 import Fade from '@material-ui/core/Fade';
-import { MenuItem, Paper, Tooltip, ListItem, createMuiTheme, MuiThemeProvider, ClickAwayListener } from '@material-ui/core'
-const theme = createMuiTheme({
-    overrides: {
-        MuiMenuItem: {
-            root: {
-                borderbottomrightradius: 0,
-                bordertoprightradius: 0,
-                height: "13px",
-                marginTop: "8px",
-                marginBottom: "8px",
-                width: "268px",
-                fontSize: "12px",
-            }
-        },
-        MuiPaper:{
-            root:{
-                zIndex:"1"
-            }
-        },
-    },
-    typography: {
-        useNextVariants: true,
-    },
-})
+import { MenuItem, Paper, Tooltip, ListItem, ClickAwayListener } from '@material-ui/core';
 
 class Reminder extends Component {
     state = {
@@ -59,10 +36,19 @@ class Reminder extends Component {
     }
     setTomorrowReminder=()=>{
         this.handleClose();
-       
+        let days=["Mon","Tue","Wed","Thu","Fri","Sat","Sun","Mon"]
+      //  console.log("before",note);
+        var date = new Date().toDateString();
+        date=date.replace(new Date().getDate().toString(),new Date().getDate()+1);
+        date=date.replace(days[new Date().getDay()-1],days[new Date().getDay()]);
+       var reminder1 = date+ ", 8 AM" ;
+        console.log("notereminder-->",reminder1);
+        this.props.reminder( reminder1,this.props.noteID)
     }
     setWeeklyReminder=()=>{
         this.handleClose();
+
+
      
     }
     render() {
@@ -73,7 +59,7 @@ class Reminder extends Component {
         const setAMPM = this.props.parentToolsProps;
         const { anchorEl, open, placement } = this.state;
         return (
-            <MuiThemeProvider theme={theme}>
+           
                 <div>
                     <Tooltip title="Remind me">
                         <img src={require('../assets/Reminder.svg')} 
@@ -89,18 +75,18 @@ class Reminder extends Component {
 
                                     <div>
 
-                                        <ListItem className="listRemindr" >Reminder:</ListItem>
-                                        <MenuItem className="currentDate" onClick={()=>this.setTodayReminder()}>
+                                        <ListItem >Reminder:</ListItem>
+                                        <MenuItem  onClick={()=>this.setTodayReminder()}>
                                             <div>Later today</div>
                                             <div>8:00 {setAMPM}</div>
                                         </MenuItem>
 
-                                        <MenuItem className="currentDate"  onClick={()=>this.setTomorrowReminder()}>
+                                        <MenuItem  onClick={()=>this.setTomorrowReminder()}>
                                             <div>Tomorrow</div>
                                             <div>8:00 AM</div>
                                         </MenuItem>
 
-                                        <MenuItem className="currentDate"  onClick={()=>this.setWeeklyReminder()}>
+                                        <MenuItem  onClick={()=>this.setWeeklyReminder()}>
                                             <div>Next Week</div>
                                             <div>Mon, 8:00 AM</div>
                                         </MenuItem>                                        
@@ -111,7 +97,6 @@ class Reminder extends Component {
                         )}
                     </Popper>
                 </div>
-            </MuiThemeProvider>
         )
     }
 }

@@ -46,13 +46,13 @@ const styles = theme => ({
     menuItem: {
         borderRadius: "0 25px 25px 0",
         '&:focus': {
-          backgroundColor: "#fff9c4",
-          borderRadius: "0 25px 25px 0",
-       
+            backgroundColor: "#fff9c4",
+            borderRadius: "0 25px 25px 0",
+
         },
-      },
-      primary: {},
-      icon: {},
+    },
+    primary: {},
+    icon: {},
 
 
 
@@ -66,8 +66,8 @@ const theme1 = createMuiTheme({
                 width: 275,
                 borderColor: 'white',
             },
-            paperAnchorDockedLeft:{
-                borderRight:'white',
+            paperAnchorDockedLeft: {
+                borderRight: 'white',
             }
         }
 
@@ -77,7 +77,7 @@ const theme1 = createMuiTheme({
  * @description:This component is used to drawer ui ....
  */
 class Drawercomponent extends Component {
-   
+
     constructor() {
         super();
         this.state = {
@@ -85,7 +85,7 @@ class Drawercomponent extends Component {
             navigateReminder: false,
             navigateArchived: false,
             navigateTrashed: false,
-           
+
         }
     }
     async handleNotes() {
@@ -94,7 +94,7 @@ class Drawercomponent extends Component {
             navigateArchived: false,
             navigateTrashed: false,
         })
-      
+
         this.props.handleNavigation(this.state.navigateReminder, this.state.navigateArchived, this.state.navigateTrashed);
     }
     async handleArchived() {
@@ -103,31 +103,38 @@ class Drawercomponent extends Component {
             navigateArchived: true,
             navigateTrashed: false
         })
-       
+
         this.props.handleNavigation(this.state.navigateReminder, this.state.navigateArchived, this.state.navigateTrashed);
     }
     async handleTrashed() {
         console.log("ashdbhasbdbasdbasdasd");
-        
+
         await this.setState({
             navigateReminder: false,
             navigateArchived: false,
             navigateTrashed: true
         })
-        
+
         this.props.handleNavigation(this.state.navigateReminder, this.state.navigateArchived, this.state.navigateTrashed);
     }
+    async handlerReminder() {
 
+        await this.setState({
+            navigateReminder: true,
+            navigateArchived: false,
+            navigateTrashed: false,
 
-
+        })
+        this.props.handleNavigation(this.state.navigateReminder, this.state.navigateArchived, this.state.navigateTrashed);
+    }
     render() {
         const { classes } = this.props;
 
         return (
             <div >
                 <MuiThemeProvider theme={theme1}  >
-        
-                    <Drawer 
+
+                    <Drawer
                         id="drawer"
                         variant="persistent"
                         anchor="left"
@@ -136,34 +143,34 @@ class Drawercomponent extends Component {
                             paper: classes.drawerPaper,
                         }}
                     >
-                        <MenuItem  className={classes.menuItem} onClick={() => this.handleNotes()}>
-                            <img src={bulb} alt="logo"    style={{ marginRight: "31px" }}/>
+                        <MenuItem className={classes.menuItem} onClick={() => this.handleNotes()}>
+                            <img src={bulb} alt="logo" style={{ marginRight: "31px" }} />
                             Notes
                          </MenuItem>
 
-                         <MenuItem  className={classes.menuItem}>
-                            <img src={bellicon } alt="logo"    style={{ marginRight: "31px" }}/>
+                        <MenuItem className={classes.menuItem} onClick={() => this.handlerReminder()}     >
+                            <img src={bellicon} alt="logo" style={{ marginRight: "31px" }} />
                             Reminders
                          </MenuItem>
                         <Divider />
-                            <p id="lable" >LABLES</p>
-                                     <MenuItem  className={classes.menuItem}>
-                            <img src={pencil} alt="logo"    style={{ marginRight: "31px" }}/>
+                        <p id="lable" >LABLES</p>
+                        <MenuItem className={classes.menuItem}>
+                            <img src={pencil} alt="logo" style={{ marginRight: "31px" }} />
                             Edit labels
                          </MenuItem>
                         <Divider />
                         <Divider />
-                        <MenuItem  className={classes.menuItem}  onClick={() => this.handleArchived()}>
-                            <img src={Archive} alt="logo"    style={{ marginRight: "31px" }}/>
+                        <MenuItem className={classes.menuItem} onClick={() => this.handleArchived()}>
+                            <img src={Archive} alt="logo" style={{ marginRight: "31px" }} />
                             Archive
                          </MenuItem>
 
-                         <MenuItem  className={classes.menuItem}  onClick={() => this.handleTrashed()}      >
-                            <img src={Delete } alt="logo"   style={{ marginRight: "31px" }}/>
+                        <MenuItem className={classes.menuItem} onClick={() => this.handleTrashed()}      >
+                            <img src={Delete} alt="logo" style={{ marginRight: "31px" }} />
                             Trash
                          </MenuItem>
                     </Drawer>
-            
+
                 </MuiThemeProvider>
             </div>
         )

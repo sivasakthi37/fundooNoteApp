@@ -27,6 +27,7 @@ import Cards from '../components/notedisplay';
 const styles = theme => ({
     root: {
         display: 'flex',
+     
         // borderBottom: '1px solid',
         // borderBottomColor: '#d0cece'
 
@@ -50,6 +51,7 @@ const styles = theme => ({
 
     },
     contentShift: {
+        flexwrap: 'wrap',
         transition: theme.transitions.create('margin', {
             easing: theme.transitions.easing.easeOut,
             duration: theme.transitions.duration.enteringScreen,
@@ -196,10 +198,10 @@ class Dashboardinput extends React.Component {
                             [classes.contentShift]: open,
                         })}
                     >
-
                         <div className={classes.drawerHeader} />
                         {this.state.archive || this.state.trash ?
                             <Cards
+                        
                                 noteProps={this.state.cardStyles}
                                 navigaterTrash={this.state.trash}
                                 navigateArchived={this.state.archive}
@@ -209,6 +211,7 @@ class Dashboardinput extends React.Component {
                             <div>
                                 <Notecreate currentnote={this.currentnote} />
                                 <Cards
+                                    navigaterReminder={this.state.reminder}
                                     noteProps={this.state.cardStyles}
                                     navigaterTrash={this.state.trash}
                                     navigateArchived={this.state.archive}
