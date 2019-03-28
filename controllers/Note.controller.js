@@ -112,7 +112,7 @@ exports.deleteNote = (req, res) => {
 }
 
 exports.isArchived = (req, res) => {
-    console.log("color  req in color api=> ", req.body);
+   // console.log("color  req in color api=> ", req.body);
 
     req.checkBody('noteID', 'noteID should notr be empty').not().isEmpty();
     //        req.checkBody('archive', 'color should notr be empty')
@@ -137,7 +137,7 @@ exports.isArchived = (req, res) => {
 }
 
 exports.setReminder = (req, res) => {
-    console.log("  req in reminder api=> ", req.body);
+  //  console.log("  req in reminder api=> ", req.body);
 
     req.checkBody('noteID', 'noteID should notr be empty').not().isEmpty();
     //        req.checkBody('archive', 'color should notr be empty')
@@ -171,23 +171,26 @@ exports.editTitle = (req, res) => {
      * @description:pass the request data to sevices....
      */
     noteID = req.body.noteID;
-    value = req.body.title;
+    value = req.body.Title;
     noteservices.editTitle(noteID, value, (err, result) => {
+      //  console.log("tiitle result in controller==>",result);
+        
         if (err) {
             responce.sucess = false;
             responce.result = err;
             res.status(500).send(responce);
         }
         else {
-            responce.sucess = true;
+            responce.sucesssssssss = true;
             responce.result = result;
             res.status(200).send(responce);
+            console.log("responce object-------------------------------------------->",responce);
         }
     })
 }
 
 exports.editDescription= (req, res) => {
-    console.log("  req in reminder api=> ", req.body);
+   // console.log("  req in reminder api=> ", req.body);
 
     req.checkBody('noteID', 'noteID should notr be empty').not().isEmpty();
     //        req.checkBody('archive', 'color should notr be empty')
@@ -196,7 +199,7 @@ exports.editDescription= (req, res) => {
      * @description:pass the request data to sevices....
      */
     noteID = req.body.noteID;
-    value = req.body.description;
+    value = req.body.Description;
     noteservices.editDescription(noteID, value, (err, result) => {
         if (err) {
             responce.sucess = false;
@@ -215,7 +218,7 @@ exports.editDescription= (req, res) => {
 
 
 exports.isTrash = (req, res) => {
-    console.log("  req in reminder api=> ", req.body);
+  //  console.log("  req in reminder api=> ", req.body);
 
     req.checkBody('noteID', 'noteID should notr be empty').not().isEmpty();
     
@@ -235,7 +238,10 @@ exports.isTrash = (req, res) => {
         else {
             responce.sucess = true;
             responce.result = result;
+           
             res.status(200).send(responce);
+          
+            
         }
     })
 }
