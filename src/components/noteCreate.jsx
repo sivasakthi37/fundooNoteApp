@@ -31,8 +31,8 @@ class Notecreate extends Component {
         try {
 
             this.setState(state => ({ open: !state.open }))
-         //   console.log("this.state.Title !== ''", this.state.Title !== '');
-          //  console.log("this.Description !== ''", this.Description !== '');
+            //   console.log("this.state.Title !== ''", this.state.Title !== '');
+            //  console.log("this.Description !== ''", this.Description !== '');
 
             if (this.state.Title !== '' || this.state.Description !== '' || this.state.color !== "rgb(255, 255, 255)") {
                 //  console.log("hai sivasakthi");
@@ -102,14 +102,21 @@ class Notecreate extends Component {
     handleArchive(value) {
         this.setState({ archive: value });
     }
-    
+
+    reminderchip = () => {
+        this.setState({ reminder: "" })
+        console.log("sssssssssssssssssssssssssssssssssss", this.state.reminder);
+
+
+    }
+
     render() {
         console.log("states", this.state.Description);
         console.log("color", this.state.color);
         console.log("title", this.state.Title);
         console.log("title", this.state.reminder);
 
-      
+
 
         const { open } = this.state;
         return (
@@ -142,12 +149,12 @@ class Notecreate extends Component {
                                 </Input>
                             </div>
                             {this.state.reminder ?
-                                            <Chip   id="chipcss"
-                                                label={this.state.reminder}
-                                               //  onDelete={() => this.reminderNote('', noteArray[key]._id)}
-                                            />
-                                            :
-                                            null}
+                                <Chip id="chipcss"
+                                    label={this.state.reminder}
+                                    onDelete={() => this.reminderchip()}
+                                />
+                                :
+                                null}
                             <div className="cardToolsClose" >
                                 <Tools
                                     reminder={this.handleReminder}
@@ -155,9 +162,9 @@ class Notecreate extends Component {
                                     createNotePropsToTools={this.handleColor}
                                     archiveNote={this.handleArchive}
                                     archiveStatus={this.state.archive}
-                                     />
-                                     <span><Button onClick={this.handleToggle}>Close</Button></span>
-                                
+                                />
+                                <span><Button onClick={this.handleToggle}>Close</Button></span>
+
                             </div>
                         </Card>
                         {/* </ClickAwayListener> */}

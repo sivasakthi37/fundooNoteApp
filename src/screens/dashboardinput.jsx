@@ -100,13 +100,13 @@ class Dashboardinput extends React.Component {
     };
 
     currentnote = (newCard) => {
-        console.log("hai new card", newCard);
+      //  console.log("hai new card", newCard);
         // this.setState({ note: newCard })
         this.noteToCards.current.displayNewCard(newCard);
     }
     handleCardStyle = () => {
         this.setState({ cardStyles: !this.state.cardStyles });
-        console.log("dfgbhnjmkedrtghjk");
+     //   console.log("dfgbhnjmkedrtghjk");
 
     }
     handleNavigation = (reminder, archive, trash) => {
@@ -130,7 +130,7 @@ class Dashboardinput extends React.Component {
     render() {
         const { classes } = this.props;
         const { open } = this.state;
-        console.log("new note data=>", this.state.note);
+      //  console.log("new note data=>", this.state.note);
 
 
         return (

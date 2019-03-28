@@ -14,9 +14,13 @@ import bulb from '../assets/bulbicon.svg';
 import pencil from '../assets/pencil.svg';
 
 import Archive from '../assets/archive.svg';
+
 import Delete from '../assets/delete.svg'
+
 import bellicon from '../assets/bellicon.svg';
+
 const drawerWidth = 240;
+
 const styles = theme => ({
     root: {
         display: 'flex',
@@ -53,9 +57,6 @@ const styles = theme => ({
     },
     primary: {},
     icon: {},
-
-
-
 });
 const theme1 = createMuiTheme({
     overrides: {

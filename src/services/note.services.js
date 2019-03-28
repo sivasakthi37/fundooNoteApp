@@ -56,7 +56,7 @@ export function deleteNote(data) {
 }
 
 export function  updateTitle(data) {
-    //console.log("hai data", data);
+    console.log("hai data", data);
 
     return axios.put('/editTitle', data, {
         headers: { 'token': localStorage.getItem('token') }

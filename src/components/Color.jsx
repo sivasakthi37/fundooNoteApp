@@ -1,6 +1,6 @@
 
 import React, { Component } from 'react';
-import { IconButton, Tooltip, Card} from '@material-ui/core';
+import { IconButton, Tooltip, Card } from '@material-ui/core';
 import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 
 const colorCodesAndNames = [{ name: "white", colorCode: "rgb(255, 255, 255)" },
@@ -21,22 +21,18 @@ class Color extends Component {
         super(props);
         this.state = {
             open: false
-
         }
-     
-    
     }
-    
     closePopper() {
         this.setState({
             open: false
         })
     }
-    handleColor=(evt)=> {
+    handleColor = (evt) => {
         console.log("fghty", this.props.noteID)
-        this.props.toolsPropsToColorpallete(evt.target.value,this.props.noteID);
+        this.props.toolsPropsToColorpallete(evt.target.value, this.props.noteID);
     }
-    handleToggle=()=> {
+    handleToggle = () => {
         this.setState({ open: !this.state.open });
         // this.props.handleToggle(!this.state.open1)
     }
@@ -53,13 +49,15 @@ class Color extends Component {
         );
         return (
             <div>
-                <Tooltip title="Change Color">
-                    <img src={require('../assets/Coloricon.svg')}
-                        className="colorPalleteIcon"
-                        alt="change color"
-                        onClick={this.handleToggle}
-                    />
-                </Tooltip>
+         
+                    <Tooltip title="Change Color">
+                        <img src={require('../assets/Coloricon.svg')}
+                            className="colorPalleteIcon"
+                            alt="change color"
+                            onClick={this.handleToggle}
+                        />
+                    </Tooltip>
+               
                 <div>
                     {this.state.open ?
                         <ClickAwayListener onClick={() => this.closePopper()}>

@@ -35,7 +35,7 @@ class ReminderNavigater extends Component {
                                             archiveStatus={key.archive}
                                             archiveNote={this.props.archiveNote}
                                             reminder={this.props.reminderNote}
-                                            trashNote={this.props. trashNote}
+                                            trashNote={this.props.trashNote}
                                         />
                                     </div>
                                 </div >

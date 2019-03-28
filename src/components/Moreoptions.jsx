@@ -73,7 +73,7 @@ class MoreOptions extends Component {
 
                     </Tooltip>
 
-                    <Popper open={open} anchorEl={anchorEl} placement={'bottom-start'} transition style={{zIndex:1 }}>
+                    <Popper open={open} anchorEl={anchorEl} placement={'bottom-start'} transition style={{zIndex:9999 }}>
                         {({ TransitionProps }) => (
                             <Fade {...TransitionProps} timeout={0}>
                                 <Paper className="moreOptionsPopper" >

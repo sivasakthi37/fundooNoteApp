@@ -10,7 +10,7 @@ class Reminder extends Component {
         open: false,
         placement: null,
     };
-    
+
     handleClick = placement => event => {
         const { currentTarget } = event;
 
@@ -20,83 +20,84 @@ class Reminder extends Component {
             placement,
         }));
     };
-    handleClose=()=>{
-        this.setState(state=>({open:!state.open}))
+    handleClose = () => {
+        this.setState(state => ({ open: !state.open }))
     }
-    setTodayReminder=()=> {
+    setTodayReminder = () => {
         this.handleClose();
         let ampm = parseInt(new Date().getHours()) >= 8 ? "PM" : "AM";
-       
+
         var date = new Date().toDateString();
-        console.log("date ==>",date);
-        var reminder1 = date+ ", 8 "+ampm;
+        console.log("date ==>", date);
+        var reminder1 = date + ", 8 " + ampm;
         // console.log(note.reminder);
-       this.props.reminder( reminder1,this.props.noteID)
-       
-    }
-    setTomorrowReminder=()=>{
-        this.handleClose();
-        let days=["Mon","Tue","Wed","Thu","Fri","Sat","Sun","Mon"]
-      //  console.log("before",note);
-        var date = new Date().toDateString();
-        date=date.replace(new Date().getDate().toString(),new Date().getDate()+1);
-        date=date.replace(days[new Date().getDay()-1],days[new Date().getDay()]);
-       var reminder1 = date+ ", 8 AM" ;
-        console.log("notereminder-->",reminder1);
-        this.props.reminder( reminder1,this.props.noteID)
-    }
-    setWeeklyReminder=()=>{
-        this.handleClose();
+        this.props.reminder(reminder1, this.props.noteID)
 
-
+    }
+    setTomorrowReminder = () => {
+        this.handleClose();
+        let days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun", "Mon"]
      
+        var date = new Date().toDateString();
+        date = date.replace(new Date().getDate().toString(), new Date().getDate() + 1);
+        date = date.replace(days[new Date().getDay() - 1], days[new Date().getDay()]);
+        var reminder1 = date + ", 8 AM";
+        console.log("notereminder-->", reminder1);
+        this.props.reminder(reminder1, this.props.noteID)
+    }
+    setWeeklyReminder = () => {
+        this.handleClose();
+        // var date = new Date().toDateString();
+        // date = date.replace((new Date().getDate()), (new Date().getDate() + 7));
+        // console.log("date in reminder", date);
+        // var reminder1 = date + ", 8 AM";
+        // console.log("reminder1", reminder1);
+        // this.props.reminder(reminder1, this.props.noteID)
     }
     render() {
         // console.log(" anchorEl", anchorEl);
         // console.log(" placement", placement);
-        
-        
         const setAMPM = this.props.parentToolsProps;
         const { anchorEl, open, placement } = this.state;
         return (
-           
-                <div>
-                    <Tooltip title="Remind me">
-                        <img src={require('../assets/Reminder.svg')} 
-                        className="reminderIcon" 
-                        onClick={this.handleClick('bottom-start')} alt="remider icon" />
-                    </Tooltip>
 
-                    <Popper open={open} anchorEl={anchorEl} placement={placement} transition style={{zIndex:1}}>
-                        {({ TransitionProps }) => (
-                            <Fade {...TransitionProps} timeout={350}>
-                                <Paper id="reminderPopper">
+            <div>
+                <Tooltip title="Remind me">
+                    <img src={require('../assets/Reminder.svg')}
+                        className="reminderIcon"
+                        onClick={this.handleClick('bottom-start')} alt="remider icon" />
+                </Tooltip>
+
+                <Popper open={open} anchorEl={anchorEl} placement={placement} transition style={{ zIndex: 9999 }}>
+                    {({ TransitionProps }) => (
+                        <Fade {...TransitionProps} timeout={350}>
+                            <Paper id="reminderPopper">
                                 <ClickAwayListener onClickAway={this.handleClose}>
 
                                     <div>
 
                                         <ListItem >Reminder:</ListItem>
-                                        <MenuItem  onClick={()=>this.setTodayReminder()}>
+                                        <MenuItem onClick={() => this.setTodayReminder()}>
                                             <div>Later today</div>
                                             <div>8:00 {setAMPM}</div>
                                         </MenuItem>
 
-                                        <MenuItem  onClick={()=>this.setTomorrowReminder()}>
+                                        <MenuItem onClick={() => this.setTomorrowReminder()}>
                                             <div>Tomorrow</div>
                                             <div>8:00 AM</div>
                                         </MenuItem>
 
-                                        <MenuItem  onClick={()=>this.setWeeklyReminder()}>
+                                        <MenuItem onClick={() => this.setWeeklyReminder()}>
                                             <div>Next Week</div>
                                             <div>Mon, 8:00 AM</div>
-                                        </MenuItem>                                        
+                                        </MenuItem>
                                     </div>
-                                    </ClickAwayListener>
-                                </Paper>
-                            </Fade>
-                        )}
-                    </Popper>
-                </div>
+                                </ClickAwayListener>
+                            </Paper>
+                        </Fade>
+                    )}
+                </Popper>
+            </div>
         )
     }
 }

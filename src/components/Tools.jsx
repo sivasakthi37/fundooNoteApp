@@ -19,11 +19,9 @@ class Tools extends Component {
     render() {
        
         return (
-
             <div>
                 <div className="cardTools">
                     <Reminder 
-                
                         reminder={this.props.reminder}
                         // note={this.props.note}
                         noteID={this.props.noteID}
@@ -31,15 +29,12 @@ class Tools extends Component {
               
 
                     <ColorPallete
-                     
                         handleToggle={this.handleToggle}
                         toolsPropsToColorpallete={this.props.createNotePropsToTools}
                         noteID={this.props.noteID}
                       />
-
                      <UploadImage uploadImage={this.props.uploadImage}
                      /> 
-
                     <Archive
                         archiveNote={this.props.archiveNote}
                         archiveStatus={this.props.archiveStatus}

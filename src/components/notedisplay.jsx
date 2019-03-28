@@ -44,7 +44,7 @@ class Cards extends Component {
 
             })
             .catch((error) => {
-                alert(error)
+                console.log(error);
             });
     }
 
@@ -87,7 +87,7 @@ class Cards extends Component {
             noteID: noteId,
             archive: value
         }
-         console.log("value in archive==>",isArchived);
+       //  console.log("value in archive==>",isArchived);
 
         updateArchiveStatus(isArchived)
             .then((result) => {
@@ -105,7 +105,7 @@ class Cards extends Component {
                 }
             })
             .catch((error) => {
-                alert(error)
+                console.log(error);
             });
     }
     reminderNote = (value, noteId) => {
@@ -113,12 +113,12 @@ class Cards extends Component {
             noteID: noteId,
             reminder: value
         }
-        console.log("reminder-->value", remindMe);
+     //   console.log("reminder-->value", remindMe);
 
         setReminder(remindMe)
             .then((result) => {
                 let newArray = this.state.notes
-                console.log("result in the reminder===>", result);
+             //   console.log("result in the reminder===>", result);
                 for (let i = 0; i < newArray.length; i++) {
                     if (newArray[i]._id === noteId) {
                         newArray[i].reminder = result.data.result;
@@ -129,7 +129,7 @@ class Cards extends Component {
                 }
             })
             .catch((error) => {
-                alert(error)
+                console.log(error);
             });
     }
     trashNote = (noteId) => {
@@ -139,7 +139,7 @@ class Cards extends Component {
         isTrashed(trash)
             .then((result) => {
                 let newArray = this.state.notes
-                console.log("hai hellow how are u==>", result);
+              //  console.log("hai hellow how are u==>", result);
 
                 for (let i = 0; i < newArray.length; i++) {
                     if (newArray[i]._id === noteId) {
@@ -156,17 +156,17 @@ class Cards extends Component {
 
             })
             .catch((error) => {
-                alert(error)
+                console.log(error);
+                
             });
     }
     deleteNote1 = (noteId) => {
-
         const deletedata = {
             noteID: noteId
         }
         deleteNote(deletedata)
             .then((result) => {
-                console.log("delete note result==>", result);
+              //  console.log("delete note result==>", result);
                 let newArray = this.state.notes
                 for (let i = 0; i < newArray.length; i++) {
                     if (newArray[i]._id === noteId) {
@@ -184,18 +184,19 @@ class Cards extends Component {
 
 
     }
-    editTitle(value, noteId) {
-        const title = {
+    editTitle=(value, noteId)=> {
+        const Title = {
             noteID: noteId,
-            title: value
+            Title: value
         }
-
-        updateTitle(title)
+        console.log("title note result==>",Title);
+        updateTitle(Title)
             .then((result) => {
+                console.log("title note result==>", result.data.result);
                 let newArray = this.state.notes
                 for (let i = 0; i < newArray.length; i++) {
-                    if (newArray[i].note._id === noteId) {
-                        newArray[i].note.title = result.data.data;
+                    if (newArray[i]._id === noteId) {
+                        newArray[i].title =result.data.result;
                         this.setState({
                             notes: newArray
                         })
@@ -207,17 +208,19 @@ class Cards extends Component {
 
 
     }
-    editDescription(value, noteId) {
+    editDescription=(value, noteId)=> {
         const description = {
             noteID: noteId,
-            description: value
+            Description: value
         }
+        console.log("discription note result==>",description);
         updateDescription(description)
             .then((result) => {
+                console.log("discription note result==>", result.data.result);
                 let newArray = this.state.notes
                 for (let i = 0; i < newArray.length; i++) {
-                    if (newArray[i].note._id === noteId) {
-                        newArray[i].note.description = result.data.data;
+                    if (newArray[i]._id === noteId) {
+                        newArray[i].description = result.data.result;
                         this.setState({
                             notes: newArray
                         })
@@ -282,15 +285,12 @@ class Cards extends Component {
                 <div className="CardsView">
                     {Object.keys(noteArray).slice(0).reverse().map((key) => {
                         return (
-                            <div id="displaycontentdiv" >
-                                {/* 
-                                <Card className={cardsView}
-                                    style={{ backgroundColor: otherArr[key].note.color, borderRadius: "10px", border: "1px solid #dadce0" }}
-                                > */}
+                            <div >
+                               
                                 <Card id={cardsView} style={{ backgroundColor: noteArray[key].color }}>
                                     <div id="displaycontentdiv1" >
                                         <div   >
-                                            <b   onClick={() => this.handleClick(noteArray[key])}  > {noteArray[key].title}</b>
+                                            <b   onClick={() => this.handleClick(noteArray[key])} > {noteArray[key].title}</b>
                                         </div>
 
                                         <DialogBox

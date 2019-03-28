@@ -1,11 +1,28 @@
 import React, { Component } from 'react';
-import { Dialog, DialogTitle, Input, Button, MuiThemeProvider, createMuiTheme } from '@material-ui/core';
+import { Dialog, Input, Button, MuiThemeProvider, createMuiTheme } from '@material-ui/core';
 import Tools from './Tools';
 //import EditPin from './editPin';
 
+const theme = createMuiTheme({
+    overrides: {
+        MuiBackdrop:
+        {
+            root: {
+                backgroundColor: "rgba(11, 11, 11, 0.18)"
+            }
+        },
+        MuiDialog: {
+            paper: {
+                // padding: "11px",
+                border: "1px solid #dadce0",
+                borderRadius: "10px",
+                boxShadow: "0 3px 5px rgba(0, 0, 0, 0.20)",
 
 
-
+            }
+        }
+    }
+})
 class DialogBox extends Component {
 
     constructor(props) {
@@ -32,13 +49,14 @@ class DialogBox extends Component {
     }
 
     async handleToggle(e) {
+        console.log("this.state.title==>", this.state.title);
+        console.log("this.state.description==>", this.state.description);
         await this.props.editTitle(this.state.title, this.state.note._id)
         await this.props.editDescription(this.state.description, this.state._id)
         this.props.closeEditBox(e);
     }
     getData(note) {
         console.log("note in dialog==>", note.title);
-
         if (note.title !== undefined || note.description !== undefined) {
             this.setState({
                 note: note,
@@ -51,72 +69,74 @@ class DialogBox extends Component {
         console.log("bambjasjajasas", this.props.parentProps);
 
     }
-    closeDialogPopper(e) {
+    closeDialogPopper = (e) => {
         this.props.closeEditBox(e);
     }
     render() {
-        // console.log("note on dialog----", this.props.createNotePropsToTools);
+
 
 
         return (
+            <MuiThemeProvider theme={theme} >
 
-            <Dialog
-               
-                
-                open={this.props.parentProps}
-                noteID={this.props.noteID}
-
-            >
-                <div id="dialogbox" style={{ backgroundColor: this.state.color }} >
-                    <DialogTitle>Edit Note</DialogTitle>
-
-
-                    <div>
-                        <Input
-                            id="noteInputBase"
-                            placeholder="Title"
-                            value={this.state.title}
-                            onChange={this.handleTitleClick}
-                            multiline
-                            disableUnderline={true}
-
-
-                        >
-                        </Input>
-                        {/* <Pinned pinstatus={this.handlepinned} /> */}
-                    </div>
-                    <div id="TakeNotealign" >
-                        <Input
-                            id="noteInputBase1"
-                            disableUnderline={true}
-                            value={this.state.description}
-                            onChange={this.handleDescClick}
-                            multiline
-                            placeholder="Take a Note...."
-                        >
-                        </Input>
-                    </div>
-                    {/* {this.state.reminder ?
+                <Dialog
+id="dailogmain"
+                    aria-labelledby="responsive-dialog-title"
+                    open={this.props.parentProps}
+                    noteID={this.props.noteID}
+                >
+                    <div id="dialogbox" style={{ backgroundColor: this.state.color }} >
+                        <div>
+                            <Input
+                                id="noteInputBase"
+                                placeholder="Title"
+                                value={this.state.title}
+                                onChange={this.handleTitleClick}
+                                multiline
+                                disableUnderline={true}
+                            >
+                            </Input>
+                            {/* <Pinned pinstatus={this.handlepinned} /> */}
+                        </div>
+                        <div id="TakeNotealign" >
+                            <Input
+                                id="noteInputBase1"
+                                disableUnderline={true}
+                                value={this.state.description}
+                                onChange={this.handleDescClick}
+                                multiline
+                                placeholder="Take a Note...."
+                            >
+                            </Input>
+                        </div>
+                        {/* {this.state.reminder ?
                                             <Chip   id="chipcss"
                                                 label={this.state.reminder}
                                                //  onDelete={() => this.reminderNote('', noteArray[key]._id)}
                                             />
                                             :
                                             null} */}
+                   
                     <div className="cardToolsClose" >
+
                         <Tools
-                            // reminder={this.handleReminder}
-                            // uploadImage={this.handleimage}
-                            // createNotePropsToTools={this.handleColor}
-                            // archiveNote={this.handleArchive}
-                            // archiveStatus={this.state.archive}
+                        
+                        // reminder={this.handleReminder}
+                        // uploadImage={this.handleimage}
+                        // createNotePropsToTools={this.handleColor}
+                        // archiveNote={this.handleArchive}
+                        // archiveStatus={this.state.archive}
                         />
                         <span><Button onClick={this.handleToggle.bind(this)}>Close</Button></span>
 
                     </div>
 
                     </div>
-            </Dialog>
+
+
+                </Dialog>
+
+            </MuiThemeProvider >
 
         )
     }
@@ -143,28 +163,3 @@ export default DialogBox;
 
 
 
-                    // <div className="editDialog">
-                    //     <Input
-                    //         className="editTitleInput"
-                    //         disableUnderline={true}
-                    //         placeholder="Title"
-                    //         value={this.state.title}
-                    //         onChange={this.handleTitleClick}
-                    //     />
-                    //     {/* <EditPin /> */}
-                    // </div>
-
-                    // <Input
-                    //     className="editNote"
-                    //     disableUnderline={true}
-                    //     placeholder="Note"
-                    //     value={this.state.description}
-                    //     onChange={this.handleDescClick}
-                    // />
-                    // <div style={{ display: "flex", flexDirection: 'row' }}>
-                    //     <div id="displaycontentdiv">
-                    //         <Tools />
-                    //     </div>
-                    //     <Button id="doneButton" onClick={this.handleToggle.bind(this)}>Close</Button>
-                    // </div>
-              
