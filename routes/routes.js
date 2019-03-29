@@ -50,4 +50,7 @@ route.put('/isTrash',Middleware.checkTokenAuthentication,notes.isTrash);
 route.put('/editTitle',Middleware.checkTokenAuthentication,notes.editTitle);
 
 route.put('/editDescription',Middleware.checkTokenAuthentication,notes.editDescription);
+
+
+route.put('/updatePin',Middleware.checkTokenAuthentication,notes.updatePin);
 module.exports = route; 

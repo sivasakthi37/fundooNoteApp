@@ -245,3 +245,28 @@ exports.isTrash = (req, res) => {
         }
     })
 }
+
+exports.updatePin = (req, res) => {
+   //  console.log("update  req in color api=> ", req.body);
+ 
+     req.checkBody('noteID', 'noteID should notr be empty').not().isEmpty();
+     //        req.checkBody('archive', 'color should notr be empty')
+     var responce = {}
+     /**
+      * @description:pass the request data to sevices....
+      */
+     noteID = req.body.noteID;
+     value = req.body.pinned;
+     noteservices.updatePin(noteID, value, (err, result) => {
+         if (err) {
+             responce.sucess = false;
+             responce.result = err;
+             res.status(500).send(responce);
+         }
+         else {
+             responce.sucess = true;
+             responce.result = result;
+             res.status(200).send(responce);
+         }
+     })
+ }
