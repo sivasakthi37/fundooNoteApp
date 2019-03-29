@@ -372,7 +372,7 @@ class Cards extends Component {
 
                     </div>
                     <div >
-                        {pinArray(this.state.notes).length !== 0 ?
+                        {pinArray(this.state.notes).length !== 0 && otherArray(this.state.notes).length !== 0 ?
 
                             <label style={{ fontFamily: "georgia", fontSize: "15px", color: "grey", marginRight: "760px" }}>OTHER</label> : null
                         }
