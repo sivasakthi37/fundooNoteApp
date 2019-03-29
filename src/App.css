@@ -358,11 +358,13 @@
 #noteInputBase {
     margin-top: 0px;
     width: 460px;
+    overflow: hidden;
 }
 
 #noteInputBase1 {
     margin-top: 0px;
     width: 460px;
+    /* overflow: hidden; */
 }
 
 #CreateNote {
@@ -458,9 +460,7 @@
 .cardToolsClose {
     display: flex;
     justify-content: space-between;
-    
 }
-
 
 .cardTools {
     margin-top: 13px;
@@ -525,14 +525,19 @@
     width: 178px;
     background-color: #e0e0e0;
 }
-#dialogbox{
+
+#dialogbox {
     padding: 11px;
-    /* border: 1px solid #dadce0;
+    border: 1px solid #dadce0;
     border-radius: 10px;
-    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.20); */
+    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.20);
 }
-#dailogmain{
-background: transparent;
 
+#dailogmain {
+    background: transparent;
+}
 
+#pindiv {
+    display: flex;
+    justify-content: space-between;
 }

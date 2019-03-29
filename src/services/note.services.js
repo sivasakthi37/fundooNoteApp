@@ -73,6 +73,20 @@ export function  updateDescription(data) {
     })
 }
 
+export function  updatePin(data) {
+    //console.log("hai data", data);
+
+    return axios.put('/updatePin', data, {
+        headers: { 'token': localStorage.getItem('token') }
+
+    })
+}
+
+
+
+
+
+
 /******************************************************************* */
 export function archiveArray(notesData) {
     let archiveArr = [];
@@ -110,4 +124,14 @@ export function trashArray(notesData) {
         }
     }
     return trashArr;
+}
+
+export function pinArray(notesData) {
+    let pinArr = [];
+    for (let i = 0; i < notesData.length; i++) {
+        if (notesData[i].pinned) {
+            pinArr.push(notesData[i]);
+        }
+    }
+    return pinArr;
 }

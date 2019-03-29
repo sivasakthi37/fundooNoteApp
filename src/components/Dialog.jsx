@@ -17,7 +17,7 @@ const theme = createMuiTheme({
                 border: "1px solid #dadce0",
                 borderRadius: "10px",
                 boxShadow: "0 3px 5px rgba(0, 0, 0, 0.20)",
-
+                overflowY: "inherit",
 
             }
         }
@@ -64,6 +64,8 @@ class DialogBox extends Component {
                 color: note.color,
                 description: note.description,
                 _id: note._id,
+                
+                
             })
         }
         console.log("bambjasjajasas", this.props.parentProps);
@@ -73,14 +75,11 @@ class DialogBox extends Component {
         this.props.closeEditBox(e);
     }
     render() {
-
-
-
         return (
             <MuiThemeProvider theme={theme} >
 
                 <Dialog
-id="dailogmain"
+                    id="dailogmain"
                     aria-labelledby="responsive-dialog-title"
                     open={this.props.parentProps}
                     noteID={this.props.noteID}
@@ -116,20 +115,20 @@ id="dailogmain"
                                             />
                                             :
                                             null} */}
-                   
-                    <div className="cardToolsClose" >
 
-                        <Tools
-                        
-                        // reminder={this.handleReminder}
-                        // uploadImage={this.handleimage}
-                        // createNotePropsToTools={this.handleColor}
-                        // archiveNote={this.handleArchive}
-                        // archiveStatus={this.state.archive}
-                        />
-                        <span><Button onClick={this.handleToggle.bind(this)}>Close</Button></span>
+                        <div className="cardToolsClose" >
 
-                    </div>
+                            <Tools
+                                archiveNote={this.props.archiveNote}
+                                noteID={this.state._id}
+                            // reminder={this.handleReminder}
+                            // createNotePropsToTools={this.handleColor}
+                            // archiveNote={this.handleArchive}
+                            // archiveStatus={this.state.archive}
+                            />
+                            <span><Button onClick={this.handleToggle.bind(this)}>Close</Button></span>
+
+                        </div>
 
                     </div>
 

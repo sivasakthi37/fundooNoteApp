@@ -49,15 +49,15 @@ class Color extends Component {
         );
         return (
             <div>
-         
-                    <Tooltip title="Change Color">
-                        <img src={require('../assets/Coloricon.svg')}
-                            className="colorPalleteIcon"
-                            alt="change color"
-                            onClick={this.handleToggle}
-                        />
-                    </Tooltip>
-               
+
+                <Tooltip title="Change Color">
+                    <img src={require('../assets/Coloricon.svg')}
+                        className="colorPalleteIcon"
+                        alt="change color"
+                        onClick={this.handleToggle}
+                    />
+                </Tooltip>
+
                 <div>
                     {this.state.open ?
                         <ClickAwayListener onClick={() => this.closePopper()}>
@@ -74,6 +74,27 @@ class Color extends Component {
 }
 export default Color;
 
+//{
+    /* <Popper open={open} anchorEl={anchorEl} placement={'bottom-start'} transition style={{ zIndex: 9999 }}>
+{({ TransitionProps }) => (
+<Fade {...TransitionProps} timeout={0}>
+<Paper >
+<ClickAwayListener onClick={() => this.closePopper()}>
+<div>
+{this.state.open ?
+// <ClickAwayListener onClick={() => this.closePopper()}>
+<Card >
+{changeCardColor}
+</Card>
+// </ClickAwayListener>
+: null}
+</div>
+</ClickAwayListener>
+</Paper>
+</Fade>
+)}
+</Popper> */
+//}
 
 
 

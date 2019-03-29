@@ -26,10 +26,7 @@ class MoreOptions extends Component {
             open: false,
             placement: null,
         }
-       // this.moreOptionsToAddLabels = React.createRef();
-       // this.clickMoreOptions = this.clickMoreOptions.bind(this);
-       // this.handleTrashedNotes = this.handleTrashedNotes.bind(this);
-      //  this.handleLabelsOnNote = this.handleLabelsOnNote.bind(this);
+       
     }
     clickMoreOptions=(event)=> {
         const { currentTarget } = event;
@@ -54,12 +51,7 @@ class MoreOptions extends Component {
     handleClose=()=>{
         this.setState(state=>({open:!state.open}))
     }
-    // handleLabelsOnNote(e) {
-    //     this.setState({
-    //         open: false
-    //     })
-    //     this.moreOptionsToAddLabels.current.addLabelPopup(e);
-    // }
+   
     render() {
         const { anchorEl, open } = this.state;
         return (

@@ -106,10 +106,7 @@ class Notecreate extends Component {
     reminderchip = () => {
         this.setState({ reminder: "" })
         console.log("sssssssssssssssssssssssssssssssssss", this.state.reminder);
-
-
     }
-
     render() {
         console.log("states", this.state.Description);
         console.log("color", this.state.color);
@@ -134,8 +131,11 @@ class Notecreate extends Component {
                                     onChange={this.handleChange('Title')}
                                 // value={this.state.Title}
                                 >
+                                
                                 </Input>
+                                <span id="pinalign">
                                 <Pinned pinstatus={this.handlepinned} />
+                                </span>
                             </div>
                             <div id="TakeNotealign" >
                                 <Input

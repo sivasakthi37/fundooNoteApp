@@ -12,7 +12,7 @@ class TrashOptions extends Component {
         this.clickMoreOptions = this.clickMoreOptions.bind(this);
     }
 
-    clickMoreOptions=(event)=> {
+    clickMoreOptions = (event) => {
         const { currentTarget } = event;
 
         this.setState(state => ({

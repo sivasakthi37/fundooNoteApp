@@ -95,18 +95,10 @@ class Logout extends Component {
                                                     <Avatar style={{ width: "80px", height: "80px", backgroundColor: "purple" }}
                                                      onClick={() => { this.triggerInputFile() }}
                                                      >
-                                                        {/* {this.state.profilePic !== "" ?
-                                                            <img style={{
-                                                                width: "80px", height: "80px"
-                                                            }} src={this.state.profilePic} alt="change Profile pic"></img>
-                                                            : */}
+                                                        
                                                             <b style={{ fontSize: "33px" }}>{initial}</b>
-                                                        {/* } */}
-                                                        <input ref={fileInput => this.fileInput = fileInput}
-                                                            type="file" style={{ 'display': 'none' }}
-                                                            className="uploadImage"
-                                                           // onChange={(evt) => this.uploadImage(evt)}
-                                                        />
+                                                    
+                                                        
                                                     </Avatar>
                                                 </Tooltip>
                                             </IconButton>

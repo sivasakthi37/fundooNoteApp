@@ -47,16 +47,10 @@ class Reminder extends Component {
     }
     setWeeklyReminder = () => {
         this.handleClose();
-        // var date = new Date().toDateString();
-        // date = date.replace((new Date().getDate()), (new Date().getDate() + 7));
-        // console.log("date in reminder", date);
-        // var reminder1 = date + ", 8 AM";
-        // console.log("reminder1", reminder1);
-        // this.props.reminder(reminder1, this.props.noteID)
+       
     }
     render() {
-        // console.log(" anchorEl", anchorEl);
-        // console.log(" placement", placement);
+       
         const setAMPM = this.props.parentToolsProps;
         const { anchorEl, open, placement } = this.state;
         return (
