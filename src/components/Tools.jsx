@@ -25,11 +25,10 @@ class Tools extends Component {
                         reminder={this.props.reminder}
                         noteID={this.props.noteID}
                          />
-              
-
                     <ColorPallete
                         handleToggle={this.handleToggle}
                         toolsPropsToColorpallete={this.props.createNotePropsToTools}
+                        
                         noteID={this.props.noteID}
                       />
                      <UploadImage uploadImage={this.props.uploadImage}

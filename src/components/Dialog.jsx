@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Dialog, Input, Button, MuiThemeProvider, createMuiTheme } from '@material-ui/core';
 import Tools from './Tools';
 //import EditPin from './editPin';
-
+import Chip from '@material-ui/core/Chip';
 const theme = createMuiTheme({
     overrides: {
         MuiBackdrop:
@@ -34,11 +34,14 @@ class DialogBox extends Component {
             description: "",
             color: "",
             _id: "",
+            reminder: ""
 
         }
         this.handleTitleClick = this.handleTitleClick.bind(this);
         this.handleDescClick = this.handleDescClick.bind(this);
         this.getData = this.getData.bind(this);
+      
+        
     }
     async handleTitleClick(evt) {
         await this.setState({ title: evt.target.value })
@@ -51,7 +54,7 @@ class DialogBox extends Component {
     async handleToggle(e) {
         console.log("this.state.title==>", this.state.title);
         console.log("this.state.description==>", this.state.description);
-        await this.props.editTitle(this.state.title, this.state.note._id)
+        await this.props.editTitle(this.state.title, this.state._id)
         await this.props.editDescription(this.state.description, this.state._id)
         this.props.closeEditBox(e);
     }
@@ -64,8 +67,8 @@ class DialogBox extends Component {
                 color: note.color,
                 description: note.description,
                 _id: note._id,
-                
-                
+                reminder: note.reminder
+
             })
         }
         console.log("bambjasjajasas", this.props.parentProps);
@@ -74,7 +77,17 @@ class DialogBox extends Component {
     closeDialogPopper = (e) => {
         this.props.closeEditBox(e);
     }
+    reminder = () => {
+        this.setState({ reminder: "" })
+        this.props.reminder('', this.state._id)
+    }
+    // handlecolor = (notes) => {
+    //     console.log("color in dialog====>", notes);
+
+
+    // }
     render() {
+        console.log("color data===>",this.props.color1);
         return (
             <MuiThemeProvider theme={theme} >
 
@@ -108,21 +121,24 @@ class DialogBox extends Component {
                             >
                             </Input>
                         </div>
-                        {/* {this.state.reminder ?
-                                            <Chip   id="chipcss"
-                                                label={this.state.reminder}
-                                               //  onDelete={() => this.reminderNote('', noteArray[key]._id)}
-                                            />
-                                            :
-                                            null} */}
-
+                        {this.state.reminder ?
+                            <Chip id="chipcss"
+                                label={this.state.reminder}
+                                //  onDelete={() => this.props.reminder('', this.state._id)}
+                                onDelete={() => this.reminder()}
+                            />
+                            :
+                            null}
                         <div className="cardToolsClose" >
 
                             <Tools
+                                archiveStatus={this.props.archiveStatus}
                                 archiveNote={this.props.archiveNote}
                                 noteID={this.state._id}
-                            // reminder={this.handleReminder}
-                            // createNotePropsToTools={this.handleColor}
+                                reminder={this.props.reminder}
+                               
+                                createNotePropsToTools={this.props.createNotePropsToTools}
+                              //  createNotePropsToTools={this.handlecolor}
                             // archiveNote={this.handleArchive}
                             // archiveStatus={this.state.archive}
                             />

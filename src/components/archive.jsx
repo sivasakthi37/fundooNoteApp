@@ -21,8 +21,8 @@ class Archive extends Component {
         console.log("this.props.archiveStatus in handle", this.props.archiveStatus);
 
         if (this.props.archiveStatus === false) {
-            // this.state.isArchived= true;
-            this.setState({ isArchived: true });
+             this.state.isArchived= true;
+           // this.setState({ isArchived: true });
             this.setState({ open: true });
             console.log("this.state.isArchived changed", this.state.isArchived);
             this.props.archiveNote(this.state.isArchived, this.props.noteID)

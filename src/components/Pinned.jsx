@@ -54,10 +54,10 @@ class Pinned extends Component {
     render() {
         //  console.log("initial log==>", this.props.initialpinstatus);
 
-        const { isPinned } = this.state;
+       // const { isPinned } = this.state;
         return (
             <span >
-                {isPinned ?
+                {this.props.initialpinstatus ?
                     <IconButton onClick={() => this.handleClick()} >
                         <Tooltip title="un-pin">
                             <img src={unpin} alt="logo" />

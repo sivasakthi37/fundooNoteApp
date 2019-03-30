@@ -110,6 +110,8 @@ export function remiderArray(notesData) {
 export function otherArray(notesData) {
     let otherArr = [];
     for (let i = 0; i < notesData.length; i++) {
+       // console.log("!notesData"+i+".archive",!notesData[i].archive);
+        
         if (!notesData[i].pinned && !notesData[i].archive && !notesData[i].trash) {
             otherArr.push(notesData[i]);
         }

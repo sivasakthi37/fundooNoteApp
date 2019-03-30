@@ -17,6 +17,7 @@ class Cards extends Component {
         this.state = {
             open: false,
             open1: false,
+            open2: false,
             notes: [],
             label: false,
         }
@@ -24,8 +25,18 @@ class Cards extends Component {
         this.cardsToDialogBox = React.createRef();
     }
 
-    handleClick = (note) => {
-        this.setState({ open1: true })
+   async handleClick1 (note) {
+       await this.setState({ open1: true })
+        console.log("dilog note in notedisplay==>", note);
+
+        this.cardsToDialogBox.current.getData(note);
+    }
+   async closeEditBox () {
+       await this.setState({ open1: false })
+    }
+
+    handleClick2 = (note) => {
+        this.setState({ open2: true })
         console.log("dilog note in notedisplay==>", note);
 
         this.cardsToDialogBox.current.getData(note);
@@ -33,6 +44,10 @@ class Cards extends Component {
     closeEditBox = () => {
         this.setState({ open1: false })
     }
+
+
+
+
     componentDidMount() {
         getNotes()
             .then((result) => {
@@ -273,6 +288,7 @@ class Cards extends Component {
                     // addLabelToNote={this.addLabelToNote}
                     archiveArray={archiveArray(this.state.notes)}
                     // othersArray={otherArray}
+                    ispinned={this.ispinned}
                     getColor={this.getColor}
                     reminderNote={this.reminderNote}
                     trashNote={this.trashNote}
@@ -284,6 +300,7 @@ class Cards extends Component {
 
             return (
                 <ReminderNavigater
+                    ispinned={this.ispinned}
                     noteProps={this.props.noteProps}
                     remiderArray={remiderArray(this.state.notes)}
                     getColor={this.getColor}
@@ -323,26 +340,31 @@ class Cards extends Component {
                                         <Card id={cardsView} style={{ backgroundColor: pin[key].color }}>
                                             <div id="displaycontentdiv1" >
                                                 <div id="pindiv"  >
-                                                    <b onClick={() => this.handleClick(pin[key])} > {pin[key].title}</b>
+                                                    <b onClick={() => this.handleClick1(pin[key])} > {pin[key].title}</b>
                                                     < Pinned
-
                                                         initialpinstatus={pin[key].pinned}
                                                         pinstatus={this.ispinned}
                                                         noteID={pin[key]._id}
                                                     />
                                                 </div>
-                                                <DialogBox
-                                                    ref={this.cardsToDialogBox}
-                                                    parentProps={this.state.open1}
-                                                    closeEditBox={this.closeEditBox}
-                                                    note={pin[key]}
-                                                    archiveNote={this.archiveNote}
-                                                    editTitle={this.editTitle}
-                                                    editDescription={this.editDescription}
-                                                    createNotePropsToTools={this.getColor}
+                                                {/* {this.state.open1 ? */}
+                                                    <DialogBox
+                                                        reminder1={pin[key].reminder}
+                                                        reminder={this.reminderNote}
+                                                        color1={pin[key].color}
+                                                        ref={this.cardsToDialogBox}
+                                                        parentProps={this.state.open1}
+                                                        closeEditBox={this.closeEditBox}
+                                                        note={pin[key]}
+                                                        archiveNote={this.archiveNote}
+                                                        editTitle={this.editTitle}
+                                                        editDescription={this.editDescription}
+                                                        createNotePropsToTools={this.getColor}
 
-                                                />
-                                                <div onClick={() => this.handleClick(pin[key])} >
+                                                    />
+                                                    {/* : null
+                                                } */}
+                                                <div onClick={() => this.handleClick1(pin[key])} >
                                                     {pin[key].description}
                                                 </div>
                                                 {pin[key].reminder ?
@@ -384,7 +406,7 @@ class Cards extends Component {
                                     <Card id={cardsView} style={{ backgroundColor: noteArray[key].color }}>
                                         <div id="displaycontentdiv1" >
                                             <div id="pindiv"  >
-                                                <b onClick={() => this.handleClick(noteArray[key])} > {noteArray[key].title}</b>
+                                                <b onClick={() => this.handleClick2(noteArray[key])} > {noteArray[key].title}</b>
 
                                                 < Pinned
                                                     noteArray={noteArray}
@@ -393,7 +415,8 @@ class Cards extends Component {
                                                     noteID={noteArray[key]._id}
                                                 />
                                             </div>
-                                            <DialogBox
+                                            {/* <DialogBox
+                                          //  color1={noteArray[key].color}
                                                 ref={this.cardsToDialogBox}
                                                 parentProps={this.state.open1}
                                                 closeEditBox={this.closeEditBox}
@@ -403,8 +426,8 @@ class Cards extends Component {
                                                 editDescription={this.editDescription}
                                                 createNotePropsToTools={this.getColor}
 
-                                            />
-                                            <div onClick={() => this.handleClick(noteArray[key])} >
+                                            /> */}
+                                            <div onClick={() => this.handleClick2(noteArray[key])} >
                                                 {noteArray[key].description}
                                             </div>
                                             {noteArray[key].reminder ?
