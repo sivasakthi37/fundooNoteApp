@@ -57,8 +57,6 @@ exports.login = (req, res) => {
                 // If that key exist in Redis store
                 // console.log("result==>", result);
                 // console.log("hasi");
-
-
                 if (result) {
                     console.log('redis cache data ==>'+result);
                     const resultJSON = JSON.parse(result);
