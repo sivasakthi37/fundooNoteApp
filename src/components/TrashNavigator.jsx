@@ -8,8 +8,12 @@ class TrashNavigator extends Component {
         let cardsView = this.props.noteProps ? "cards" : "CreateNote2";
         return (
             <div>
-                <label style={{ fontFamily: "georgia", fontSize: "15px", color: "grey", marginRight: "760px" }}>TRASHED</label>
-
+                {(this.props.trashArray).length === 0 ?
+                    <h1 style={{ fontFamily: "georgia", color: "grey" }}>No notes in Trash
+                    </h1>
+                    :
+                    <label style={{ fontFamily: "georgia", fontSize: "15px", color: "grey", marginRight: "760px" }}>TRASHED</label>
+                }
                 <div className="CardsView" >
                     {this.props.trashArray.map((key) => {
                         return (

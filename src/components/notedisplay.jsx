@@ -4,6 +4,7 @@ import { Card } from '@material-ui/core';
 import Tools from './Tools';
 import { getNotes } from '../services/note.services';
 import ArchivedNavigator from './ArchivedNavigator';
+import SearchedNotes from './SearchedNotes';
 import Chip from '@material-ui/core/Chip';
 import DialogBox from './Dialog';
 import '../App.css';
@@ -25,15 +26,15 @@ class Cards extends Component {
         this.cardsToDialogBox = React.createRef();
     }
 
-   async handleClick1 (note) {
-       await this.setState({ open1: true })
+    async handleClick1(note) {
+        await this.setState({ open1: true })
         console.log("dilog note in notedisplay==>", note);
 
         this.cardsToDialogBox.current.getData(note);
     }
-   async closeEditBox () {
-       await this.setState({ open1: false })
-    }
+    // async closeEditBox() {
+    //     await this.setState({ open1: false })
+    // }
 
     handleClick2 = (note) => {
         this.setState({ open2: true })
@@ -44,10 +45,6 @@ class Cards extends Component {
     closeEditBox = () => {
         this.setState({ open1: false })
     }
-
-
-
-
     componentDidMount() {
         getNotes()
             .then((result) => {
@@ -237,7 +234,6 @@ class Cards extends Component {
                 }
             })
     }
-
     ispinned = (value, noteId) => {
         const isPinned = {
             noteID: noteId,
@@ -263,15 +259,6 @@ class Cards extends Component {
                 alert(error)
             });
     }
-
-
-
-
-
-
-
-
-
     render() {
         let cardsView = this.props.noteProps ? "cards" : "CreateNote2";
 
@@ -280,6 +267,11 @@ class Cards extends Component {
         console.log("noteArray==============================>", noteArray);
         // console.log("noteArray==>", noteArray);
         // let noteArray = this.state.notes;
+
+
+
+
+
         if (this.props.navigateArchived) {
 
             return (
@@ -296,6 +288,30 @@ class Cards extends Component {
                 />
             )
         }
+        else if ((this.props.searchNote !== "") && (!this.props.navigateArchived
+            && !this.props.navigateReminder && !this.props.navigateTrash)) {
+            let searchNote;
+            if (this.props.searchNote !== "") {
+                searchNote = this.state.notes.filter(
+                    obj => obj.title.includes(this.props.searchNote) ||
+                        obj.description.includes(this.props.searchNote)
+                )
+            }
+            return (
+                <SearchedNotes
+
+                    searchNote={searchNote}
+
+                // getColor={this.getColor}
+                // noteProps={this.props.noteProps}
+                // reminder={this.reminderNote}
+                // trashNote={this.trashNote}
+                // archiveNote={this.archiveNote}
+                // uploadImage={this.uploadImage}
+                />
+            )
+        }
+
         else if (this.props.navigaterReminder) {
 
             return (
@@ -339,32 +355,31 @@ class Cards extends Component {
                                     <div >
                                         <Card id={cardsView} style={{ backgroundColor: pin[key].color }}>
                                             <div id="displaycontentdiv1" >
-                                                <div id="pindiv"  >
-                                                    <b onClick={() => this.handleClick1(pin[key])} > {pin[key].title}</b>
+                                                <div id="pindiv" style={{ wordBreak: "break-word" }}  >
+                                                    <b onClick={() => this.handleClick1(pin[key])}  > {pin[key].title}</b>
                                                     < Pinned
                                                         initialpinstatus={pin[key].pinned}
                                                         pinstatus={this.ispinned}
                                                         noteID={pin[key]._id}
                                                     />
                                                 </div>
-                                                {/* {this.state.open1 ? */}
-                                                    <DialogBox
-                                                        reminder1={pin[key].reminder}
+
+                                                {/* <DialogBox
+                                                   
                                                         reminder={this.reminderNote}
-                                                        color1={pin[key].color}
+                                                   
                                                         ref={this.cardsToDialogBox}
+                                                    //    archiveStatus={pin[key].archive}
                                                         parentProps={this.state.open1}
                                                         closeEditBox={this.closeEditBox}
-                                                        note={pin[key]}
                                                         archiveNote={this.archiveNote}
                                                         editTitle={this.editTitle}
                                                         editDescription={this.editDescription}
                                                         createNotePropsToTools={this.getColor}
 
-                                                    />
-                                                    {/* : null
-                                                } */}
-                                                <div onClick={() => this.handleClick1(pin[key])} >
+                                                    /> */}
+
+                                                <div onClick={() => this.handleClick1(pin[key])} style={{ wordBreak: "break-word" }}  >
                                                     {pin[key].description}
                                                 </div>
                                                 {pin[key].reminder ?
@@ -392,10 +407,31 @@ class Cards extends Component {
                             }
                         </div>
 
+                        <DialogBox
+
+                            reminder={this.reminderNote}
+
+                            ref={this.cardsToDialogBox}
+                            //    archiveStatus={pin[key].archive}
+                            parentProps={this.state.open1}
+                            closeEditBox={this.closeEditBox}
+                            archiveNote={this.archiveNote}
+                            editTitle={this.editTitle}
+                            editDescription={this.editDescription}
+                            createNotePropsToTools={this.getColor}
+                            trashNote={this.trashNote}
+                            ispinned={this.ispinned}
+                        />
+
                     </div>
+                    <div>
+                        {pinArray(this.state.notes).length === 0 && otherArray(this.state.notes).length === 0 ?
+                            <h1 style={{ fontFamily: "georgia", color: "grey" }}>Notes you add appear here</h1> : null
+                        }
+                    </div>
+
                     <div >
                         {pinArray(this.state.notes).length !== 0 && otherArray(this.state.notes).length !== 0 ?
-
                             <label style={{ fontFamily: "georgia", fontSize: "15px", color: "grey", marginRight: "760px" }}>OTHER</label> : null
                         }
                     </div>
@@ -405,16 +441,32 @@ class Cards extends Component {
                                 <div >
                                     <Card id={cardsView} style={{ backgroundColor: noteArray[key].color }}>
                                         <div id="displaycontentdiv1" >
-                                            <div id="pindiv"  >
-                                                <b onClick={() => this.handleClick2(noteArray[key])} > {noteArray[key].title}</b>
 
+                                            <div id="pindiv"  >
+                                                <b onClick={() => this.handleClick1(noteArray[key])} style={{ wordBreak: "break-word" }} > {noteArray[key].title}</b>
                                                 < Pinned
-                                                    noteArray={noteArray}
+                                                    // noteArray={noteArray}
                                                     initialpinstatus={noteArray[key].pinned}
                                                     pinstatus={this.ispinned}
                                                     noteID={noteArray[key]._id}
                                                 />
                                             </div>
+
+
+                                            {/* <DialogBox
+                                                   
+                                                   reminder={this.reminderNote}
+                                              
+                                                   ref={this.cardsToDialogBox}
+                                               //    archiveStatus={pin[key].archive}
+                                                   parentProps={this.state.open1}
+                                                   closeEditBox={this.closeEditBox}
+                                                   archiveNote={this.archiveNote}
+                                                   editTitle={this.editTitle}
+                                                   editDescription={this.editDescription}
+                                                   createNotePropsToTools={this.getColor}
+
+                                               /> */}
                                             {/* <DialogBox
                                           //  color1={noteArray[key].color}
                                                 ref={this.cardsToDialogBox}
@@ -427,7 +479,7 @@ class Cards extends Component {
                                                 createNotePropsToTools={this.getColor}
 
                                             /> */}
-                                            <div onClick={() => this.handleClick2(noteArray[key])} >
+                                            <div onClick={() => this.handleClick1(noteArray[key])} >
                                                 {noteArray[key].description}
                                             </div>
                                             {noteArray[key].reminder ?

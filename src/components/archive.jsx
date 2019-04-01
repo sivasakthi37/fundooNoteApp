@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Snackbar, Button, IconButton, Tooltip } from '@material-ui/core';
 import closeIcon from '../assets/closeIcon.svg';
-//import unArchive from '../assets/unArchive.svg';
 import unArchive from '../assets/unArchive.svg';
 class Archive extends Component {
     constructor(props) {
@@ -17,18 +16,20 @@ class Archive extends Component {
     //     console.log("this.state.isArchived changed", this.state.isArchived);
     //     this.props.archiveNote(this.state.isArchived, this.props.noteID)
     // }
-    handleArchive = () => {
+    async handleArchive() {
         console.log("this.props.archiveStatus in handle", this.props.archiveStatus);
 
         if (this.props.archiveStatus === false) {
-             this.state.isArchived= true;
-           // this.setState({ isArchived: true });
-            this.setState({ open: true });
+            console.log('test if.')
+            await this.setState({ isArchived: true });
+            // this.setState({ isArchived: true });
+            // this.setState({ open: true });
             console.log("this.state.isArchived changed", this.state.isArchived);
             this.props.archiveNote(this.state.isArchived, this.props.noteID)
         }
         else {
-            this.setState({ isArchived: false });
+            console.log('test else.')
+            await this.setState({ isArchived: false });
             // this.state.isArchived= false;
             console.log(" this.state.isArchived changle else", this.state.isArchived);
             this.props.archiveNote(this.state.isArchived, this.props.noteID)

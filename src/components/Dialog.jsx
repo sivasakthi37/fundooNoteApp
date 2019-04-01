@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Dialog, Input, Button, MuiThemeProvider, createMuiTheme } from '@material-ui/core';
 import Tools from './Tools';
-//import EditPin from './editPin';
+import Pinned from './Pinned';
 import Chip from '@material-ui/core/Chip';
 const theme = createMuiTheme({
     overrides: {
@@ -34,8 +34,8 @@ class DialogBox extends Component {
             description: "",
             color: "",
             _id: "",
-            reminder: ""
-
+            reminder: "",
+            archive:false
         }
         this.handleTitleClick = this.handleTitleClick.bind(this);
         this.handleDescClick = this.handleDescClick.bind(this);
@@ -67,12 +67,11 @@ class DialogBox extends Component {
                 color: note.color,
                 description: note.description,
                 _id: note._id,
-                reminder: note.reminder
-
+                reminder: note.reminder,
+                archive:note.archive,
+                pinned:note.pinned
             })
         }
-        console.log("bambjasjajasas", this.props.parentProps);
-
     }
     closeDialogPopper = (e) => {
         this.props.closeEditBox(e);
@@ -81,13 +80,35 @@ class DialogBox extends Component {
         this.setState({ reminder: "" })
         this.props.reminder('', this.state._id)
     }
-    // handlecolor = (notes) => {
-    //     console.log("color in dialog====>", notes);
+   
+    createNotePropsToTools = (value, noteId) => {
+        this.setState({ color: value })
+        this.props.createNotePropsToTools(value,noteId)
 
+    }
+    archiveNote=(value,noteId)=>{
+        
+        this.setState({  archive: value })
+        this.props.archiveNote(value,noteId)
+        this.props.closeEditBox();
+    }
+    reminder=(value,noteId)=>{
+        this.setState({   reminder: value })
+        this.props.reminder(value,noteId);
+    ;
+        
+    }
+    trashNote=(noteId)=>{
+        this.props.trashNote(noteId);
+        this.props.closeEditBox();
+    }
+    ispinned=(value,noteId)=>{
+        this.setState({pinned: value })
+        this.props.ispinned(value,noteId);
+    }
 
-    // }
     render() {
-        console.log("color data===>",this.props.color1);
+    
         return (
             <MuiThemeProvider theme={theme} >
 
@@ -95,7 +116,7 @@ class DialogBox extends Component {
                     id="dailogmain"
                     aria-labelledby="responsive-dialog-title"
                     open={this.props.parentProps}
-                    noteID={this.props.noteID}
+                    //noteID={this.props.noteID}
                 >
                     <div id="dialogbox" style={{ backgroundColor: this.state.color }} >
                         <div>
@@ -108,7 +129,12 @@ class DialogBox extends Component {
                                 disableUnderline={true}
                             >
                             </Input>
-                            {/* <Pinned pinstatus={this.handlepinned} /> */}
+                           
+                            <Pinned
+                             initialpinstatus={this.state.pinned}
+                             noteID={this.state._id}
+                             pinstatus={this.ispinned}
+                             />
                         </div>
                         <div id="TakeNotealign" >
                             <Input
@@ -124,7 +150,6 @@ class DialogBox extends Component {
                         {this.state.reminder ?
                             <Chip id="chipcss"
                                 label={this.state.reminder}
-                                //  onDelete={() => this.props.reminder('', this.state._id)}
                                 onDelete={() => this.reminder()}
                             />
                             :
@@ -132,15 +157,13 @@ class DialogBox extends Component {
                         <div className="cardToolsClose" >
 
                             <Tools
-                                archiveStatus={this.props.archiveStatus}
-                                archiveNote={this.props.archiveNote}
+                                archiveStatus={this.state.archive}
+                                archiveNote={this.archiveNote}
                                 noteID={this.state._id}
-                                reminder={this.props.reminder}
-                               
-                                createNotePropsToTools={this.props.createNotePropsToTools}
-                              //  createNotePropsToTools={this.handlecolor}
-                            // archiveNote={this.handleArchive}
-                            // archiveStatus={this.state.archive}
+                                reminder={this.reminder}
+                                createNotePropsToTools={this.createNotePropsToTools}
+                                trashNote={this.trashNote}
+                             
                             />
                             <span><Button onClick={this.handleToggle.bind(this)}>Close</Button></span>
 
@@ -157,24 +180,3 @@ class DialogBox extends Component {
     }
 }
 export default DialogBox;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

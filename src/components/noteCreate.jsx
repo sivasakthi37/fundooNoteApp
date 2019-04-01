@@ -15,13 +15,14 @@ class Notecreate extends Component {
         open: false,
         Title: '',
         Description: '',
-        Pinned: false,
+        pinned: false,
         color: "rgb(255, 255, 255)",
         reminder: "",
         image: "",
         archive: false,
         trash: false,
         newNote: {}
+
 
     };
     /**
@@ -41,7 +42,7 @@ class Notecreate extends Component {
                     userId: localStorage.getItem("userId"),
                     title: this.state.Title,
                     description: this.state.Description,
-                    pinned: this.state.Pinned,
+                    pinned: this.state.pinned,
                     color: this.state.color,
                     reminder: this.state.reminder,
                     image: this.state.image,
@@ -99,21 +100,19 @@ class Notecreate extends Component {
     handleimage = (value) => {
         this.setState({ image: value });
     }
-    handleArchive(value) {
+    handleArchive=(value)=> {
         this.setState({ archive: value });
+        console.log("archive===>",this.state.archive);
+        
     }
-
+    ispinned=(value)=> {
+        this.setState({ pinned: value });
+    }
     reminderchip = () => {
         this.setState({ reminder: "" })
         console.log("sssssssssssssssssssssssssssssssssss", this.state.reminder);
     }
     render() {
-        console.log("states", this.state.Description);
-        console.log("color", this.state.color);
-        console.log("title", this.state.Title);
-        console.log("title", this.state.reminder);
-
-
 
         const { open } = this.state;
         return (
@@ -131,10 +130,13 @@ class Notecreate extends Component {
                                     onChange={this.handleChange('Title')}
                                 // value={this.state.Title}
                                 >
-                                
+
                                 </Input>
                                 <span id="pinalign">
-                                <Pinned pinstatus={this.handlepinned} />
+                                    <Pinned
+                                        initialpinstatus={this.state.pinned}
+                                        pinstatus={this.ispinned}
+                                    />
                                 </span>
                             </div>
                             <div id="TakeNotealign" >

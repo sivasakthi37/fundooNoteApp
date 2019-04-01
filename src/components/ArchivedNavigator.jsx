@@ -12,14 +12,20 @@ class ArchivedNavigator extends Component {
 
         return (
             <div>
-                <label style={{ fontFamily: "georgia", fontSize: "15px", color: "grey", marginRight: "760px" }}>ARCHIVED</label>
+              
+                {(this.props.archiveArray).length === 0 ?
+                    <h1  style={{ fontFamily: "georgia", color: "grey" }}>Your archived notes appear here</h1>
+
+                    :
+                    <label style={{ fontFamily: "georgia", fontSize: "15px", color: "grey", marginRight: "760px" }}>ARCHIVED</label>
+                }
                 <div className="CardsView">
                     {this.props.archiveArray.map((key) => {
                         return (
                             <Card id={cardsView} style={{ backgroundColor: key.color }} >
                                 <div id="displaycontentdiv1" >
                                     <div id="pindiv">
-                                        <b> {key.title}</b>
+                                        <b  > {key.title}</b>
                                         < Pinned
                                             initialpinstatus={key.pinned}
                                             pinstatus={this.props.ispinned}

@@ -10,8 +10,11 @@ class ReminderNavigater extends Component {
         let cardsView = this.props.noteProps ? "cards" : "CreateNote2";
         return (
             <div>
-                <label style={{ fontFamily: "georgia", fontSize: "15px", color: "grey", marginRight: "760px" }}>REMINDER</label>
-
+                {(this.props.remiderArray).length === 0 ?
+                    <h1 style={{ fontFamily: "georgia", color: "grey" }}>Notes with upcoming reminders appear here</h1>
+                    :
+                    <label style={{ fontFamily: "georgia", fontSize: "15px", color: "grey", marginRight: "760px" }}>REMINDER</label>
+                }
                 <div className="CardsView">
                     {this.props.remiderArray.map((key) => {
                         return (

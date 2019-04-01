@@ -24,7 +24,7 @@ import Cards from '../components/notedisplay';
 const styles = theme => ({
     root: {
         display: 'flex',
-     
+
         // borderBottom: '1px solid',
         // borderBottomColor: '#d0cece'
 
@@ -97,13 +97,13 @@ class Dashboardinput extends React.Component {
     };
 
     currentnote = (newCard) => {
-      //  console.log("hai new card", newCard);
+        //  console.log("hai new card", newCard);
         // this.setState({ note: newCard })
         this.noteToCards.current.displayNewCard(newCard);
     }
     handleCardStyle = () => {
         this.setState({ cardStyles: !this.state.cardStyles });
-     //   console.log("dfgbhnjmkedrtghjk");
+        //   console.log("dfgbhnjmkedrtghjk");
 
     }
     handleNavigation = (reminder, archive, trash) => {
@@ -127,7 +127,7 @@ class Dashboardinput extends React.Component {
     render() {
         const { classes } = this.props;
         const { open } = this.state;
-      //  console.log("new note data=>", this.state.note);
+        //  console.log("new note data=>", this.state.note);
 
 
         return (
@@ -170,7 +170,6 @@ class Dashboardinput extends React.Component {
                                         placeholder="Search"
                                         className="inputRoot"
                                         onChange={this.handleChange('search')}
-                                    // value={this.state.search}
                                     />
                                 </div>
                             </div>
@@ -196,9 +195,9 @@ class Dashboardinput extends React.Component {
                         })}
                     >
                         <div className={classes.drawerHeader} />
-                        {this.state.archive || this.state.trash ?
+                        {this.state.archive || this.state.trash || this.state.search ?
                             <Cards
-                        
+                                searchNote={this.state.search}
                                 noteProps={this.state.cardStyles}
                                 navigaterTrash={this.state.trash}
                                 navigateArchived={this.state.archive}
@@ -208,6 +207,7 @@ class Dashboardinput extends React.Component {
                             <div>
                                 <Notecreate currentnote={this.currentnote} />
                                 <Cards
+                                    searchNote={this.state.search}
                                     navigaterReminder={this.state.reminder}
                                     noteProps={this.state.cardStyles}
                                     navigaterTrash={this.state.trash}
