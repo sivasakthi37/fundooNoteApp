@@ -3,9 +3,29 @@ import { Card } from '@material-ui/core';
 import Tools from './Tools';
 import Chip from '@material-ui/core/Chip';
 import Pinned from './Pinned';
-
+import DialogBox from './Dialog';
 
 class ReminderNavigater extends Component {
+
+    constructor() {
+        super();
+        this.state = {
+           // open: false,
+            open1: false,       
+        }
+        this.cardsToDialogBox = React.createRef();
+    }
+    async handleClick1(note) {
+        await this.setState({ open1: true })
+        console.log("dilog note in notedisplay==>", note);
+
+        this.cardsToDialogBox.current.getData(note);
+    }
+    
+    closeEditBox = () => {
+        this.setState({ open1: false })
+    }
+
     render() {
         let cardsView = this.props.noteProps ? "cards" : "CreateNote2";
         return (
@@ -20,8 +40,8 @@ class ReminderNavigater extends Component {
                         return (
                             <Card id={cardsView} style={{ backgroundColor: key.color }} >
                                 <div id="displaycontentdiv1" >
-                                    <div id="pindiv">
-                                        <b> {key.title}</b>
+                                    <div  id="pindiv">
+                                        <b  onClick={() => this.handleClick1(key)}> {key.title}</b>
                                         < Pinned
                                             initialpinstatus={key.pinned}
                                             pinstatus={this.props.ispinned}
@@ -41,7 +61,7 @@ class ReminderNavigater extends Component {
                                             createNotePropsToTools={this.props.getColor}
                                             noteID={key._id}
                                             archiveStatus={key.archive}
-                                            archiveNote={this.props.archiveNote}
+                                             archiveNote={this.props.archiveNote}
                                             reminder={this.props.reminderNote}
                                             trashNote={this.props.trashNote}
                                         />
@@ -52,7 +72,19 @@ class ReminderNavigater extends Component {
                     })
                     }
                 </div>
-
+                <DialogBox
+                            reminder={this.reminderNote}
+                            ref={this.cardsToDialogBox}
+                            //    archiveStatus={pin[key].archive}
+                            parentProps={this.state.open1}
+                            closeEditBox={this.closeEditBox}
+                            archiveNote={this.archiveNote}
+                            editTitle={this.editTitle}
+                            editDescription={this.editDescription}
+                            createNotePropsToTools={this.props.getColor}
+                            trashNote={this.trashNote}
+                            ispinned={this.ispinned}
+                        />
             </div>
         )
     }

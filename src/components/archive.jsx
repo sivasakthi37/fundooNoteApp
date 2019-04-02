@@ -35,9 +35,6 @@ class Archive extends Component {
             this.props.archiveNote(this.state.isArchived, this.props.noteID)
         }
     }
-
-
-
     handleClick = () => {
         this.setState({ open: false });
 

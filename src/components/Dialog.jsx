@@ -76,7 +76,7 @@ class DialogBox extends Component {
     closeDialogPopper = (e) => {
         this.props.closeEditBox(e);
     }
-    reminder = () => {
+    reminder1 = () => {
         this.setState({ reminder: "" })
         this.props.reminder('', this.state._id)
     }
@@ -116,7 +116,7 @@ class DialogBox extends Component {
                     id="dailogmain"
                     aria-labelledby="responsive-dialog-title"
                     open={this.props.parentProps}
-                    //noteID={this.props.noteID}
+                    noteID={this.props.noteID}
                 >
                     <div id="dialogbox" style={{ backgroundColor: this.state.color }} >
                         <div>
@@ -150,7 +150,7 @@ class DialogBox extends Component {
                         {this.state.reminder ?
                             <Chip id="chipcss"
                                 label={this.state.reminder}
-                                onDelete={() => this.reminder()}
+                                onDelete={() => this.reminder1()}
                             />
                             :
                             null}
@@ -163,7 +163,6 @@ class DialogBox extends Component {
                                 reminder={this.reminder}
                                 createNotePropsToTools={this.createNotePropsToTools}
                                 trashNote={this.trashNote}
-                             
                             />
                             <span><Button onClick={this.handleToggle.bind(this)}>Close</Button></span>
 

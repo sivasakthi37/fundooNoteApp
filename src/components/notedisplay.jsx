@@ -18,11 +18,10 @@ class Cards extends Component {
         this.state = {
             open: false,
             open1: false,
-            open2: false,
+        
             notes: [],
-            label: false,
+           
         }
-        // this.handleClick = this.handleClick.bind(this);
         this.cardsToDialogBox = React.createRef();
     }
 
@@ -32,16 +31,7 @@ class Cards extends Component {
 
         this.cardsToDialogBox.current.getData(note);
     }
-    // async closeEditBox() {
-    //     await this.setState({ open1: false })
-    // }
-
-    handleClick2 = (note) => {
-        this.setState({ open2: true })
-        console.log("dilog note in notedisplay==>", note);
-
-        this.cardsToDialogBox.current.getData(note);
-    }
+    
     closeEditBox = () => {
         this.setState({ open1: false })
     }
@@ -267,11 +257,6 @@ class Cards extends Component {
         console.log("noteArray==============================>", noteArray);
         // console.log("noteArray==>", noteArray);
         // let noteArray = this.state.notes;
-
-
-
-
-
         if (this.props.navigateArchived) {
 
             return (
@@ -302,11 +287,11 @@ class Cards extends Component {
 
                     searchNote={searchNote}
 
-                // getColor={this.getColor}
-                // noteProps={this.props.noteProps}
-                // reminder={this.reminderNote}
-                // trashNote={this.trashNote}
-                // archiveNote={this.archiveNote}
+                    getColor={this.getColor}
+                    noteProps={this.props.noteProps}
+                    reminder={this.reminderNote}
+                    trashNote={this.trashNote}
+                    archiveNote={this.archiveNote}
                 // uploadImage={this.uploadImage}
                 />
             )
@@ -364,21 +349,7 @@ class Cards extends Component {
                                                     />
                                                 </div>
 
-                                                {/* <DialogBox
-                                                   
-                                                        reminder={this.reminderNote}
-                                                   
-                                                        ref={this.cardsToDialogBox}
-                                                    //    archiveStatus={pin[key].archive}
-                                                        parentProps={this.state.open1}
-                                                        closeEditBox={this.closeEditBox}
-                                                        archiveNote={this.archiveNote}
-                                                        editTitle={this.editTitle}
-                                                        editDescription={this.editDescription}
-                                                        createNotePropsToTools={this.getColor}
-
-                                                    /> */}
-
+                                                
                                                 <div onClick={() => this.handleClick1(pin[key])} style={{ wordBreak: "break-word" }}  >
                                                     {pin[key].description}
                                                 </div>
@@ -408,9 +379,7 @@ class Cards extends Component {
                         </div>
 
                         <DialogBox
-
                             reminder={this.reminderNote}
-
                             ref={this.cardsToDialogBox}
                             //    archiveStatus={pin[key].archive}
                             parentProps={this.state.open1}
@@ -453,32 +422,6 @@ class Cards extends Component {
                                             </div>
 
 
-                                            {/* <DialogBox
-                                                   
-                                                   reminder={this.reminderNote}
-                                              
-                                                   ref={this.cardsToDialogBox}
-                                               //    archiveStatus={pin[key].archive}
-                                                   parentProps={this.state.open1}
-                                                   closeEditBox={this.closeEditBox}
-                                                   archiveNote={this.archiveNote}
-                                                   editTitle={this.editTitle}
-                                                   editDescription={this.editDescription}
-                                                   createNotePropsToTools={this.getColor}
-
-                                               /> */}
-                                            {/* <DialogBox
-                                          //  color1={noteArray[key].color}
-                                                ref={this.cardsToDialogBox}
-                                                parentProps={this.state.open1}
-                                                closeEditBox={this.closeEditBox}
-                                                note={noteArray[key]}
-                                                archiveNote={this.archiveNote}
-                                                editTitle={this.editTitle}
-                                                editDescription={this.editDescription}
-                                                createNotePropsToTools={this.getColor}
-
-                                            /> */}
                                             <div onClick={() => this.handleClick1(noteArray[key])} >
                                                 {noteArray[key].description}
                                             </div>
