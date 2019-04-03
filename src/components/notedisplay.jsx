@@ -407,7 +407,7 @@ class Cards extends Component {
                     <div className="CardsView">
                         {Object.keys(noteArray).slice(0).reverse().map((key) => {
                             return (
-                                <div >
+                                <div key={key._id} >
                                     <Card id={cardsView} style={{ backgroundColor: noteArray[key].color }}>
                                         <div id="displaycontentdiv1" >
 

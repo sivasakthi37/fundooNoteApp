@@ -64,7 +64,7 @@ class Color extends Component {
                             <Card className="colorPalleteCard">
                                 {changeCardColor}
                             </Card>
-                        </ClickAwayListener>
+                         </ClickAwayListener>
                         : null}
                 </div>
             </div>

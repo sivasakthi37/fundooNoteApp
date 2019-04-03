@@ -27,13 +27,16 @@ class Reminder extends Component {
         this.handleClose();
         let ampm = parseInt(new Date().getHours()) >= 8 ? "PM" : "AM";
 
-        var date = new Date().toDateString();
-        console.log("date ==>", date);
-        var reminder1 = date + ", 8 " + ampm;
+       // var date = new Date().toDateString();
+        var date = new Date()
+        var timestamp = date.getTime();
+        console.log("time stamep ==>",timestamp);
+       // var reminder1 = date + ", 8 " + ampm;
         // console.log(note.reminder);
-        this.props.reminder(reminder1, this.props.noteID)
+      //  this.props.reminder(reminder1, this.props.noteID)
 
     }
+    
     setTomorrowReminder = () => {
         this.handleClose();
         let days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun", "Mon"]
