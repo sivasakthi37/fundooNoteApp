@@ -27,6 +27,7 @@ class TrashNavigator extends Component {
                                     </div>
                                     <div id="displaycontentdiv">
                                         <TrashOptions
+                                            note={key}
                                             restore={this.props.trashNote}
                                             noteID={key._id}
                                             deleteNote={this.props.deleteNote}

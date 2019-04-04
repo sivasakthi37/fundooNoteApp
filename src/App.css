@@ -541,3 +541,6 @@
     display: flex;
     justify-content: space-between;
 }
+#savereminder{
+    margin-left: 184px;
+}

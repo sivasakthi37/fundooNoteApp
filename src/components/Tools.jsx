@@ -22,6 +22,7 @@ class Tools extends Component {
             <div>
                 <div className="cardTools">
                     <Reminder 
+                     note={this.props.note}
                         reminder={this.props.reminder}
                         noteID={this.props.noteID}
                          />

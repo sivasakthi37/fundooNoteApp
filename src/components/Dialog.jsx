@@ -35,13 +35,13 @@ class DialogBox extends Component {
             color: "",
             _id: "",
             reminder: "",
-            archive:false
+            archive: false
         }
         this.handleTitleClick = this.handleTitleClick.bind(this);
         this.handleDescClick = this.handleDescClick.bind(this);
         this.getData = this.getData.bind(this);
-      
-        
+
+
     }
     async handleTitleClick(evt) {
         await this.setState({ title: evt.target.value })
@@ -68,8 +68,8 @@ class DialogBox extends Component {
                 description: note.description,
                 _id: note._id,
                 reminder: note.reminder,
-                archive:note.archive,
-                pinned:note.pinned
+                archive: note.archive,
+                pinned: note.pinned
             })
         }
     }
@@ -80,35 +80,35 @@ class DialogBox extends Component {
         this.setState({ reminder: "" })
         this.props.reminder('', this.state._id)
     }
-   
+
     createNotePropsToTools = (value, noteId) => {
         this.setState({ color: value })
-        this.props.createNotePropsToTools(value,noteId)
+        this.props.createNotePropsToTools(value, noteId)
 
     }
-    archiveNote=(value,noteId)=>{
-        
-        this.setState({  archive: value })
-        this.props.archiveNote(value,noteId)
+    archiveNote = (value, noteId) => {
+
+        this.setState({ archive: value })
+        this.props.archiveNote(value, noteId)
         this.props.closeEditBox();
     }
-    reminder=(value,noteId)=>{
-        this.setState({   reminder: value })
-        this.props.reminder(value,noteId);
-    ;
-        
+    reminder = (value, noteId) => {
+        this.setState({ reminder: value })
+        this.props.reminder(value, noteId);
+        ;
+
     }
-    trashNote=(noteId)=>{
+    trashNote = (noteId) => {
         this.props.trashNote(noteId);
         this.props.closeEditBox();
     }
-    ispinned=(value,noteId)=>{
-        this.setState({pinned: value })
-        this.props.ispinned(value,noteId);
+    ispinned = (value, noteId) => {
+        this.setState({ pinned: value })
+        this.props.ispinned(value, noteId);
     }
 
     render() {
-    
+
         return (
             <MuiThemeProvider theme={theme} >
 
@@ -129,12 +129,12 @@ class DialogBox extends Component {
                                 disableUnderline={true}
                             >
                             </Input>
-                           
+
                             <Pinned
-                             initialpinstatus={this.state.pinned}
-                             noteID={this.state._id}
-                             pinstatus={this.ispinned}
-                             />
+                                initialpinstatus={this.state.pinned}
+                                noteID={this.state._id}
+                                pinstatus={this.ispinned}
+                            />
                         </div>
                         <div id="TakeNotealign" >
                             <Input
@@ -157,6 +157,7 @@ class DialogBox extends Component {
                         <div className="cardToolsClose" >
 
                             <Tools
+                                note={this.state.note}
                                 archiveStatus={this.state.archive}
                                 archiveNote={this.archiveNote}
                                 noteID={this.state._id}

@@ -18,9 +18,8 @@ class Cards extends Component {
         this.state = {
             open: false,
             open1: false,
-        
             notes: [],
-           
+
         }
         this.cardsToDialogBox = React.createRef();
     }
@@ -31,7 +30,7 @@ class Cards extends Component {
 
         this.cardsToDialogBox.current.getData(note);
     }
-    
+
     closeEditBox = () => {
         this.setState({ open1: false })
     }
@@ -90,7 +89,6 @@ class Cards extends Component {
             archive: value
         }
         //  console.log("value in archive==>",isArchived);
-
         updateArchiveStatus(isArchived)
             .then((result) => {
                 //   console.log("result in archive==>", result);
@@ -349,7 +347,7 @@ class Cards extends Component {
                                                     />
                                                 </div>
 
-                                                
+
                                                 <div onClick={() => this.handleClick1(pin[key])} style={{ wordBreak: "break-word" }}  >
                                                     {pin[key].description}
                                                 </div>
@@ -362,6 +360,7 @@ class Cards extends Component {
                                                     null}
                                                 <div id="displaycontentdiv">
                                                     <Tools
+                                                        note={pin[key]}
                                                         reminder={this.reminderNote}
                                                         createNotePropsToTools={this.getColor}
                                                         noteID={pin[key]._id}
@@ -434,6 +433,7 @@ class Cards extends Component {
                                                 null}
                                             <div id="displaycontentdiv">
                                                 <Tools
+                                                    note={noteArray[key]}
                                                     reminder={this.reminderNote}
                                                     createNotePropsToTools={this.getColor}
                                                     noteID={noteArray[key]._id}

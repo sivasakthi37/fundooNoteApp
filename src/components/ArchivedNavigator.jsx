@@ -44,9 +44,11 @@ class ArchivedNavigator extends Component {
                                         null}
                                     <div id="displaycontentdiv">
                                         <Tools
+
                                             createNotePropsToTools={this.props.getColor}
                                             reminder={this.props.reminderNote}
                                             noteID={key._id}
+                                            note={key}
                                             archiveStatus={key.archive}
                                             archiveNote={this.props.archiveNote}
                                             trashNote={this.props.trashNote}

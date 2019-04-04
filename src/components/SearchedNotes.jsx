@@ -10,7 +10,7 @@ class SearchedNotes extends Component {
         let cardsView = this.props.noteProps ? "cards" : "CreateNote2";
         return (
             <div>
-              
+
                 {/* {(this.props.archiveArray).length === 0 ?
                     <h1  style={{ fontFamily: "georgia", color: "grey" }}>Your archived notes appear here</h1>
 
@@ -42,6 +42,7 @@ class SearchedNotes extends Component {
                                         null}
                                     <div id="displaycontentdiv">
                                         <Tools
+                                            note={key}
                                             createNotePropsToTools={this.props.getColor}
                                             reminder={this.props.reminder}
                                             noteID={key._id}

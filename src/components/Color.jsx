@@ -65,7 +65,7 @@ class Color extends Component {
                                 {changeCardColor}
                             </Card>
                          </ClickAwayListener>
-                        : null}
+                                                                                                                                                                           : null}
                 </div>
             </div>
 

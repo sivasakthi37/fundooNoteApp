@@ -1,14 +1,20 @@
-
 import React, { Component } from 'react';
 import Popper from '@material-ui/core/Popper';
 import Fade from '@material-ui/core/Fade';
-import { MenuItem, Paper, Tooltip, ListItem, ClickAwayListener } from '@material-ui/core';
-
+import { MenuItem, Paper, Tooltip, ListItem, ClickAwayListener, Button } from '@material-ui/core';
+import TextField from '@material-ui/core/TextField';
+import { askForPermissioToReceiveNotifications } from '../push-notification';
+import { Snackbar, IconButton } from '@material-ui/core';
+import closeIcon from '../assets/closeIcon.svg';
 class Reminder extends Component {
     state = {
         anchorEl: null,
         open: false,
         placement: null,
+        date: "",
+        snak2open: false,
+        title: "",
+        description: ""
     };
 
     handleClick = placement => event => {
@@ -25,22 +31,25 @@ class Reminder extends Component {
     }
     setTodayReminder = () => {
         this.handleClose();
-        let ampm = parseInt(new Date().getHours()) >= 8 ? "PM" : "AM";
-
-       // var date = new Date().toDateString();
-        var date = new Date()
-        var timestamp = date.getTime();
-        console.log("time stamep ==>",timestamp);
-       // var reminder1 = date + ", 8 " + ampm;
+        //     let ampm = parseInt(new Date().getHours()) >= 8 ? "PM" : "AM";
+        //    // var date = new Date().toDateString();
+        //     var date = new Date()
+        //     var timestamp = date.getTime();
+        //     console.log("time stamep ==>",timestamp);
+        // var reminder1 = date + ", 8 " + ampm;
         // console.log(note.reminder);
-      //  this.props.reminder(reminder1, this.props.noteID)
+        //  this.props.reminder(reminder1, this.props.noteID)
 
     }
-    
+
+    handleChange = name => event => {
+        this.setState({ [name]: event.target.value });
+        //console.log("datedatedatedate", this.state.date);
+    };
     setTomorrowReminder = () => {
         this.handleClose();
         let days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun", "Mon"]
-     
+
         var date = new Date().toDateString();
         date = date.replace(new Date().getDate().toString(), new Date().getDate() + 1);
         date = date.replace(days[new Date().getDay() - 1], days[new Date().getDay()]);
@@ -50,11 +59,40 @@ class Reminder extends Component {
     }
     setWeeklyReminder = () => {
         this.handleClose();
-       
+
     }
+    handlesubmit = event => {
+        event.preventDefault();
+        this.handleClose();
+        console.log("datedatedatedate", this.state.date);
+        this.props.reminder(this.state.date, this.props.noteID);
+        console.log("notess in reminder==>", this.props.note);
+
+        askForPermissioToReceiveNotifications(this.state.date, this.props.note.title, this.props.note.description)
+            .then((diff) => {
+
+                console.log("difff in reminder-------", diff);
+
+
+                setTimeout(() => {
+                    this.setState({ snak2open: true });
+                    console.log("start----------->");
+                    this.props.reminder("", this.props.noteID);
+                }, diff);
+            })
+            .catch((err) => {
+                console.log("error in set timeout reminder", err);
+            })
+    }
+    handleClose1 = () => {
+
+        this.setState({ snak2open: false });
+    };
+
     render() {
-       
-        const setAMPM = this.props.parentToolsProps;
+        // const setAMPM = this.props.parentToolsProps;
+        console.log("this.props.note",this.props.note);
+        
         const { anchorEl, open, placement } = this.state;
         return (
 
@@ -74,26 +112,65 @@ class Reminder extends Component {
                                     <div>
 
                                         <ListItem >Reminder:</ListItem>
-                                        <MenuItem onClick={() => this.setTodayReminder()}>
+                                        <MenuItem >
+                                            <TextField
+                                                id="datetime-local"
+                                                //label="Next appointment"
+                                                type="datetime-local"
+                                                defaultValue="2019-04-04T14:30"
+                                                // className={classes.textField}
+                                                onChange={this.handleChange('date')}
+                                                InputLabelProps={{
+                                                    shrink: true,
+                                                }}
+                                            />
+                                        </MenuItem>
+                                        {/* <MenuItem onClick={() => this.setTodayReminder()}>
                                             <div>Later today</div>
                                             <div>8:00 {setAMPM}</div>
-                                        </MenuItem>
+                                        </MenuItem> */}
 
                                         <MenuItem onClick={() => this.setTomorrowReminder()}>
                                             <div>Tomorrow</div>
                                             <div>8:00 AM</div>
                                         </MenuItem>
-
-                                        <MenuItem onClick={() => this.setWeeklyReminder()}>
+                                        <div id="savereminder">
+                                            <Button onClick={this.handlesubmit} >
+                                                Save
+                                            </Button>
+                                        </div>
+                                        {/* <MenuItem onClick={() => this.setWeeklyReminder()}>
                                             <div>Next Week</div>
                                             <div>Mon, 8:00 AM</div>
-                                        </MenuItem>
+                                        </MenuItem> */}
                                     </div>
                                 </ClickAwayListener>
                             </Paper>
                         </Fade>
                     )}
                 </Popper>
+
+                <Snackbar
+                    anchorOrigin={{
+                        vertical: 'bottom',
+                        horizontal: 'left',
+                    }}
+                    open={this.state.snak2open}
+                    message={
+                    <span>{this.props.note.title}, {this.props.note.description}</span>
+                    }   
+                    action={[
+                        <Button key="undo" style={{ color: "#F1C40F" }} size="small" >
+                            UNDO
+                        </Button>,
+                        <IconButton
+                            onClick={this.handleClose1}
+                        >
+                            <img src={closeIcon} alt="snackBar close" />
+                        </IconButton>,
+                    ]}
+                />
+
             </div>
         )
     }
