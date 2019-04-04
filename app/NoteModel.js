@@ -285,6 +285,30 @@ console.log("param id==>",paramData);
         });
 }
 
+noteModel.prototype.updateImage = (paramID, paramData, res) => {
+    console.log("param id==>",paramID);
+    
+    console.log("param id==>",paramData);
+        Note.findOneAndUpdate(
+            {
+                _id: paramID
+            },
+            {
+                $set: {
+                    "image": paramData,
+                }
+            },
+            (err, result) => {
+                console.log("result in update pin",result);
+                
+                if (err) {
+                    res(err)
+                } else {
+    
+                    return res(null, paramData)
+                }
+            });
+    }
 
 module.exports = new noteModel;
 

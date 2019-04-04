@@ -203,3 +203,22 @@ exports.updatePin = (paramID, paramData, res) => {
         console.log("error in services:",err);
     }
 }
+
+
+exports.updateImage = (paramID, paramData, res) => {
+    try {
+        notemodels.updateImage(paramID, paramData, (err, data) => {
+            if (err) {
+                console.log("err in service..");
+                res(err);
+            }
+            else {
+                console.log("service is working fine");
+                res(null, data);
+            }
+        })
+    }
+    catch (err) {
+        console.log("error in services:",err);
+    }
+}

@@ -15,6 +15,9 @@ const UserSchema = mongoose.Schema({
     },
     password: {
         type: String, required: [true, "password require"]
+    },
+    profilepic: {
+        type: String,
     }
 },
     {
@@ -57,8 +60,9 @@ usermodel.prototype.registration = (req, res) => {
                 "firstname": req.body.firstname,
                 "lastname": req.body.lastname,
                 "email": req.body.email,
-                "password": hash(req.body.password)
-         })
+                "password": hash(req.body.password),
+                "profilepic":""
+            })
             userdata.save((err, result) => {
                 if (err) {
                     console.log("Model not found");
@@ -82,17 +86,17 @@ usermodel.prototype.login = (req, callback) => {
             callback(err);
         } else if (data != null) {
             bcrypt.compare(req.body.password, data.password)
-            .then(function (res) {
-                if (res) {
-                 console.log("login succesfully");
-                 console.log("responce login",res);
-                 
-                    callback(null, data);
-                } else {
-                    console.log("Incorrect password");
-                    callback("Incorrect password");
-                }
-            });
+                .then(function (res) {
+                    if (res) {
+                        console.log("login succesfully");
+                        console.log("responce login", res);
+
+                        callback(null, data);
+                    } else {
+                        console.log("Incorrect password");
+                        callback("Incorrect password");
+                    }
+                });
         } else {
             console.log("Invalid user");
             callback("invalid user");
@@ -130,4 +134,39 @@ usermodel.prototype.updatepassword = (res, callback) => {
         }
     });
 }
+
+
+usermodel.prototype.setProfilePic = (paramID, image, res) => {
+    console.log("param id==>", paramID);
+
+    console.log("param id==>", image);
+    user.findOneAndUpdate(
+        {
+            _id: paramID
+        },
+        {
+            $set: {
+                "profilepic": image,
+            }
+        },
+        (err, result) => {
+            console.log("result in update pin", result);
+
+            if (err) {
+                res(err)
+            } else {
+
+                return res(null, image)
+            }
+        });
+}
+
+
+
+
+
+
+
+
+
 module.exports = new usermodel;

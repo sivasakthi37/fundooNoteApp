@@ -79,6 +79,7 @@ exports.login = (req, res) => {
                                 user_id: result._id,
                                 username : result.firstname,
                                 email : result.email,
+                                
                                 sucess :true
                             }
                             const obj = gentoken.GenerateTokenAuthentication(payload);
@@ -222,5 +223,29 @@ exports.setPassword = (req, res) => {
         }
     } catch (err) {
         console.log("error in controller,", err);
+    }
+}
+
+exports.setProfilePic = (req, res) => {
+    try {
+        // console.log("req-------------------->",req.decoded);
+        // console.log("req-------------------->",req.file.location)
+        var responseResult = {};
+        userId = req.decoded.payload.user_id;
+        let image = (req.file.location)
+        userService.setProfilePic(userId, image, (err, result) => {
+            // console.log("imageeeeeeeeeeeeeeeeeeeeeeee=>", result);
+            if (err) {
+                responseResult.success = false;
+                responseResult.error = err;
+                res.status(500).send(responseResult)
+            } else {
+                responseResult.status = true;
+                responseResult.data = result;
+                res.status(200).send(responseResult);
+            }
+        })
+    } catch (error) {
+        res.send(error);
     }
 }

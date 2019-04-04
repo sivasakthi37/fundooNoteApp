@@ -23,6 +23,8 @@ var notes=require('../controllers/Note.controller');
 /**
  * @description:define the api...
  */
+
+ var  upload=require('../services/fileupload')
 route.post('/Login', users.login);
 
 route.post('/Register', users.register);
@@ -55,4 +57,13 @@ route.put('/editDescription',Middleware.checkTokenAuthentication,notes.editDescr
 
 
 route.put('/updatePin',Middleware.checkTokenAuthentication,notes.updatePin);
+
+route.put('/uploadImage',Middleware.checkTokenAuthentication,notes.updateImage);
+
+route.put('/setProfilePic',Middleware.checkTokenAuthentication, upload.single('image'), users.setProfilePic);
+
+
+
+route.put('/GettingS3url',Middleware.checkTokenAuthentication, upload.single('image'), notes.GettingS3url);
+
 module.exports = route; 

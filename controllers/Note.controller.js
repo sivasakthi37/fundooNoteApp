@@ -112,7 +112,7 @@ exports.deleteNote = (req, res) => {
 }
 
 exports.isArchived = (req, res) => {
-   // console.log("color  req in color api=> ", req.body);
+    // console.log("color  req in color api=> ", req.body);
 
     req.checkBody('noteID', 'noteID should notr be empty').not().isEmpty();
     //        req.checkBody('archive', 'color should notr be empty')
@@ -137,7 +137,7 @@ exports.isArchived = (req, res) => {
 }
 
 exports.setReminder = (req, res) => {
-  //  console.log("  req in reminder api=> ", req.body);
+    //  console.log("  req in reminder api=> ", req.body);
 
     req.checkBody('noteID', 'noteID should notr be empty').not().isEmpty();
     //        req.checkBody('archive', 'color should notr be empty')
@@ -173,8 +173,8 @@ exports.editTitle = (req, res) => {
     noteID = req.body.noteID;
     value = req.body.Title;
     noteservices.editTitle(noteID, value, (err, result) => {
-      //  console.log("tiitle result in controller==>",result);
-        
+        //  console.log("tiitle result in controller==>",result);
+
         if (err) {
             responce.sucess = false;
             responce.result = err;
@@ -184,13 +184,13 @@ exports.editTitle = (req, res) => {
             responce.sucesssssssss = true;
             responce.result = result;
             res.status(200).send(responce);
-            console.log("responce object-------------------------------------------->",responce);
+            console.log("responce object-------------------------------------------->", responce);
         }
     })
 }
 
-exports.editDescription= (req, res) => {
-   // console.log("  req in reminder api=> ", req.body);
+exports.editDescription = (req, res) => {
+    // console.log("  req in reminder api=> ", req.body);
 
     req.checkBody('noteID', 'noteID should notr be empty').not().isEmpty();
     //        req.checkBody('archive', 'color should notr be empty')
@@ -218,17 +218,17 @@ exports.editDescription= (req, res) => {
 
 
 exports.isTrash = (req, res) => {
-  //  console.log("  req in reminder api=> ", req.body);
+    //  console.log("  req in reminder api=> ", req.body);
 
     req.checkBody('noteID', 'noteID should notr be empty').not().isEmpty();
-    
+
     //        req.checkBody('archive', 'color should notr be empty')
     var responce = {}
     /**
      * @description:pass the request data to sevices....
      */
     noteID = req.body.noteID;
-   
+
     noteservices.isTrash(noteID, (err, result) => {
         if (err) {
             responce.sucess = false;
@@ -238,35 +238,89 @@ exports.isTrash = (req, res) => {
         else {
             responce.sucess = true;
             responce.result = result;
-           
+
             res.status(200).send(responce);
-          
-            
+
+
         }
     })
 }
 
 exports.updatePin = (req, res) => {
-   //  console.log("update  req in color api=> ", req.body);
- 
-     req.checkBody('noteID', 'noteID should notr be empty').not().isEmpty();
-     //        req.checkBody('archive', 'color should notr be empty')
-     var responce = {}
-     /**
-      * @description:pass the request data to sevices....
-      */
-     noteID = req.body.noteID;
-     value = req.body.pinned;
-     noteservices.updatePin(noteID, value, (err, result) => {
-         if (err) {
-             responce.sucess = false;
-             responce.result = err;
-             res.status(500).send(responce);
-         }
-         else {
-             responce.sucess = true;
-             responce.result = result;
-             res.status(200).send(responce);
-         }
-     })
- }
+    //  console.log("update  req in color api=> ", req.body);
+
+    req.checkBody('noteID', 'noteID should notr be empty').not().isEmpty();
+    //        req.checkBody('archive', 'color should notr be empty')
+    var responce = {}
+    /**
+     * @description:pass the request data to sevices....
+     */
+    noteID = req.body.noteID;
+    value = req.body.pinned;
+    noteservices.updatePin(noteID, value, (err, result) => {
+        if (err) {
+            responce.sucess = false;
+            responce.result = err;
+            res.status(500).send(responce);
+        }
+        else {
+            responce.sucess = true;
+            responce.result = result;
+            res.status(200).send(responce);
+        }
+    })
+}
+
+
+exports.updateImage = (req, res) => {
+    //  console.log("update  req in color api=> ", req.body);
+
+    req.checkBody('noteID', 'noteID should notr be empty').not().isEmpty();
+    //        req.checkBody('archive', 'color should notr be empty')
+    var responce = {}
+    /**
+     * @description:pass the request data to sevices....
+     */
+    noteID = req.body.noteID;
+    value = req.body.image;
+    noteservices.updateImage(noteID, value, (err, result) => {
+        if (err) {
+            responce.sucess = false;
+            responce.result = err;
+            res.status(500).send(responce);
+        }
+        else {
+            responce.sucess = true;
+            responce.result = result;
+            res.status(200).send(responce);
+        }
+    })
+}
+
+exports.GettingS3url = (req, res) => {
+
+
+
+    try {
+        // console.log("req-------------------->",req.decoded);
+        // console.log("req-------------------->",req.file.location)
+        var responseResult = {};
+        //  userId = req.decoded.payload.user_id;
+        let image = (req.file.location)
+
+        // console.log("imageeeeeeeeeeeeeeeeeeeeeeee=>", result);
+        // if (err) {
+        //     responseResult.success = false;
+        //     responseResult.error = err;
+        //     res.status(500).send(responseResult)
+        // } else {
+        responseResult.status = true;
+        responseResult.data = image;
+        res.status(200).send(responseResult);
+        // }
+
+    } catch (error) {
+        res.send(error);
+    }
+
+}

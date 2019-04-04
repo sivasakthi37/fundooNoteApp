@@ -112,3 +112,22 @@ exports.setpass = (data, callback) => {
        
     }
 }
+
+
+exports.setProfilePic = (paramID, image, res) => {
+    try {
+        notemodels.setProfilePic(paramID, image, (err, data) => {
+            if (err) {
+                console.log("err in service..");
+                res(err);
+            }
+            else {
+                console.log("service is working fine");
+                res(null, data);
+            }
+        })
+    }
+    catch (err) {
+        console.log("error in services:",err);
+    }
+}
