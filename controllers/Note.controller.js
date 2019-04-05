@@ -302,7 +302,7 @@ exports.GettingS3url = (req, res) => {
 
 
     try {
-        // console.log("req-------------------->",req.decoded);
+         console.log("req-------------------->",req.file);
         // console.log("req-------------------->",req.file.location)
         var responseResult = {};
         //  userId = req.decoded.payload.user_id;

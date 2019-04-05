@@ -138,7 +138,6 @@ usermodel.prototype.updatepassword = (res, callback) => {
 
 usermodel.prototype.setProfilePic = (paramID, image, res) => {
     console.log("param id==>", paramID);
-
     console.log("param id==>", image);
     user.findOneAndUpdate(
         {

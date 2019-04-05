@@ -116,7 +116,7 @@ exports.setpass = (data, callback) => {
 
 exports.setProfilePic = (paramID, image, res) => {
     try {
-        notemodels.setProfilePic(paramID, image, (err, data) => {
+        usermodels.setProfilePic(paramID, image, (err, data) => {
             if (err) {
                 console.log("err in service..");
                 res(err);

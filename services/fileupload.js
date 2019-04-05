@@ -21,7 +21,7 @@ const upload = multer({
     fileFilter,
     storage: multerS3({
         s3,
-        bucket: 'fundoonote',
+        bucket: 'funoonote',
         acl: 'public-read',
         metadata: function (req, file, callback) {
             callback(null, {

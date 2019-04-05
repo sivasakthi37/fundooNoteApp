@@ -79,7 +79,7 @@ exports.login = (req, res) => {
                                 user_id: result._id,
                                 username : result.firstname,
                                 email : result.email,
-                                
+                                profilepic:result.profilepic,
                                 sucess :true
                             }
                             const obj = gentoken.GenerateTokenAuthentication(payload);
@@ -229,12 +229,12 @@ exports.setPassword = (req, res) => {
 exports.setProfilePic = (req, res) => {
     try {
         // console.log("req-------------------->",req.decoded);
-        // console.log("req-------------------->",req.file.location)
+         console.log("req-------------------->",req.file)
         var responseResult = {};
         userId = req.decoded.payload.user_id;
         let image = (req.file.location)
-        userService.setProfilePic(userId, image, (err, result) => {
-            // console.log("imageeeeeeeeeeeeeeeeeeeeeeee=>", result);
+        userservices.setProfilePic(userId, image, (err, result) => {
+            console.log("imageeeeeeeeeeeeeeeeeeeeeeee  result pic=>", result);
             if (err) {
                 responseResult.success = false;
                 responseResult.error = err;
