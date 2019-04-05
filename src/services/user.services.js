@@ -38,6 +38,17 @@ function resetpassword(data, token) {
     }
 }
 
+export function  uploadProfilePic(data) {
+    console.log("hai data", data);
+
+    return axios.put('/setProfilePic',data, {
+        headers: { 'token': localStorage.getItem('token')}
+
+    })
+}
+
+
+
 export {
     userLogin,
     userRegister,

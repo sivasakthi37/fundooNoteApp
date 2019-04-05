@@ -8,7 +8,7 @@ import Divider from '@material-ui/core/Divider';
 import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 import Tooltip from '@material-ui/core/Tooltip';
 import Fade from '@material-ui/core/Fade';
-
+import { uploadProfilePic } from '../services/user.services'
 import { Button } from '@material-ui/core';
 
 /**
@@ -44,7 +44,7 @@ class Logout extends Component {
 */
     handlelogout = event => {
         event.preventDefault();
-
+        localStorage.clear();
         this.props.props.history.push("/login");
 
     }
@@ -59,6 +59,23 @@ class Logout extends Component {
     triggerInputFile() {
         this.fileInput.click();
     }
+    uploadImage = (e) => {
+        let data = new FormData();
+        console.log("image:------------", e.target.files[0]);
+        data.append('image', e.target.files[0]);
+        uploadProfilePic(data)
+            .then((result) => {
+                console.log("profile responce in backend--------->", result.data.data);
+                localStorage.setItem('profilepic', result.data.data);
+                this.setState({
+                    profilePic: result.data.data
+                })
+            }).catch((err) => {
+                alert(err);
+            })
+    }
+
+
     handleClick = placement => event => {
 
         const { currentTarget } = event;
@@ -68,17 +85,13 @@ class Logout extends Component {
             placement,
         }));
     };
- 
+
     render() {
         const { anchorEl, open, placement } = this.state;
         // const { classes } = this.props;
-
         const userDetails = localStorage.getItem('username');
-        const initial = userDetails.substring(0, 1)
-
-
+        const initial = userDetails.substring(0, 1);
         return (
-
             <div>
                 <Popper open={open} anchorEl={anchorEl} placement={placement} transition>
                     {({ TransitionProps }) => (
@@ -93,12 +106,26 @@ class Logout extends Component {
                                                 <Tooltip title="Change Profile">
 
                                                     <Avatar style={{ width: "80px", height: "80px", backgroundColor: "purple" }}
-                                                     onClick={() => { this.triggerInputFile() }}
-                                                     >
-                                                        
+                                                        onClick={() => { this.triggerInputFile() }}
+                                                    >
+                                                        {localStorage.getItem('profilepic') !== "" ?
+                                                            <img style={{
+                                                                width: "80px", height: "80px"
+                                                            }} src={localStorage.getItem('profilepic')} alt="change Profile pic"></img>
+                                                            :
                                                             <b style={{ fontSize: "33px" }}>{initial}</b>
-                                                    
-                                                        
+                                                        }
+
+                                                        <input ref={fileInput => this.fileInput = fileInput}
+                                                            type="file" style={{ 'display': 'none' }}
+                                                            className="uploadImage"
+                                                            onChange={(evt) => this.uploadImage(evt)}
+                                                        />
+
+
+                                                        {/* <b style={{ fontSize: "33px" }}>{initial}</b> */}
+
+
                                                     </Avatar>
                                                 </Tooltip>
                                             </IconButton>
@@ -121,17 +148,17 @@ class Logout extends Component {
                     )}
                 </Popper>
                 <IconButton id="userProfileIcon">
-                <Tooltip 
-                title={ "Fundoo user "+ localStorage.getItem('username')}>
-                    <Avatar style={{ width: "40px", height: "40px", backgroundColor: "purple" }} onClick={this.handleClick('bottom-end')}  >
-                        {this.state.profilePic !== "" ?
-                            <img style={{
-                                width: "40px", height: "40px"
-                            }} src={this.state.profilePic} alt="change Profile pic"></img>
-                            :
-                            initial
-                        }
-                    </Avatar>
+                    <Tooltip
+                        title={"Fundoo user " + localStorage.getItem('username')}>
+                        <Avatar style={{ width: "40px", height: "40px", backgroundColor: "purple" }} onClick={this.handleClick('bottom-end')}  >
+                            {localStorage.getItem('profilepic') !== "" ?
+                                <img style={{
+                                    width: "40px", height: "40px"
+                                }} src={localStorage.getItem('profilepic')} alt="change Profile pic"></img>
+                                :
+                                initial
+                            }
+                        </Avatar>
                     </Tooltip>
                 </IconButton>
 

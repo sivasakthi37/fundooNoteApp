@@ -1,30 +1,24 @@
 import React, { Component } from 'react';
 import { Tooltip } from '@material-ui/core';
-
+import   {uploadimage} from '../services/note.services'
 
 class UploadImage extends Component {
     triggerInputFile=()=> {
         this.fileInput.click();
     }
-    uploadImage=(evt)=> {
-        console.log("upload image",evt.target.files[0]);
-        this.props.uploadImage(evt.target.files[0])
-
-        // getFile(e) {
-        //     e.preventDefault();
-        //     let reader = new FileReader();
-        //     let file = e.target.files[0];
-        //     reader.onloadend = (theFile) => {
-        //         var data = {
-        //             blob: theFile.target.result, name: file.name,
-        //             visitorId:  this.props.socketio.visitorId
-        //         };
-        //         console.log(this.props.socketio);
-        //         this.props.socketio.emit('file-upload', data);
-        //     };
-        //     reader.readAsDataURL(file);
-        // }
-
+    uploadImage=(e)=> {
+        console.log("upload image",e.target.files[0]);
+        
+       let data = new FormData();
+       console.log("image:------------", e.target.files[0]);
+       data.append('image', e.target.files[0]);
+       uploadimage(data)
+           .then((result) => {
+               console.log("profile responce in backend--------->", result.data.data);
+               this.props.uploadImage(result.data.data,this.props.noteID)
+           }).catch((err) => {
+               alert(err);
+           })
     }
     render() {
         return (
@@ -38,7 +32,7 @@ class UploadImage extends Component {
                 <input ref={fileInput => this.fileInput = fileInput}
                     type="file" style={{ 'display': 'none' }}
                     className="uploadImage"
-                    onChange={(evt)=>this.uploadImage(evt)}
+                    onChange={(e)=>this.uploadImage(e)}
                 />
                
             </span>

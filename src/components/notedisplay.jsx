@@ -11,7 +11,8 @@ import '../App.css';
 import Pinned from './Pinned';
 import TrashNavigator from './TrashNavigator';
 import ReminderNavigater from './reminderNavigater';
-import { updateColor, updateArchiveStatus, otherArray, archiveArray, setReminder, isTrashed, trashArray, deleteNote, remiderArray, updateTitle, updateDescription, updatePin, pinArray } from '../services/note.services';
+import Draggable from 'react-draggable';
+import { updateColor, updateArchiveStatus, otherArray, archiveArray, setReminder, isTrashed, trashArray, deleteNote, remiderArray, updateTitle, updateDescription, updatePin, pinArray, imageupdate } from '../services/note.services';
 class Cards extends Component {
     constructor() {
         super();
@@ -108,6 +109,37 @@ class Cards extends Component {
                 console.log(error);
             });
     }
+    uploadImage = (value, noteId) => {
+        const imagedata = {
+            noteID: noteId,
+            image: value
+        }
+        imageupdate(imagedata)
+            .then((result) => {
+                let newArray = this.state.notes
+                console.log("result in the image===>", result);
+                for (let i = 0; i < newArray.length; i++) {
+                    if (newArray[i]._id === noteId) {
+                        newArray[i].image = result.data.result;
+                        this.setState({
+                            notes: newArray
+                        })
+                    }
+                }
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+
+
+
+
+
+
+
+
+    }
+
     reminderNote = (value, noteId) => {
         const remindMe = {
             noteID: noteId,
@@ -336,41 +368,51 @@ class Cards extends Component {
                             {Object.keys(pin).slice(0).reverse().map((key) => {
                                 return (
                                     <div >
-                                        <Card id={cardsView} style={{ backgroundColor: pin[key].color }}>
-                                            <div id="displaycontentdiv1" >
-                                                <div id="pindiv" style={{ wordBreak: "break-word" }}  >
-                                                    <b onClick={() => this.handleClick1(pin[key])}  > {pin[key].title}</b>
-                                                    < Pinned
-                                                        initialpinstatus={pin[key].pinned}
-                                                        pinstatus={this.ispinned}
-                                                        noteID={pin[key]._id}
-                                                    />
+                                        <Draggable>
+                                            <Card id={cardsView} style={{ backgroundColor: pin[key].color }}>
+                                                <div>
+                                                    {pin[key].image !== "" ?
+                                                        <img style={{
+                                                            maxWidth: "100%",
+                                                            height: "auto"
+                                                        }} src={pin[key].image} alt="cardImage"></img>
+                                                        : null}
                                                 </div>
-
-
-                                                <div onClick={() => this.handleClick1(pin[key])} style={{ wordBreak: "break-word" }}  >
-                                                    {pin[key].description}
-                                                </div>
-                                                {pin[key].reminder ?
-                                                    <Chip id="chipcss"
-                                                        label={pin[key].reminder}
-                                                        onDelete={() => this.reminderNote('', pin[key]._id)}
-                                                    />
-                                                    :
-                                                    null}
-                                                <div id="displaycontentdiv">
-                                                    <Tools
-                                                        note={pin[key]}
-                                                        reminder={this.reminderNote}
-                                                        createNotePropsToTools={this.getColor}
-                                                        noteID={pin[key]._id}
-                                                        archiveNote={this.archiveNote}
-                                                        archiveStatus={pin[key].archive}
-                                                        trashNote={this.trashNote}
-                                                    />
-                                                </div>
-                                            </div >
-                                        </Card>
+                                                <div id="displaycontentdiv1" >
+                                                    <div id="pindiv" style={{ wordBreak: "break-word" }}  >
+                                                        <b onClick={() => this.handleClick1(pin[key])}  > {pin[key].title}</b>
+                                                        < Pinned
+                                                            initialpinstatus={pin[key].pinned}
+                                                            pinstatus={this.ispinned}
+                                                            noteID={pin[key]._id}
+                                                        />
+                                                    </div>
+                                                    <div onClick={() => this.handleClick1(pin[key])} style={{ wordBreak: "break-word" }}  >
+                                                        {pin[key].description}
+                                                    </div>
+                                                    {pin[key].reminder ?
+                                                        <Chip id="chipcss"
+                                                            label={pin[key].reminder}
+                                                            onDelete={() => this.reminderNote('', pin[key]._id)}
+                                                        />
+                                                        :
+                                                        null}
+                                                    <div id="displaycontentdiv">
+                                                        <Tools
+                                                            uploadImage={this.uploadImage}
+                                                            notetitle={pin[key].title}
+                                                            notedescription={pin[key].description}
+                                                            reminder={this.reminderNote}
+                                                            createNotePropsToTools={this.getColor}
+                                                            noteID={pin[key]._id}
+                                                            archiveNote={this.archiveNote}
+                                                            archiveStatus={pin[key].archive}
+                                                            trashNote={this.trashNote}
+                                                        />
+                                                    </div>
+                                                </div >
+                                            </Card>
+                                        </Draggable>
                                     </div>
                                 )
                             })
@@ -407,43 +449,57 @@ class Cards extends Component {
                         {Object.keys(noteArray).slice(0).reverse().map((key) => {
                             return (
                                 <div key={key._id} >
-                                    <Card id={cardsView} style={{ backgroundColor: noteArray[key].color }}>
-                                        <div id="displaycontentdiv1" >
-
-                                            <div id="pindiv"  >
-                                                <b onClick={() => this.handleClick1(noteArray[key])} style={{ wordBreak: "break-word" }} > {noteArray[key].title}</b>
-                                                < Pinned
-                                                    // noteArray={noteArray}
-                                                    initialpinstatus={noteArray[key].pinned}
-                                                    pinstatus={this.ispinned}
-                                                    noteID={noteArray[key]._id}
-                                                />
+                                    {/* <Draggable> */}
+                                        <Card id={cardsView} style={{ backgroundColor: noteArray[key].color }}>
+                                            <div>
+                                                {noteArray[key].image !== "" ?
+                                                    <img style={{
+                                                        maxWidth: "100%",
+                                                        height: "auto"
+                                                    }} src={noteArray[key].image} alt="cardImage"></img>
+                                                    : null}
                                             </div>
+                                            <div id="displaycontentdiv1" >
+                                                <div id="pindiv"  >
+                                                    <b onClick={() => this.handleClick1(noteArray[key])} style={{ wordBreak: "break-word" }} > {noteArray[key].title}</b>
+                                                    < Pinned
+                                                        // noteArray={noteArray}
+                                                        initialpinstatus={noteArray[key].pinned}
+                                                        pinstatus={this.ispinned}
+                                                        noteID={noteArray[key]._id}
+                                                    />
+                                                </div>
 
 
-                                            <div onClick={() => this.handleClick1(noteArray[key])} >
-                                                {noteArray[key].description}
-                                            </div>
-                                            {noteArray[key].reminder ?
-                                                <Chip id="chipcss"
-                                                    label={noteArray[key].reminder}
-                                                    onDelete={() => this.reminderNote('', noteArray[key]._id)}
-                                                />
-                                                :
-                                                null}
-                                            <div id="displaycontentdiv">
-                                                <Tools
-                                                    note={noteArray[key]}
-                                                    reminder={this.reminderNote}
-                                                    createNotePropsToTools={this.getColor}
-                                                    noteID={noteArray[key]._id}
-                                                    archiveNote={this.archiveNote}
-                                                    archiveStatus={noteArray[key].archive}
-                                                    trashNote={this.trashNote}
-                                                />
-                                            </div>
-                                        </div >
-                                    </Card>
+                                                <div onClick={() => this.handleClick1(noteArray[key])} >
+                                                    {noteArray[key].description}
+                                                </div>
+                                                {noteArray[key].reminder ?
+                                                    <Chip id="chipcss"
+                                                        label={noteArray[key].reminder}
+                                                        onDelete={() => this.reminderNote('', noteArray[key]._id)}
+                                                    />
+                                                    :
+                                                    null}
+                                                <div id="displaycontentdiv">
+                                                    <Tools
+                                                        date={noteArray[key].reminder}
+                                                        notetitle={noteArray[key].title}
+                                                        notedescription={noteArray[key].description}
+                                                        uploadImage={this.uploadImage}
+
+                                                        //  note={noteArray[key]}
+                                                        reminder={this.reminderNote}
+                                                        createNotePropsToTools={this.getColor}
+                                                        noteID={noteArray[key]._id}
+                                                        archiveNote={this.archiveNote}
+                                                        archiveStatus={noteArray[key].archive}
+                                                        trashNote={this.trashNote}
+                                                    />
+                                                </div>
+                                            </div >
+                                        </Card>
+                                    {/* </Draggable> */}
                                 </div>
                             )
                         })

@@ -65,24 +65,27 @@ class Reminder extends Component {
         event.preventDefault();
         this.handleClose();
         console.log("datedatedatedate", this.state.date);
-        this.props.reminder(this.state.date, this.props.noteID);
         console.log("notess in reminder==>", this.props.note);
+        this.props.reminder(this.state.date, this.props.noteID);
 
-        askForPermissioToReceiveNotifications(this.state.date, this.props.note.title, this.props.note.description)
-            .then((diff) => {
-
-                console.log("difff in reminder-------", diff);
-
-
-                setTimeout(() => {
-                    this.setState({ snak2open: true });
-                    console.log("start----------->");
-                    this.props.reminder("", this.props.noteID);
-                }, diff);
-            })
-            .catch((err) => {
-                console.log("error in set timeout reminder", err);
-            })
+    }
+    componentDidUpdate() {
+        console.log("reminder date in componentwillmount-->",this.props.date);
+        
+        if (this.props.date !==undefined && this.props.date!=="") {
+            askForPermissioToReceiveNotifications(this.props.date, this.props.notetitle, this.props.notedescription)
+                .then((diff) => {
+                    console.log("difff in reminder-------", diff);
+                    setTimeout(() => {
+                        this.setState({ snak2open: true });
+                        console.log("start----------->");
+                        this.props.reminder("", this.props.noteID);
+                    }, diff);
+                })
+                .catch((err) => {
+                    console.log("error in set timeout reminder", err);
+                })
+        } 
     }
     handleClose1 = () => {
 
@@ -90,9 +93,11 @@ class Reminder extends Component {
     };
 
     render() {
+        console.log("this.props.date----->wwwwwwwwwwwwwwww", this.props.date);
+
         // const setAMPM = this.props.parentToolsProps;
-        console.log("this.props.note",this.props.note);
-        
+        //  console.log("this.props.note", this.props.note);
+
         const { anchorEl, open, placement } = this.state;
         return (
 
@@ -117,7 +122,7 @@ class Reminder extends Component {
                                                 id="datetime-local"
                                                 //label="Next appointment"
                                                 type="datetime-local"
-                                                defaultValue="2019-04-04T14:30"
+                                                defaultValue="2019-04-05T11:28"
                                                 // className={classes.textField}
                                                 onChange={this.handleChange('date')}
                                                 InputLabelProps={{
@@ -157,8 +162,8 @@ class Reminder extends Component {
                     }}
                     open={this.state.snak2open}
                     message={
-                    <span>{this.props.note.title}, {this.props.note.description}</span>
-                    }   
+                        <span>{this.props.notetitle}, {this.props.notedescription}</span>
+                    }
                     action={[
                         <Button key="undo" style={{ color: "#F1C40F" }} size="small" >
                             UNDO

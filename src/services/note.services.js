@@ -82,9 +82,23 @@ export function  updatePin(data) {
     })
 }
 
+export function  uploadimage(data) {
+    //console.log("hai data", data);
 
+    return axios.put('/GettingS3url', data, {
+        headers: { 'token': localStorage.getItem('token') }
 
+    })
+}
 
+export function  imageupdate(data) {
+   // console.log("hai data", data.get());
+
+    return axios.put('/uploadImage', data, {
+        headers: { 'token': localStorage.getItem('token') }
+
+    })
+}
 
 
 /******************************************************************* */

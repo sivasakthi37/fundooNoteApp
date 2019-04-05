@@ -477,7 +477,7 @@
 }
 
 #CreateNote2 {
-    height: 156px;
+    height: auto;
     width: 570px;
     margin-left: 48px;
     margin-top: 27px;

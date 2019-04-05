@@ -17,34 +17,40 @@ class Tools extends Component {
         this.setState({ open: !this.state.open });
     }
     render() {
-       
+
         return (
             <div>
                 <div className="cardTools">
-                    <Reminder 
-                     note={this.props.note}
+                    <Reminder
+                        date={this.props.date}
+                        notetitle={this.props.notetitle}
+                        notedescription={this.props.notedescription}
+                        //  note={this.props.note}
                         reminder={this.props.reminder}
                         noteID={this.props.noteID}
-                         />
+                    />
                     <ColorPallete
                         handleToggle={this.handleToggle}
                         toolsPropsToColorpallete={this.props.createNotePropsToTools}
-                        
+
                         noteID={this.props.noteID}
-                      />
-                     <UploadImage uploadImage={this.props.uploadImage}
-                     /> 
+                    />
+                    <UploadImage
+
+                        noteID={this.props.noteID}
+                        uploadImage={this.props.uploadImage}
+                    />
                     <Archive
                         archiveNote={this.props.archiveNote}
                         archiveStatus={this.props.archiveStatus}
                         noteID={this.props.noteID}
                     />
                     <MoreOptions
-                       trashNote={this.props.trashNote}
-                       noteID={this.props.noteID}
-                       
+                        trashNote={this.props.trashNote}
+                        noteID={this.props.noteID}
+
                     />
-        {/* <Collaborator/> */}
+                    {/* <Collaborator/> */}
                 </div>
             </div>
         )

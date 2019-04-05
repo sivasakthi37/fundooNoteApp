@@ -100,12 +100,12 @@ class Notecreate extends Component {
     handleimage = (value) => {
         this.setState({ image: value });
     }
-    handleArchive=(value)=> {
+    handleArchive = (value) => {
         this.setState({ archive: value });
-        console.log("archive===>",this.state.archive);
-        
+        console.log("archive===>", this.state.archive);
+
     }
-    ispinned=(value)=> {
+    ispinned = (value) => {
         this.setState({ pinned: value });
     }
     reminderchip = () => {
@@ -121,6 +121,17 @@ class Notecreate extends Component {
                     <div id="createNoteParent">
                         {/* <ClickAwayListener onClickAway={this.handleToggle}> */}
                         <Card id="CreateNote1" style={{ backgroundColor: this.state.color }}>
+
+                            <div>
+                                {this.state.image !== "" ?
+                                    <img style={{
+                                        maxWidth: "100%",
+                                        height: "auto"
+                                    }} src={this.state.image} alt="cardImage"></img>
+                                    : null}
+                            </div>
+
+
                             <div>
                                 <Input
                                     id="noteInputBase"
@@ -159,6 +170,8 @@ class Notecreate extends Component {
                                 null}
                             <div className="cardToolsClose" >
                                 <Tools
+                                    notetitle={this.state.Title}
+                                    notedescription={this.state.Description}
                                     reminder={this.handleReminder}
                                     uploadImage={this.handleimage}
                                     createNotePropsToTools={this.handleColor}

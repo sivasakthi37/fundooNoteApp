@@ -99,6 +99,7 @@ class LoginInput extends Component {
                             localStorage.setItem('email', decoded.payload.email);
                             localStorage.setItem('userId', decoded.payload.user_id);
                             localStorage.setItem('token', res.data);
+                            localStorage.setItem('profilepic', decoded.payload.profilepic);
                             this.setState({ open: true, errormsg: "Login sucessfull!!!!" });
                             
                             this.props.props.history.push("/dashBoard")
