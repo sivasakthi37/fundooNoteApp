@@ -19,6 +19,7 @@ import Delete from '../assets/delete.svg'
 
 import bellicon from '../assets/bellicon.svg';
 
+import  {getLabels} from '../services/label.services';
 const drawerWidth = 240;
 
 const styles = theme => ({
@@ -86,9 +87,45 @@ class Drawercomponent extends Component {
             navigateReminder: false,
             navigateArchived: false,
             navigateTrashed: false,
+            label: []
 
         }
     }
+    handleEditLabel() {
+        this.setState({ open: !this.state.open })
+    }
+    componentDidMount() {
+        getLabels()
+            .then((result) => {
+                this.setState({
+                    label: result
+                })
+            })
+            .catch((error) => {
+                alert(error)
+            });
+    }
+    displaySearchLabels(value) {
+        this.props.searchLabels(value)
+    }
+    showLabels(value) {
+        // let labelArr=this.state.label;
+        // if(value!==undefined){
+        //     labelArr.push(value);
+        //     this.setState({label:labelArr});
+        // }
+        this.setState({
+            label: [...this.state.label, value]
+        })
+    }
+
+    newLabels(value) {
+        this.setState({ label: value })
+    }
+
+
+
+
     async handleNotes() {
         await this.setState({
             navigateReminder: false,
@@ -129,6 +166,22 @@ class Drawercomponent extends Component {
         this.props.handleNavigation(this.state.navigateReminder, this.state.navigateArchived, this.state.navigateTrashed);
     }
     render() {
+
+
+        let displayLabels = this.state.label;
+        if (this.state.label !== "") {
+            displayLabels = this.state.label.map((key) =>
+                <MenuItem style={{ display: "flex", flexDirection: "row", color: "#202124", fontFamily: "Google Sans, Roboto, Arial, sans-serif", fontSize: ".875rem" }} onClick={() => this.displaySearchLabels(key.label)} key={key.label}>
+
+                    <img src={pencil} alt="label icon" style={{ marginRight: "50px" }} />
+
+                    <div style={{ marginRight: "50px", marginBottom: "10px", marginTop: "10px", fontWeight: "550" }}>
+                        {key.label}
+                    </div>
+                </MenuItem>
+            )
+        }
+
         const { classes } = this.props;
 
         return (
@@ -154,12 +207,31 @@ class Drawercomponent extends Component {
                             Reminders
                          </MenuItem>
                         <Divider />
-                        <p id="lable" >LABLES</p>
+                        <div style={{ borderBottom: "1px solid lightgrey", borderTop: "1px solid lightgrey" }}>
+                            <div style={{ marginRight: "218px", fontSize: "13px", marginBottom: "10px", marginTop: "10px", fontFamily: "arial" }}>
+                                LABELS
+                         </div>
+                            <div>
+                                <div>
+                                    {displayLabels}
+                                </div>
+                                <MenuItem className={classes.menuItem} id="labelMenu" onClick={this.handleEditLabel}>
+
+                                    <img src={pencil} alt="edit icon"
+                                        style={{ marginRight: "50px" }} />
+                                    Edit Labels
+                            </MenuItem>
+                            </div>
+
+                        </div>
+
+                        {/* <p id="lable" >LABLES</p>
+                        
                         <MenuItem className={classes.menuItem}>
                             <img src={pencil} alt="logo" style={{ marginRight: "31px" }} />
                             Edit labels
-                         </MenuItem>
-                        <Divider />
+                         </MenuItem> */}
+
                         <Divider />
                         <MenuItem className={classes.menuItem} onClick={() => this.handleArchived()}>
                             <img src={Archive} alt="logo" style={{ marginRight: "31px" }} />
@@ -171,7 +243,7 @@ class Drawercomponent extends Component {
                             Trash
                          </MenuItem>
                     </Drawer>
-
+                    <Divider />
                 </MuiThemeProvider>
             </div>
         )

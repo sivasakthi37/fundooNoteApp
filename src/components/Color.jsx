@@ -1,7 +1,7 @@
 
 import React, { Component } from 'react';
 import { IconButton, Tooltip, Card } from '@material-ui/core';
-import ClickAwayListener from '@material-ui/core/ClickAwayListener';
+//import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 
 const colorCodesAndNames = [{ name: "white", colorCode: "rgb(255, 255, 255)" },
 { name: "lightGreen", colorCode: "rgb(204, 255, 144)" },
@@ -29,6 +29,7 @@ class Color extends Component {
         })
     }
     handleColor = (evt) => {
+        this.setState({ open: !this.state.open });
         console.log("fghty", this.props.noteID)
         this.props.toolsPropsToColorpallete(evt.target.value, this.props.noteID);
     }
@@ -39,13 +40,16 @@ class Color extends Component {
     render() {
 
         const changeCardColor = colorCodesAndNames.map((colorKey) =>
-
-            <Tooltip title={colorKey.name}>
-                <IconButton style={{ backgroundColor: colorKey.colorCode, "margin": "2px", }}
-                    value={colorKey.colorCode}
-                    onClick={this.handleColor}>
-                </IconButton>
-            </Tooltip>
+            <div key={colorKey.name}>
+                {/* <ClickAwayListener onClick={() => this.closePopper()}> */}
+                    <Tooltip title={colorKey.name}>
+                        <IconButton style={{ backgroundColor: colorKey.colorCode, "margin": "2px", }}
+                            value={colorKey.colorCode}
+                            onClick={this.handleColor}>
+                        </IconButton>
+                    </Tooltip>
+                {/* </ClickAwayListener> */}
+            </div>
         );
         return (
             <div>
@@ -60,12 +64,12 @@ class Color extends Component {
 
                 <div>
                     {this.state.open ?
-                        <ClickAwayListener onClick={() => this.closePopper()}>
-                            <Card className="colorPalleteCard">
-                                {changeCardColor}
-                            </Card>
-                         </ClickAwayListener>
-                                                                                                                                                                           : null}
+
+                        <Card className="colorPalleteCard">
+                            {changeCardColor}
+                        </Card>
+                      
+                    : null}
                 </div>
             </div>
 
@@ -73,55 +77,6 @@ class Color extends Component {
     }
 }
 export default Color;
-
-//{
-    /* <Popper open={open} anchorEl={anchorEl} placement={'bottom-start'} transition style={{ zIndex: 9999 }}>
-{({ TransitionProps }) => (
-<Fade {...TransitionProps} timeout={0}>
-<Paper >
-<ClickAwayListener onClick={() => this.closePopper()}>
-<div>
-{this.state.open ?
-// <ClickAwayListener onClick={() => this.closePopper()}>
-<Card >
-{changeCardColor}
-</Card>
-// </ClickAwayListener>
-: null}
-</div>
-</ClickAwayListener>
-</Paper>
-</Fade>
-)}
-</Popper> */
-//}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

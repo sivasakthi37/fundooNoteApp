@@ -359,7 +359,6 @@ class Cards extends Component {
             return (
                 <div>
                     <div>
-
                         {pinArray(this.state.notes).length !== 0 ?
 
                             <label style={{ fontFamily: "georgia", fontSize: "15px", color: "grey", marginRight: "760px" }}>PINNED</label> : null
@@ -367,9 +366,9 @@ class Cards extends Component {
                         <div className="CardsView">
                             {Object.keys(pin).slice(0).reverse().map((key) => {
                                 return (
-                                    <div >
+                                    <div  key={key._id} >
                                         <Draggable>
-                                            <Card id={cardsView} style={{ backgroundColor: pin[key].color }}>
+                                            <Card  key={key._id} id={cardsView} style={{ backgroundColor: pin[key].color }}>
                                                 <div>
                                                     {pin[key].image !== "" ?
                                                         <img style={{
@@ -447,16 +446,17 @@ class Cards extends Component {
                     </div>
                     <div className="CardsView">
                         {Object.keys(noteArray).slice(0).reverse().map((key) => {
-                            return (
-                                <div key={key._id} >
+                           console.log("key++++++++++++++++++++++++++++++++++++++++++++++++++",key)
+                           return (
+                                <div key={key}>
                                     {/* <Draggable> */}
-                                        <Card id={cardsView} style={{ backgroundColor: noteArray[key].color }}>
+                                        <Card   id={cardsView} style={{ backgroundColor: noteArray[key].color }}>
                                             <div>
                                                 {noteArray[key].image !== "" ?
                                                     <img style={{
                                                         maxWidth: "100%",
                                                         height: "auto"
-                                                    }} src={noteArray[key].image} alt="cardImage"></img>
+                                                                    }} src={noteArray[key].image} alt="cardImage"></img>
                                                     : null}
                                             </div>
                                             <div id="displaycontentdiv1" >

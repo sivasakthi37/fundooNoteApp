@@ -14,7 +14,6 @@ class TrashOptions extends Component {
 
     clickMoreOptions = (event) => {
         const { currentTarget } = event;
-
         this.setState(state => ({
             anchorEl: currentTarget,
             open: !state.open,
@@ -51,7 +50,6 @@ class TrashOptions extends Component {
                     {({ TransitionProps }) => (
                         <Fade {...TransitionProps} timeout={0}>
                             <Paper className="moreOptionsPopper">
-
                                 <div id="selectMoreOptions">
                                     <ClickAwayListener onClickAway={() => this.closeLabelPopper()}>
                                         <MenuItem id="moreOptionsMenu" onClick={this.handlerestore}>Restore Note</MenuItem>

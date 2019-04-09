@@ -22,7 +22,7 @@ class ArchivedNavigator extends Component {
                 <div className="CardsView">
                     {this.props.archiveArray.map((key) => {
                         return (
-                            <Card id={cardsView} style={{ backgroundColor: key.color }} >
+                            <Card key={key._id} id={cardsView} style={{ backgroundColor: key.color }} >
                                 <div id="displaycontentdiv1" >
                                     <div id="pindiv">
                                         <b  > {key.title}</b>
