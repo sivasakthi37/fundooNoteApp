@@ -276,7 +276,7 @@ exports.updateImage = (req, res) => {
     //  console.log("update  req in color api=> ", req.body);
 
     req.checkBody('noteID', 'noteID should notr be empty').not().isEmpty();
-    //        req.checkBody('archive', 'color should notr be empty')
+
     var responce = {}
     /**
      * @description:pass the request data to sevices....
@@ -323,4 +323,69 @@ exports.GettingS3url = (req, res) => {
         res.send(error);
     }
 
+}
+
+exports.saveLabelToNote = (req, res) => {
+    try {
+        var res_result = {};
+        req.checkBody('noteID', 'noteID should not be empty').not().isEmpty();
+      
+        var errors = req.validationErrors();
+        var response = {};
+        if (errors) {
+            response.success = false;
+            response.error = errors;
+            return res.status(422).send(response);
+        } else {
+            noteservices.saveLabelToNote(req.body, (err, result) => {
+                if (err) {
+
+                    res_result.status = false;
+                    res_result.error = err;
+                    res.status(500).send(res_result);
+                } else {
+                    res_result.status = true;
+                    res_result.data = result;
+                    res.status(200).send(res_result);
+                }
+            })
+        }
+    } catch (error) {
+
+        res.send(error)
+    }
+}
+
+
+exports.deleteLabelToNote = (req, res) => {
+    try {
+      
+       
+        var res_result = {};
+        req.checkBody('noteID', 'noteID should not be empty').not().isEmpty();
+      
+        var errors = req.validationErrors();
+        var response = {};
+        if (errors) {
+            response.success = false;
+            response.error = errors;
+            return res.status(422).send(response);
+        } else { 
+            noteID = req.body.noteID;
+            noteservices.deleteLabelToNote(noteID , (err, result) => {
+                if (err) {
+                    res_result.status = false;
+                    res_result.error = err;
+                    res.status(500).send(res_result);
+                } else {
+                    res_result.status = true;
+                    res_result.data = result;
+                    res.status(200).send(res_result);
+                }
+            })
+        }
+    } catch (error) {
+
+      res.send(error)
+    }
 }

@@ -222,3 +222,40 @@ exports.updateImage = (paramID, paramData, res) => {
         console.log("error in services:",err);
     }
 }
+
+exports.saveLabelToNote = (paramData, callback) => {
+    console.log("in services", paramData);
+    if (paramData.pull) {
+        notemodels.deleteLabelToNote(paramData, (err, result) => {
+            if (err) {
+                callback(err);
+            } else {
+                return callback(null, result)
+            }
+        })
+    }
+    else {
+
+        notemodels.saveLabelToNote(paramData, (err, result) => {
+            if (err) {
+                callback(err);
+            } else {
+                return callback(null, result)
+            }
+        })
+    }
+}
+
+exports.deleteLabelToNote = (paramData, callback) => {
+    console.log("in services", paramData);
+
+    notemodels.deleteLabelToNote(paramData, (err, result) => {
+        if (err) {
+            callback(err);
+        } else {
+            return callback(null, result)
+        }
+    })
+}
+
+

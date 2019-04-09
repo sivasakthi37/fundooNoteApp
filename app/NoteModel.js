@@ -35,7 +35,13 @@ const NoteSchema = mongoose.Schema({
     },
     trash: {
         type: Boolean,
-    }
+    },
+    label: [
+        {
+            type: String,
+            ref: 'labeSchema'
+        }
+    ]
 },
     {
         timestamps: true
@@ -109,20 +115,20 @@ noteModel.prototype.updatecolor = (paramID, paramData, res) => {
         })
 }
 
-noteModel.prototype.deleteNote=(req, res) => {
+noteModel.prototype.deleteNote = (req, res) => {
 
-    Note.deleteOne({ _id:req.body.noteID}, (err, result) => {
+    Note.deleteOne({ _id: req.body.noteID }, (err, result) => {
         if (err) {
             res(err)
         } else {
-            console.log("result==>",result);
-            
+            console.log("result==>", result);
+
             const obj = {
                 status: 200,
                 msg: "note is deleted successfully",
-                result:result
+                result: result
             }
-             res(null, obj);
+            res(null, obj);
         }
     })
 }
@@ -161,7 +167,7 @@ noteModel.prototype.setReminder = (paramID, paramData, res) => {
         {
             $set: {
                 reminder: paramData,
-                
+
             }
         },
         (err, result) => {
@@ -183,7 +189,7 @@ noteModel.prototype.editTitle = (paramID, paramData, res) => {
         {
             $set: {
                 title: paramData,
-                
+
             }
         },
         (err, result) => {
@@ -196,7 +202,7 @@ noteModel.prototype.editTitle = (paramID, paramData, res) => {
         });
 }
 
-noteModel.prototype.editDescription= (paramID, paramData, res) => {
+noteModel.prototype.editDescription = (paramID, paramData, res) => {
 
     Note.findOneAndUpdate(
         {
@@ -205,7 +211,7 @@ noteModel.prototype.editDescription= (paramID, paramData, res) => {
         {
             $set: {
                 description: paramData,
-                
+
             }
         },
         (err, result) => {
@@ -222,8 +228,8 @@ noteModel.prototype.editDescription= (paramID, paramData, res) => {
 
 
 noteModel.prototype.getTrashStatus = (id, callback) => {
-  //  console.log("getTrashStatus",id);
-    
+    //  console.log("getTrashStatus",id);
+
     Note.findOne({ _id: id }, (err, result) => {
         //console.log("id", id);
         if (err) {
@@ -258,9 +264,9 @@ noteModel.prototype.isTrashed = (noteID, trashStatus, callback) => {
 };
 
 noteModel.prototype.updatePin = (paramID, paramData, res) => {
-console.log("param id==>",paramID);
+    console.log("param id==>", paramID);
 
-console.log("param id==>",paramData);
+    console.log("param id==>", paramData);
     Note.findOneAndUpdate(
         {
             _id: paramID
@@ -270,12 +276,12 @@ console.log("param id==>",paramData);
                 pinned: paramData,
                 archive: false,
                 trash: false,
-               
+
             }
         },
         (err, result) => {
-            console.log("result in update pin",result);
-            
+            console.log("result in update pin", result);
+
             if (err) {
                 res(err)
             } else {
@@ -286,29 +292,99 @@ console.log("param id==>",paramData);
 }
 
 noteModel.prototype.updateImage = (paramID, paramData, res) => {
-    console.log("param id==>",paramID);
+    console.log("param id==>", paramID);
+
+    console.log("param id==>", paramData);
+    Note.findOneAndUpdate(
+        {
+            _id: paramID
+        },
+        {
+            $set: {
+                "image": paramData,
+            }
+        },
+        (err, result) => {
+            console.log("result in update pin", result);
+
+            if (err) {
+                res(err)
+            } else {
+
+                return res(null, paramData)
+            }
+        });
+}
+
+noteModel.prototype.saveLabelToNote = (labelParams, callback) => {
+    console.log("in model", labelParams.noteID);
+
+    var labelledNote = null;
+    var noteID = null;
+   
+        labelledNote = labelParams.label;
+        noteID = labelParams.noteID;
+   
+    Note.findOneAndUpdate(
+        {
+            _id: noteID
+        },
+        {
+            $push: {
+                label: labelledNote,
+            }
+        },
+        (err, result) => {
+            if (err) {
+                callback(err)
+            } else {
+                console.log("in model success");
+
+                let res = result.label;
+                res.push(labelledNote);
+                return callback(null, res)
+            }
+        });
+}
+
+noteModel.prototype.deleteLabelToNote = (labelParams, callback) => {
+    console.log("in model", labelParams.noteID);
+
+    var labelledNote = null;
+    var noteID = null;
     
-    console.log("param id==>",paramData);
-        Note.findOneAndUpdate(
-            {
-                _id: paramID
-            },
-            {
-                $set: {
-                    "image": paramData,
+        labelledNote = labelParams.value;
+        noteID = labelParams.noteID;
+   
+
+    Note.findOneAndUpdate(
+        {
+            _id: noteID
+        },
+        {
+            $pull: {
+                label: labelledNote,
+            }
+        },
+        (err, result) => {
+            if (err) {
+                callback(err)
+            } else {
+                let newArray = result.label;
+                console.log("in model success result", result);
+
+                for (let i = 0; i < newArray.length; i++) {
+                    if (newArray[i] === labelledNote) {
+                        newArray.splice(i, 1);
+                        return callback(null, newArray)
+                    }
                 }
-            },
-            (err, result) => {
-                console.log("result in update pin",result);
-                
-                if (err) {
-                    res(err)
-                } else {
-    
-                    return res(null, paramData)
-                }
-            });
-    }
+            }
+        });
+}
+
+
+
 
 module.exports = new noteModel;
 
