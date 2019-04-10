@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 import moreoptions from '../assets/moreoptions.svg';
 import { MenuItem, Popper, Paper, Fade, Tooltip, ClickAwayListener, createMuiTheme, MuiThemeProvider } from '@material-ui/core';
-
+import AddLabelsOnNote from './AddLabelsOnNote';
 
 const theme = createMuiTheme({
     overrides: {
@@ -26,9 +26,9 @@ class MoreOptions extends Component {
             open: false,
             placement: null,
         }
-       
+        this.moreOptionsToAddLabels = React.createRef();
     }
-    clickMoreOptions=(event)=> {
+    clickMoreOptions = (event) => {
         const { currentTarget } = event;
 
         this.setState(state => ({
@@ -37,21 +37,29 @@ class MoreOptions extends Component {
 
         }));
     }
-    handleTrashedNotes=()=> {
+    handleLabelsOnNote = (e) => {
+        this.setState({
+            open: false
+        })
+        this.moreOptionsToAddLabels.current.addLabelPopup(e);
+    }
+
+
+    handleTrashedNotes = () => {
         this.handleClose();
         this.props.trashNote(this.props.noteID);
     }
-    closeLabelPopper=()=> {
+    closeLabelPopper = () => {
         this.setState({
             open: false
         })
     }
 
 
-    handleClose=()=>{
-        this.setState(state=>({open:!state.open}))
+    handleClose = () => {
+        this.setState(state => ({ open: !state.open }))
     }
-   
+
     render() {
         const { anchorEl, open } = this.state;
         return (
@@ -65,7 +73,7 @@ class MoreOptions extends Component {
 
                     </Tooltip>
 
-                    <Popper open={open} anchorEl={anchorEl} placement={'bottom-start'} transition style={{zIndex:9999 }}>
+                    <Popper open={open} anchorEl={anchorEl} placement={'bottom-start'} transition style={{ zIndex: 9999 }}>
                         {({ TransitionProps }) => (
                             <Fade {...TransitionProps} timeout={0}>
                                 <Paper className="moreOptionsPopper" >
@@ -81,8 +89,8 @@ class MoreOptions extends Component {
                             </Fade>
                         )}
                     </Popper>
-
-                                 </div>
+                    <AddLabelsOnNote ref={this.moreOptionsToAddLabels} noteID={this.props.noteID} addLabelToNote={this.props.addLabelToNote} anchorEl={this.state.anchorEl} />
+                </div>
             </MuiThemeProvider>
         )
     }

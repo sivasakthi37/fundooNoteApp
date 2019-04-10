@@ -124,6 +124,14 @@ class Dashboardinput extends React.Component {
             })
         }
     }
+    searchLabels = (value) => {
+        this.setState({ label: value });
+        console.log("search labels", value);
+        this.noteToCards.current.displayLabelledCards();
+    }
+    makeLabelFalse=()=> {
+        this.noteToCards.current.makeLabelFalse();
+    }
     render() {
         const { classes } = this.props;
         const { open } = this.state;
@@ -185,8 +193,10 @@ class Dashboardinput extends React.Component {
                     </AppBar>
                     <div >
                         <Drawercomponent
+                            makeLabelFalse={this.makeLabelFalse}
                             handleNavigation={this.handleNavigation}
                             menustatus={this.state.open}
+                            searchLabels={this.searchLabels}
                         />
                     </div>
                     <main
@@ -207,6 +217,7 @@ class Dashboardinput extends React.Component {
                             <div>
                                 <Notecreate currentnote={this.currentnote} />
                                 <Cards
+                                    labelValue={this.state.label}
                                     searchNote={this.state.search}
                                     navigaterReminder={this.state.reminder}
                                     noteProps={this.state.cardStyles}

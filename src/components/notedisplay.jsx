@@ -12,7 +12,8 @@ import Pinned from './Pinned';
 import TrashNavigator from './TrashNavigator';
 import ReminderNavigater from './reminderNavigater';
 import Draggable from 'react-draggable';
-import { updateColor, updateArchiveStatus, otherArray, archiveArray, setReminder, isTrashed, trashArray, deleteNote, remiderArray, updateTitle, updateDescription, updatePin, pinArray, imageupdate } from '../services/note.services';
+import { updateColor, updateArchiveStatus, otherArray, archiveArray, setReminder, isTrashed, trashArray, deleteNote, remiderArray, updateTitle, updateDescription, updatePin, pinArray, imageupdate, saveLabel } from '../services/note.services';
+
 class Cards extends Component {
     constructor() {
         super();
@@ -20,11 +21,18 @@ class Cards extends Component {
             open: false,
             open1: false,
             notes: [],
-
+            label: false,
         }
         this.cardsToDialogBox = React.createRef();
     }
+    makeLabelFalse = () => {
+        this.setState({ label: false })
+    }
 
+
+    displayLabelledCards = () => {
+        this.setState({ label: true })
+    }
     async handleClick1(note) {
         await this.setState({ open1: true })
         console.log("dilog note in notedisplay==>", note);
@@ -279,13 +287,66 @@ class Cards extends Component {
                 alert(error)
             });
     }
+    addLabelToNote = (noteId, value) => {
+        const addLabel = {
+            noteID: noteId,
+            label: value
+        }
+        console.log("addlabel with note-->", addLabel);
+
+        saveLabel('/saveLabelToNote', addLabel)
+            .then((result) => {
+                console.log("responce from backend for label-->", result);
+                let newArray = this.state.notes
+                for (let i = 0; i < newArray.length; i++) {
+                    if (newArray[i]._id === noteId) {
+                        newArray[i].label = result.data.data;
+                        this.setState({
+                            notes: newArray
+                        })
+                    }
+                }
+            })
+            .catch((error) => {
+                console.log(error)
+            });
+    }
+    deleteLabelFromNote = (value, noteId) => {
+        const deleteLabel = {
+            pull: true,
+            value: value,
+            noteID: noteId
+        }
+        saveLabel('/saveLabelToNote', deleteLabel)
+            .then((result) => {
+                let newArray = this.state.notes
+                for (let i = 0; i < newArray.length; i++) {
+                    if (newArray[i]._id === noteId) {
+                        newArray[i].label = result.data.data;
+                        this.setState({
+                            notes: newArray
+                        })
+                    }
+                }
+            })
+    }
+
+
+
+
+
+
+
+
     render() {
         let cardsView = this.props.noteProps ? "cards" : "CreateNote2";
 
         let noteArray = otherArray(this.state.notes);
         let pin = pinArray(this.state.notes)
-        console.log("noteArray==============================>", noteArray);
-        // console.log("noteArray==>", noteArray);
+        console.log("noteArray==>", noteArray);
+
+        //  console.log("noteArray==============================>", noteArray[0].label);
+
         // let noteArray = this.state.notes;
         if (this.props.navigateArchived) {
 
@@ -303,7 +364,7 @@ class Cards extends Component {
                 />
             )
         }
-        else if ((this.props.searchNote !== "") && (!this.props.navigateArchived
+        else if ((this.props.searchNote !== "" || this.state.label) && (!this.props.navigateArchived
             && !this.props.navigateReminder && !this.props.navigateTrash)) {
             let searchNote;
             if (this.props.searchNote !== "") {
@@ -312,9 +373,15 @@ class Cards extends Component {
                         obj.description.includes(this.props.searchNote)
                 )
             }
+            else {
+                searchNote = this.state.notes.filter(
+                    obj => obj.label.length > 0 && obj.label.find((item) => item === this.props.labelValue))
+            }
             return (
                 <SearchedNotes
+                    addLabelToNote={this.addLabelToNote}
 
+                    deleteLabelFromNote={this.deleteLabelFromNote}
                     searchNote={searchNote}
 
                     getColor={this.getColor}
@@ -366,9 +433,9 @@ class Cards extends Component {
                         <div className="CardsView">
                             {Object.keys(pin).slice(0).reverse().map((key) => {
                                 return (
-                                    <div  key={key._id} >
+                                    <div key={key._id} >
                                         <Draggable>
-                                            <Card  key={key._id} id={cardsView} style={{ backgroundColor: pin[key].color }}>
+                                            <Card key={key._id} id={cardsView} style={{ backgroundColor: pin[key].color }}>
                                                 <div>
                                                     {pin[key].image !== "" ?
                                                         <img style={{
@@ -398,6 +465,7 @@ class Cards extends Component {
                                                         null}
                                                     <div id="displaycontentdiv">
                                                         <Tools
+                                                            lablevalue={this.props.lablevalue}
                                                             uploadImage={this.uploadImage}
                                                             notetitle={pin[key].title}
                                                             notedescription={pin[key].description}
@@ -446,34 +514,36 @@ class Cards extends Component {
                     </div>
                     <div className="CardsView">
                         {Object.keys(noteArray).slice(0).reverse().map((key) => {
-                           console.log("key++++++++++++++++++++++++++++++++++++++++++++++++++",key)
-                           return (
+                            console.log("noteArray==============================>", noteArray[0].label.length);
+                            //console.log("key++++++++++++++++++++++++++++++++++++++++++++++++++", key)
+                            return (
                                 <div key={key}>
                                     {/* <Draggable> */}
-                                        <Card   id={cardsView} style={{ backgroundColor: noteArray[key].color }}>
-                                            <div>
-                                                {noteArray[key].image !== "" ?
-                                                    <img style={{
-                                                        maxWidth: "100%",
-                                                        height: "auto"
-                                                                    }} src={noteArray[key].image} alt="cardImage"></img>
-                                                    : null}
+                                    <Card id={cardsView} style={{ backgroundColor: noteArray[key].color }}>
+                                        <div>
+                                            {noteArray[key].image !== "" ?
+                                                <img style={{
+                                                    maxWidth: "100%",
+                                                    height: "auto"
+                                                }} src={noteArray[key].image} alt="cardImage"></img>
+                                                : null}
+                                        </div>
+                                        <div id="displaycontentdiv1" >
+                                            <div id="pindiv"  >
+                                                <b onClick={() => this.handleClick1(noteArray[key])} style={{ wordBreak: "break-word" }} > {noteArray[key].title}</b>
+                                                < Pinned
+                                                    // noteArray={noteArray}
+                                                    initialpinstatus={noteArray[key].pinned}
+                                                    pinstatus={this.ispinned}
+                                                    noteID={noteArray[key]._id}
+                                                />
                                             </div>
-                                            <div id="displaycontentdiv1" >
-                                                <div id="pindiv"  >
-                                                    <b onClick={() => this.handleClick1(noteArray[key])} style={{ wordBreak: "break-word" }} > {noteArray[key].title}</b>
-                                                    < Pinned
-                                                        // noteArray={noteArray}
-                                                        initialpinstatus={noteArray[key].pinned}
-                                                        pinstatus={this.ispinned}
-                                                        noteID={noteArray[key]._id}
-                                                    />
-                                                </div>
 
 
-                                                <div onClick={() => this.handleClick1(noteArray[key])} >
-                                                    {noteArray[key].description}
-                                                </div>
+                                            <div onClick={() => this.handleClick1(noteArray[key])} >
+                                                {noteArray[key].description}
+                                            </div>
+                                            <span >
                                                 {noteArray[key].reminder ?
                                                     <Chip id="chipcss"
                                                         label={noteArray[key].reminder}
@@ -481,24 +551,39 @@ class Cards extends Component {
                                                     />
                                                     :
                                                     null}
-                                                <div id="displaycontentdiv">
-                                                    <Tools
-                                                        date={noteArray[key].reminder}
-                                                        notetitle={noteArray[key].title}
-                                                        notedescription={noteArray[key].description}
-                                                        uploadImage={this.uploadImage}
+                                          
+                                                {noteArray[key].label.length > 0 ?
+                                                    noteArray[key].label.map((key1, index) =>
+                                                        <div key={index} >
+                                                            <Chip
+                                                                label={key1}
+                                                                onDelete={() => this.deleteLabelFromNote(key1, noteArray[key]._id)}
+                                                            />
+                                                        </div>
+                                                    )
+                                                    :
+                                                    null}
+                                            </span>
+                                            <div id="displaycontentdiv">
+                                                <Tools
+                                                    addLabelToNote={this.addLabelToNote}
 
-                                                        //  note={noteArray[key]}
-                                                        reminder={this.reminderNote}
-                                                        createNotePropsToTools={this.getColor}
-                                                        noteID={noteArray[key]._id}
-                                                        archiveNote={this.archiveNote}
-                                                        archiveStatus={noteArray[key].archive}
-                                                        trashNote={this.trashNote}
-                                                    />
-                                                </div>
-                                            </div >
-                                        </Card>
+                                                    date={noteArray[key].reminder}
+                                                    notetitle={noteArray[key].title}
+                                                    notedescription={noteArray[key].description}
+                                                    uploadImage={this.uploadImage}
+
+                                                    //  note={noteArray[key]}
+                                                    reminder={this.reminderNote}
+                                                    createNotePropsToTools={this.getColor}
+                                                    noteID={noteArray[key]._id}
+                                                    archiveNote={this.archiveNote}
+                                                    archiveStatus={noteArray[key].archive}
+                                                    trashNote={this.trashNote}
+                                                />
+                                            </div>
+                                        </div >
+                                    </Card>
                                     {/* </Draggable> */}
                                 </div>
                             )

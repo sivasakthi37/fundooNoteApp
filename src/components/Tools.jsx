@@ -46,6 +46,8 @@ class Tools extends Component {
                         noteID={this.props.noteID}
                     />
                     <MoreOptions
+                     
+                        addLabelToNote={this.props.addLabelToNote}
                         trashNote={this.props.trashNote}
                         noteID={this.props.noteID}
 

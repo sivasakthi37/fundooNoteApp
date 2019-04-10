@@ -19,7 +19,10 @@ import Delete from '../assets/delete.svg'
 
 import bellicon from '../assets/bellicon.svg';
 
-import  {getLabels} from '../services/label.services';
+import  {getLabels} from '../services/note.services';
+
+import EditLabel from './editLabel';
+
 const drawerWidth = 240;
 
 const styles = theme => ({
@@ -91,7 +94,7 @@ class Drawercomponent extends Component {
 
         }
     }
-    handleEditLabel() {
+    handleEditLabel=()=> {
         this.setState({ open: !this.state.open })
     }
     componentDidMount() {
@@ -105,21 +108,25 @@ class Drawercomponent extends Component {
                 alert(error)
             });
     }
-    displaySearchLabels(value) {
+    displaySearchLabels=(value)=> {
         this.props.searchLabels(value)
     }
-    showLabels(value) {
+    showLabels=(value)=> {
         // let labelArr=this.state.label;
         // if(value!==undefined){
         //     labelArr.push(value);
         //     this.setState({label:labelArr});
         // }
+        console.log("show methjod in drower",value);
+     
+      
         this.setState({
             label: [...this.state.label, value]
         })
+        console.log("all label in drawer ",this.state.label);
     }
 
-    newLabels(value) {
+    newLabels=(value)=> {
         this.setState({ label: value })
     }
 
@@ -132,7 +139,7 @@ class Drawercomponent extends Component {
             navigateArchived: false,
             navigateTrashed: false,
         })
-
+        this.props.makeLabelFalse();
         this.props.handleNavigation(this.state.navigateReminder, this.state.navigateArchived, this.state.navigateTrashed);
     }
     async handleArchived() {
@@ -141,7 +148,7 @@ class Drawercomponent extends Component {
             navigateArchived: true,
             navigateTrashed: false
         })
-
+        this.props.makeLabelFalse();
         this.props.handleNavigation(this.state.navigateReminder, this.state.navigateArchived, this.state.navigateTrashed);
     }
     async handleTrashed() {
@@ -152,7 +159,7 @@ class Drawercomponent extends Component {
             navigateArchived: false,
             navigateTrashed: true
         })
-
+        this.props.makeLabelFalse();
         this.props.handleNavigation(this.state.navigateReminder, this.state.navigateArchived, this.state.navigateTrashed);
     }
     async handlerReminder() {
@@ -163,15 +170,15 @@ class Drawercomponent extends Component {
             navigateTrashed: false,
 
         })
+        this.props.makeLabelFalse();
         this.props.handleNavigation(this.state.navigateReminder, this.state.navigateArchived, this.state.navigateTrashed);
     }
     render() {
-
-
+        const { classes } = this.props;
         let displayLabels = this.state.label;
         if (this.state.label !== "") {
             displayLabels = this.state.label.map((key) =>
-                <MenuItem style={{ display: "flex", flexDirection: "row", color: "#202124", fontFamily: "Google Sans, Roboto, Arial, sans-serif", fontSize: ".875rem" }} onClick={() => this.displaySearchLabels(key.label)} key={key.label}>
+                <MenuItem className={classes.menuItem} style={{ display: "flex", flexDirection: "row", color: "#202124", fontFamily: "Google Sans, Roboto, Arial, sans-serif", fontSize: ".875rem" }} onClick={() => this.displaySearchLabels(key.label)} key={key.label}>
 
                     <img src={pencil} alt="label icon" style={{ marginRight: "50px" }} />
 
@@ -181,9 +188,6 @@ class Drawercomponent extends Component {
                 </MenuItem>
             )
         }
-
-        const { classes } = this.props;
-
         return (
             <div >
                 <MuiThemeProvider theme={theme1}  >
@@ -244,6 +248,12 @@ class Drawercomponent extends Component {
                          </MenuItem>
                     </Drawer>
                     <Divider />
+                    <EditLabel
+                    newLabels={this.newLabels}
+                    label={this.state.label}
+                    showLabels={this.showLabels}
+                    drawerPropstoEditLabels={this.state.open}
+                    labelToggle={this.handleEditLabel} />
                 </MuiThemeProvider>
             </div>
         )

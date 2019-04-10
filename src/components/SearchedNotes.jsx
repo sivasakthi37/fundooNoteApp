@@ -40,6 +40,22 @@ class SearchedNotes extends Component {
                                         />
                                         :
                                         null}
+                                    <span>
+                                        {key.label.length > 0 ?
+                                            key.label.map((key1) =>
+
+                                                <Chip id="chipcss"
+                                                    label={key1}
+                                                    onDelete={() => this.props.deleteLabelFromNote(key1, key._id)}
+                                                />
+
+                                            )
+                                            :
+                                            null}
+                                    </span>
+
+
+
                                     <div id="displaycontentdiv">
                                         <Tools
                                             note={key}
