@@ -1,4 +1,4 @@
-var notemodels=require('../app/NoteModel');
+var notemodels = require('../app/NoteModel');
 exports.notecreate = (req, res) => {
     try {
         notemodels.CreateNote(req, (err, data) => {
@@ -13,7 +13,7 @@ exports.notecreate = (req, res) => {
         })
     }
     catch (err) {
-        console.log("error in services:",err);
+        console.log("error in services:", err);
     }
 }
 
@@ -31,8 +31,8 @@ exports.noteget = (req, res) => {
         })
     }
     catch (err) {
-        console.log("error in services:",err);
-      
+        console.log("error in services:", err);
+
 
     }
 }
@@ -52,10 +52,10 @@ exports.updatecolor = (paramID, paramData, res) => {
         })
     }
     catch (err) {
-        console.log("error in services:",err);
+        console.log("error in services:", err);
     }
 }
-exports.deleteNote=(req, res) => {
+exports.deleteNote = (req, res) => {
     try {
         notemodels.deleteNote(req, (err, data) => {
             if (err) {
@@ -69,8 +69,8 @@ exports.deleteNote=(req, res) => {
         })
     }
     catch (err) {
-        console.log("error in services:",err);
-    
+        console.log("error in services:", err);
+
     }
 }
 
@@ -89,7 +89,7 @@ exports.isArchived = (paramID, paramData, res) => {
         })
     }
     catch (err) {
-        console.log("error in services:",err);
+        console.log("error in services:", err);
     }
 }
 
@@ -108,7 +108,7 @@ exports.setReminder = (paramID, paramData, res) => {
         })
     }
     catch (err) {
-        console.log("error in services:",err);
+        console.log("error in services:", err);
     }
 }
 
@@ -126,11 +126,11 @@ exports.editTitle = (paramID, paramData, res) => {
         })
     }
     catch (err) {
-        console.log("error in services:",err);
+        console.log("error in services:", err);
     }
 }
 
-exports.editDescription= (paramID, paramData, res) => {
+exports.editDescription = (paramID, paramData, res) => {
     try {
         notemodels.editDescription(paramID, paramData, (err, data) => {
             if (err) {
@@ -144,7 +144,7 @@ exports.editDescription= (paramID, paramData, res) => {
         })
     }
     catch (err) {
-        console.log("error in services:",err);
+        console.log("error in services:", err);
     }
 }
 
@@ -200,7 +200,7 @@ exports.updatePin = (paramID, paramData, res) => {
         })
     }
     catch (err) {
-        console.log("error in services:",err);
+        console.log("error in services:", err);
     }
 }
 
@@ -219,7 +219,7 @@ exports.updateImage = (paramID, paramData, res) => {
         })
     }
     catch (err) {
-        console.log("error in services:",err);
+        console.log("error in services:", err);
     }
 }
 
@@ -259,3 +259,51 @@ exports.deleteLabelToNote = (paramData, callback) => {
 }
 
 
+const labelModel = require('../app/lableModel')
+
+exports.addLabel = (labelData, callback) => {
+    ///  console.log("in services",labelData);
+
+    notemodels.addLabel(labelData, (err, result) => {
+        if (err) {
+            callback(err);
+        } else {
+            return callback(null, result)
+        }
+    })
+}
+
+exports.getLabels = (labelData, callback) => {
+    //  console.log("in services",labelData);
+
+    notemodels.getLabels(labelData, (err, result) => {
+        if (err) {
+            callback(err);
+        } else {
+            return callback(null, result)
+        }
+    })
+}
+exports.deleteLabel = (labelData, callback) => {
+    // console.log("in services",labelData);
+
+    notemodels.deleteLabel(labelData, (err, result) => {
+        if (err) {
+            callback(err);
+        } else {
+            return callback(null, result)
+        }
+    })
+}
+
+exports.updateLabel = (labelData, callback) => {
+    //  console.log("in services",labelData);
+
+    notemodels.updateLabel(labelData, (err, result) => {
+        if (err) {
+            callback(err);
+        } else {
+            return callback(null, result)
+        }
+    })
+}

@@ -69,13 +69,13 @@ route.put('/setProfilePic', Middleware.checkTokenAuthentication, upload.single('
 
 route.put('/GettingS3url', Middleware.checkTokenAuthentication, upload.single('image'), notes.GettingS3url);
 
-route.post('/addLabel', Middleware.checkTokenAuthentication, labelController.addLabel)
+route.post('/addLabel', Middleware.checkTokenAuthentication, notes.addLabel)
 
-route.get('/getLabels', Middleware.checkTokenAuthentication, labelController.getLabels)
+route.get('/getLabels', Middleware.checkTokenAuthentication, notes.getLabels)
 
-route.post('/deleteLabel', Middleware.checkTokenAuthentication, labelController.deleteLabel)
+route.post('/deleteLabel', Middleware.checkTokenAuthentication, notes.deleteLabel)
 
-route.put('/updateLabel', Middleware.checkTokenAuthentication, labelController.updateLabel)
+route.put('/updateLabel', Middleware.checkTokenAuthentication, notes.updateLabel)
 
 route.post('/saveLabelToNote', Middleware.checkTokenAuthentication,notes.saveLabelToNote)
 

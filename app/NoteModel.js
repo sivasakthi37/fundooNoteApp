@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-
+const Schema = mongoose.Schema;
 const NoteSchema = mongoose.Schema({
     userId: {
         type: mongoose.Schema.Types.ObjectId,
@@ -321,10 +321,10 @@ noteModel.prototype.saveLabelToNote = (labelParams, callback) => {
 
     var labelledNote = null;
     var noteID = null;
-   
-        labelledNote = labelParams.label;
-        noteID = labelParams.noteID;
-   
+
+    labelledNote = labelParams.label;
+    noteID = labelParams.noteID;
+
     Note.findOneAndUpdate(
         {
             _id: noteID
@@ -352,10 +352,10 @@ noteModel.prototype.deleteLabelToNote = (labelParams, callback) => {
 
     var labelledNote = null;
     var noteID = null;
-    
-        labelledNote = labelParams.value;
-        noteID = labelParams.noteID;
-   
+
+    labelledNote = labelParams.value;
+    noteID = labelParams.noteID;
+
 
     Note.findOneAndUpdate(
         {
@@ -383,9 +383,97 @@ noteModel.prototype.deleteLabelToNote = (labelParams, callback) => {
         });
 }
 
+var labelSchema = new mongoose.Schema({
+    userID: {
+        type: Schema.Types.ObjectId,
+        ref: 'UserSchema'
+    },
+    label: {
+        type: String,
+        require: [true, "Label require"],
+        unique: true
+    }
+}, {
+        timestamps: true
+    }
+)
+var label = mongoose.model('Label', labelSchema);
+
+// function labelModel() {
+
+// }
+
+noteModel.prototype.addLabel = (labelData, callback) => {
+    // console.log("ultimate save", labelData);
+
+    const Data = new label(labelData);
+    Data.save((err, result) => {
+        if (err) {
+            console.log(err);
+            callback(err);
+        } else {
+            //  console.log("label result", result);
+
+            return callback(null, result);
+        }
+    })
+}
 
 
+noteModel.prototype.getLabels = (id, callback) => {
+    //console.log("in model", id);
 
+    label.find({ userID: id.userID }, (err, result) => {
+        if (err) {
+            callback(err)
+        } else {
+            //console.log("labels", result)
+            return callback(null, result)
+        }
+    })
+}
+noteModel.prototype.deleteLabel = (id, callback) => {
+    // console.log("in model", id);
+
+    label.deleteOne({ _id: id.labelID }, (err, result) => {
+        if (err) {
+            callback(err)
+        } else {
+            //console.log("labels", result)
+            return callback(null, result)
+        }
+    })
+}
+
+noteModel.prototype.updateLabel = (changedLabel, callback) => {
+    var editLabel = null;
+    var labelId = null;
+    //  console.log("in model",changedLabel);
+    editLabel = changedLabel.editLabel;
+    labelId = changedLabel.labelID
+    label.findOneAndUpdate(
+        {
+            _id: labelId
+        },
+        {
+            $set: {
+                label: editLabel
+            }
+        },
+        (err, result) => {
+            if (err) {
+                console.log("in modelerr");
+
+                callback(err)
+            } else {
+                console.log("in modelsuccess");
+
+                return callback(null, changedLabel)
+            }
+        });
+};
+
+//module.exports = new labelModel;
 module.exports = new noteModel;
 
 
