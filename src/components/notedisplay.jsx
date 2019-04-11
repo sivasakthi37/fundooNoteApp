@@ -138,14 +138,6 @@ class Cards extends Component {
             .catch((error) => {
                 console.log(error);
             });
-
-
-
-
-
-
-
-
     }
 
     reminderNote = (value, noteId) => {

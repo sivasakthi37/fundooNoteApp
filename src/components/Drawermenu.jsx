@@ -129,10 +129,6 @@ class Drawercomponent extends Component {
     newLabels=(value)=> {
         this.setState({ label: value })
     }
-
-
-
-
     async handleNotes() {
         await this.setState({
             navigateReminder: false,

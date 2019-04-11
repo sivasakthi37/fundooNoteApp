@@ -3,7 +3,7 @@ import Popper from '@material-ui/core/Popper';
 import Fade from '@material-ui/core/Fade';
 import { MenuItem, Paper, Tooltip, ListItem, ClickAwayListener, Button } from '@material-ui/core';
 import TextField from '@material-ui/core/TextField';
-import { askForPermissioToReceiveNotifications } from '../push-notification';
+//import { askForPermissioToReceiveNotifications } from '../push-notification';
 import { Snackbar, IconButton } from '@material-ui/core';
 import closeIcon from '../assets/closeIcon.svg';
 class Reminder extends Component {
@@ -69,24 +69,24 @@ class Reminder extends Component {
         this.props.reminder(this.state.date, this.props.noteID);
 
     }
-    componentDidUpdate() {
-        console.log("reminder date in componentwillmount-->",this.props.date);
+    // componentDidUpdate() {
+    //     console.log("reminder date in componentwillmount-->",this.props.date);
         
-        if (this.props.date !==undefined && this.props.date!=="") {
-            askForPermissioToReceiveNotifications(this.props.date, this.props.notetitle, this.props.notedescription)
-                .then((diff) => {
-                    console.log("difff in reminder-------", diff);
-                    setTimeout(() => {
-                        this.setState({ snak2open: true });
-                        console.log("start----------->");
-                        this.props.reminder("", this.props.noteID);
-                    }, diff);
-                })
-                .catch((err) => {
-                    console.log("error in set timeout reminder", err);
-                })
-        } 
-    }
+    //     if (this.props.date !==undefined && this.props.date!=="") {
+    //         askForPermissioToReceiveNotifications(this.props.date, this.props.notetitle, this.props.notedescription)
+    //             .then((diff) => {
+    //                 console.log("difff in reminder-------", diff);
+    //                 setTimeout(() => {
+    //                     this.setState({ snak2open: true });
+    //                     console.log("start----------->");
+    //                     this.props.reminder("", this.props.noteID);
+    //                 }, diff);
+    //             })
+    //             .catch((err) => {
+    //                 console.log("error in set timeout reminder", err);
+    //             })
+    //     } 
+    // }
     handleClose1 = () => {
 
         this.setState({ snak2open: false });
