@@ -26,7 +26,7 @@ var notes = require('../controllers/Note.controller');
 
 var upload = require('../services/fileupload');
 
-var labelController = require('../controllers/lableController');
+
 
 route.post('/Login', users.login);
 

@@ -259,7 +259,7 @@ exports.deleteLabelToNote = (paramData, callback) => {
 }
 
 
-const labelModel = require('../app/lableModel')
+
 
 exports.addLabel = (labelData, callback) => {
     ///  console.log("in services",labelData);

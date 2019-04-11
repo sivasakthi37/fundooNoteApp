@@ -391,7 +391,7 @@ exports.deleteLabelToNote = (req, res) => {
 }
 
 
-const labelServices = require('../services/lableservices')
+
 
 exports.addLabel = (req, res) => {
     try {

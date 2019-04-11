@@ -9,7 +9,6 @@ const NoteSchema = mongoose.Schema({
     title: {
         type: String,
         required: [true, "title is required"]
-
     },
     description: {
         type: String,
@@ -39,7 +38,8 @@ const NoteSchema = mongoose.Schema({
     label: [
         {
             type: String,
-            ref: 'labeSchema'
+            ref: 'labeSchema',
+            unique: true
         }
     ]
 },
@@ -122,7 +122,6 @@ noteModel.prototype.deleteNote = (req, res) => {
             res(err)
         } else {
             console.log("result==>", result);
-
             const obj = {
                 status: 200,
                 msg: "note is deleted successfully",
@@ -372,7 +371,6 @@ noteModel.prototype.deleteLabelToNote = (labelParams, callback) => {
             } else {
                 let newArray = result.label;
                 console.log("in model success result", result);
-
                 for (let i = 0; i < newArray.length; i++) {
                     if (newArray[i] === labelledNote) {
                         newArray.splice(i, 1);
@@ -399,9 +397,6 @@ var labelSchema = new mongoose.Schema({
 )
 var label = mongoose.model('Label', labelSchema);
 
-// function labelModel() {
-
-// }
 
 noteModel.prototype.addLabel = (labelData, callback) => {
     // console.log("ultimate save", labelData);
