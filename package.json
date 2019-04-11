@@ -4,7 +4,9 @@
   "description": "",
   "main": "sever.js",
   "scripts": {
-    "test": "mocha"
+    "test": "mocha",
+    "built":"node server.js"
+    
   },
   "author": "sivasakthi",
   "license": "ISC",
