@@ -134,7 +134,7 @@ class RegisterInput extends Component {
                                 id="outlined-dense"
                                 label="First name"
                                 margin="dense"
-                              //  variant="outlined"
+                               variant="outlined"
                                 onChange={this.handleChange('firstname')}
                                 onKeyPress={this.handleEnter}
                             />
