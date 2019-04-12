@@ -95,7 +95,7 @@ exports.login = (req, res) => {
                             // const redisKey = 'email_'+responce._id;
                             // client.set(redisKey, 86400, JSON.stringify(responce));
                           //  const redisKey = result.email;
-                            console.log("rediskey", redisKey);
+                          //  console.log("rediskey", redisKey);
 
                             //client.set(redisKey, 86400, query);
                           //  client.setex(redisKey, 3600, JSON.stringify(response.token.token));
