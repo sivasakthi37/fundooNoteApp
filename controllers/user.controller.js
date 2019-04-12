@@ -13,7 +13,7 @@ const sendmail = require('../middleware/sendmail')
 
 const responseTime = require('response-time')
 
-const redis = require('redis');
+//const redis = require('redis');
 
 const express = require('express');
 /**
@@ -34,35 +34,36 @@ exports.login = (req, res) => {
             response.error = errors;
             res.status(422).send(response);
         }
-        else {
-            const app = express();
+        // else {
+        //     const app = express();
 
-            // create and connect redis client to local instance.
-            const client = redis.createClient();
+        //     // create and connect redis client to local instance.
+        //     const client = redis.createClient();
 
-            // Print redis errors to the console
-            client.on('error', (err) => {
-                console.log("Error " + err);
-            });
+        //     // Print redis errors to the console
+        //     client.on('error', (err) => {
+        //         console.log("Error " + err);
+        //     });
 
-            app.use(responseTime());
+        //     app.use(responseTime());
 
-            // Extract the query from url and trim trailing spaces
-            //  const query = (req.body.email+req.body._id).trim();
-            // Build the Wikipedia API url
+        //     // Extract the query from url and trim trailing spaces
+        //     //  const query = (req.body.email+req.body._id).trim();
+        //     // Build the Wikipedia API url
 
-            const redisKey = req.body.email;
-            // Try fetching the result from Redis first in case we have it cached
-            return client.get(redisKey, (err, result) => {
-                // If that key exist in Redis store
-                // console.log("result==>", result);
-                // console.log("hasi");
-                if (result) {
-                    console.log('redis cache data ==>'+result);
-                    const resultJSON = JSON.parse(result);
-                    return res.status(200).send(resultJSON);
+        //     const redisKey = req.body.email;
+        //     // Try fetching the result from Redis first in case we have it cached
+        //     return client.get(redisKey, (err, result) => {
+        //         // If that key exist in Redis store
+        //         // console.log("result==>", result);
+        //         // console.log("hasi");
+        //         if (result) {
+        //             console.log('redis cache data ==>'+result);
+        //             const resultJSON = JSON.parse(result);
+        //             return res.status(200).send(resultJSON);
                 
-                } else {
+               // }
+                 else {
 
                     var response = {}
                     /**
@@ -93,16 +94,16 @@ exports.login = (req, res) => {
 
                             // const redisKey = 'email_'+responce._id;
                             // client.set(redisKey, 86400, JSON.stringify(responce));
-                            const redisKey = result.email;
+                          //  const redisKey = result.email;
                             console.log("rediskey", redisKey);
 
                             //client.set(redisKey, 86400, query);
-                            client.setex(redisKey, 3600, JSON.stringify(response.token.token));
+                          //  client.setex(redisKey, 3600, JSON.stringify(response.token.token));
                             return res.status(200).send(response.token.token);
                         }
                     })
-                }
-            });
+            //    }
+          //  });
 
         }
     }
