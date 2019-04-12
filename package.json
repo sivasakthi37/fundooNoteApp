@@ -2,10 +2,11 @@
   "name": "sivasakthi",
   "version": "1.0.0",
   "description": "",
-  "main": "sever.js",
+  "main": "server.js",
   "scripts": {
     "test": "mocha",
     "built": "node server.js"
+
   },
   "author": "sivasakthi",
   "license": "ISC",
