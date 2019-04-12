@@ -153,7 +153,8 @@ noteModel.prototype.isArchived = (paramID, paramData, res) => {
                 return res(null, paramData)
             }
         });
-}
+
+    }
 
 
 
