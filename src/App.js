@@ -12,7 +12,7 @@
 *
 ******************************************************************************/
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route,Redirect } from 'react-router-dom'
+import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom'
 import './App.css';
 import Register from './screens/register';
 import Login from './screens/login';
@@ -29,43 +29,24 @@ export const PrivateRoute = ({ component: Component, ...rest }) => (
   * another location.
   */
   <Route {...rest} render={props => (
-  localStorage.getItem('token') ? (
-  <Component {...props}/>
-  ) : (
-  //If user isn't logged in then we can redirect to a login page.
-  <Redirect to={{
-  pathname: '/login',
-  state: { from: props.location }
-  }}/>
-  )
-  )}/>
-  )
+    localStorage.getItem('token') ? (
+      <Component {...props} />
+    ) : (
+        //If user isn't logged in then we can redirect to a login page.
+        <Redirect to={{
+          pathname: '/login',
+          state: { from: props.location }
+        }} />
+      )
+  )} />
+)
 /**
  * @description:this is our route component from here our our data flow is starts
  * 
  */
 class App extends Component {
   render() {
-    // function PrivateRoute({ component: Component, ...rest }) {
-    //   return (
-    //     <Route
-    //       {...rest}
-    //       render={props =>
-    //         localStorage.usertoken ? (
-    //           <Component {...props} />
-    //         ) : (
-    //             <Redirect
-    //               to={{
-    //                 pathname: "/login",
-    //                 state: { from: props.location }
-    //               }}
-    //             />
-    //           )
-    //       }
-    //     />
-    //   );
-    // }
-
+  
     return (
       <div className="body">
         {/*Through the BrowserRouter function we give the path for the component   */}
