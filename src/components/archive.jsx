@@ -42,7 +42,7 @@ class Archive extends Component {
     render() {
         //  console.log("first.props.archiveStatus", this.props.archiveStatus);
 
-        // const { open } = this.state.open;
+       
         return (
             this.state.isArchived ?
                 <div>
