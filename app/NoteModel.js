@@ -39,7 +39,7 @@ const NoteSchema = mongoose.Schema({
         {
             type: String,
             ref: 'labeSchema',
-            unique: true
+            
         }
     ]
 },
