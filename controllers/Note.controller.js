@@ -308,7 +308,7 @@ exports.GettingS3url = (req, res) => {
       
         let image = (req.file.location)
 
-        // console.log("imageeeeeeeeeeeeeeeeeeeeeeee=>", result);
+      
         // if (err) {
         //     responseResult.success = false;
         //     responseResult.error = err;
