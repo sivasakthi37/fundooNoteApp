@@ -305,7 +305,7 @@ exports.GettingS3url = (req, res) => {
          console.log("req-------------------->",req.file);
         // console.log("req-------------------->",req.file.location)
         var responseResult = {};
-        //  userId = req.decoded.payload.user_id;
+      
         let image = (req.file.location)
 
         // console.log("imageeeeeeeeeeeeeeeeeeeeeeee=>", result);
