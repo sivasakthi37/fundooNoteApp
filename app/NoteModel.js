@@ -67,7 +67,7 @@ noteModel.prototype.CreateNote = (req, res) => {
     });
     userdata.save((err, result) => {
         if (err) {
-            console.log("Model not found");
+            console.log("Model not found",err);
             res(err);
         } else {
             console.log("Note saved sucessfully");
