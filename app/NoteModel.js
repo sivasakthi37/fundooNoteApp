@@ -38,8 +38,7 @@ const NoteSchema = mongoose.Schema({
     label: [
         {
             type: String,
-            ref: 'labeSchema',
-            
+            ref: 'labeSchema', 
         }
     ]
 },
