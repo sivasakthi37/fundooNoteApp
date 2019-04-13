@@ -39,7 +39,7 @@ class ResetpasswordInput extends Component {
     };
 
     /**
-     * @description:This method is used to handle the enter event.. 
+     * @description:This method is used to handle the enter event. 
      */
     handleEnter = event => {
 
